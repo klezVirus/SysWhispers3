@@ -40,7 +40,6 @@ ULONG_PTR SC_Offset(ULONG_PTR SyscallAddress) {
 #else
 ULONG_PTR SC_Offset(ULONG_PTR SyscallAddress) {
 
-    return (ULONG_PTR)0;
     unsigned char SyscallOpcode = 0x01;
     DWORD SyscallOpcodeOffset = 0;
   #ifdef x32
@@ -50,7 +49,6 @@ ULONG_PTR SC_Offset(ULONG_PTR SyscallAddress) {
   #endif
     DWORD searchLimit = 512;
     int found = 0;
-
 
   #ifdef x32
     // If the process is 32-bit on a 32-bit OS, we need to search for sysenter
@@ -98,9 +96,7 @@ ULONG_PTR SC_Offset(ULONG_PTR SyscallAddress) {
   #endif
     return (ULONG_PTR)(SyscallAddress + SyscallOpcodeOffset);
 }
-
 #endif
-
 
 BOOL SW2_PopulateSyscallList()
 {
