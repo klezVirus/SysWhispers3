@@ -142,6 +142,61 @@ Press a key to continue...
 3. In the *Solution Explorer*, add the .h and .c/.asm files to the project as header and source files, respectively.
 4. Go to the properties of the ASM file, and set the *Item Type* to *Microsoft Macro Assembler*.
 
+## Compiling outside of Visual Studio
+
+### Windows
+
+Makefile for 64 bits:
+
+`Makefile.msvc`
+```
+OPTIONS = -Zp8 -c -nologo -Gy -Os -O1 -GR- -EHa -Oi -GS-
+LIBS = libvcruntime.lib libcmt.lib ucrt.lib kernel32.lib
+
+program:
+  ML64 /c syscalls-asm.x64.asm /link /NODEFAULTLIB /RELEASE /MACHINE:X64
+  cl.exe $(OPTIONS) syscalls.c  program.c
+  link.exe /OUT:program.x64.exe -nologo $(LIBS) /MACHINE:X64 -subsystem:console -nodefaultlib syscalls-asm.x64.obj syscalls.obj program.obj
+```
+
+Makefile for 32 bits:
+
+`Makefile.msvc`
+```
+OPTIONS = -Zp8 -c -nologo -Gy -Os -O1 -GR- -EHa -Oi -GS-
+LIBS = libvcruntime.lib libcmt.lib ucrt.lib kernel32.lib
+
+program:
+  ML /c syscalls-asm.x86.asm /link /NODEFAULTLIB /RELEASE /MACHINE:X86
+  cl.exe $(OPTIONS) syscalls.c  program.c
+  link.exe /OUT:program.x86.exe -nologo $(LIBS) /MACHINE:X86 -subsystem:console -nodefaultlib syscalls-asm.x86.obj syscalls.obj program.obj
+```
+
+Compile with nmake:
+```
+nmake -f Makefile.msvc
+```
+
+### Linux
+
+Makefile for both 64 and 32 bits:
+
+`Makefile.mingw`
+```
+CC_x64 := x86_64-w64-mingw32-gcc
+CC_x86 := i686-w64-mingw32-gcc
+OPTIONS := -masm=intel -Wall
+
+program:
+  $(CC_x64) syscalls.c program.c -o program.x64.exe $(OPTIONS)
+  $(CC_x86) syscalls.c program.c -o program.x86.exe $(OPTIONS)
+```
+
+Compile with make:
+```
+make -f Makefile.mingw
+```
+
 ## Caveats and Limitations
 
 - The Egg-Hunter functionality is not implemented within this tool, it is in [Inceptor][1].
