@@ -116,9 +116,11 @@ class SysWhispers(object):
         self.validate()
 
     def validate(self):
-        if self.recovery in [SyscallRecoveryType.JUMPER, SyscallRecoveryType.JUMPER_RANDOMIZED]:
-                self.recovery = SyscallRecoveryType.EMBEDDED
-        elif self.recovery == SyscallRecoveryType.EGG_HUNTER:
+        if self.recovery == SyscallRecoveryType.EGG_HUNTER:
+            if self.compiler in [Compiler.All, Compiler.MINGW]:
+                # TODO: try to make the 'db' instruction work in MinGW
+                exit("[-] Egg-Hunter not compatible with MinGW")
+
             print(r"[*] With the egg-hunter, you need to use a search-replace functionality:")
             print(f"  unsigned char egg[] = {{ {', '.join([hex(int(x, 16)) for x in self.egg] * 2)} }}; // egg")
             if self.arch == Arch.x86:
@@ -438,9 +440,9 @@ class SysWhispers(object):
             code += f'\tmov ecx, 0{function_hash:08X}h        ; Load function hash into ECX.\n'
             if self.recovery in [SyscallRecoveryType.JUMPER, SyscallRecoveryType.JUMPER_RANDOMIZED]:
                 if self.recovery == SyscallRecoveryType.JUMPER_RANDOMIZED:
-                    code += '\tcall SW3_GetRandomSyscallOffset        ; Get a syscall offset from a different api.\n'
+                    code += '\tcall SW3_GetRandomSyscallAddress        ; Get a syscall offset from a different api.\n'
                 else:
-                    code += '\tcall SW3_GetSyscallOffset              ; Resolve function hash into syscall offset.\n'
+                    code += '\tcall SW3_GetSyscallAddress              ; Resolve function hash into syscall offset.\n'
                 code += '\tmov r15, rax                           ; Save the address of the syscall\n'
                 code += f'\tmov ecx, 0{function_hash:08X}h        ; Re-Load function hash into ECX (optional).\n'
             code += '\tcall SW3_GetSyscallNumber              ; Resolve function hash into syscall number.\n'
@@ -467,9 +469,9 @@ class SysWhispers(object):
 
             if self.recovery in [SyscallRecoveryType.JUMPER, SyscallRecoveryType.JUMPER_RANDOMIZED]:
                 if self.recovery == SyscallRecoveryType.JUMPER_RANDOMIZED:
-                    code += '\t\tcall SW3_GetRandomSyscallOffset        ; Get a syscall offset from a different api.\n'
+                    code += '\t\tcall SW3_GetRandomSyscallAddress        ; Get a syscall offset from a different api.\n'
                 else:
-                    code += '\t\tcall SW3_GetSyscallOffset              ; Resolve function hash into syscall offset.\n'
+                    code += '\t\tcall SW3_GetSyscallAddress              ; Resolve function hash into syscall offset.\n'
                 code += '\t\tmov edi, eax                           ; Save the address of the syscall\n'
                 code += f'\t\tpush 0{function_hash:08X}h        ; Re-Load function hash into ECX (optional).\n'
             code += '\t\tcall SW3_GetSyscallNumber\n'
@@ -519,7 +521,7 @@ class SysWhispers(object):
             code += '\t\tmov edx, esp\n'
             if self.recovery == SyscallRecoveryType.EGG_HUNTER:
                 for x in self.egg + self.egg:
-                    code += f'\t\tDB {x}\n'
+                    code += f'\t\tDB {x[2:]}h                     ; "{chr(int(x, 16)) if int(x, 16) != 0 else str(0)}"\n'
             elif self.recovery in [SyscallRecoveryType.JUMPER, SyscallRecoveryType.JUMPER_RANDOMIZED]:
                 code += '\t\tjmp edi\n'
             else:
