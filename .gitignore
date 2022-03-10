@@ -1,3 +1,6 @@
 ﻿.idea
 !data/*
 __pycache__
+*.asm
+*.c
+*.h
