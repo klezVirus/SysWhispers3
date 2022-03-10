@@ -123,7 +123,6 @@ PVOID SC_Address(PVOID NtApiAddress)
 
     return NULL;
 }
-
 #endif
 
 
