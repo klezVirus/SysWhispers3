@@ -74,13 +74,13 @@ ULONG_PTR SC_Offset(ULONG_PTR SyscallAddress) {
     while (found != 1 && SyscallOpcodeOffset <= searchLimit){
         while (!(SyscallOpcode == 0x0f)){
             SyscallOpcodeOffset++;
-            ReadProcessMemory((HANDLE)-1, SyscallAddress + SyscallOpcodeOffset, &SyscallOpcode, 1, &nBytesRead);
+            ReadProcessMemory((HANDLE)-1, (LPCVOID)(SyscallAddress + SyscallOpcodeOffset), &SyscallOpcode, 1, &nBytesRead);
         }
-        ReadProcessMemory((HANDLE)-1, SyscallAddress + SyscallOpcodeOffset + 1, &SyscallOpcode, 1, &nBytesRead);
+        ReadProcessMemory((HANDLE)-1, (LPCVOID)(SyscallAddress + SyscallOpcodeOffset + 1), &SyscallOpcode, 1, &nBytesRead);
         if (!(SyscallOpcode == sys_call_or_enter)) {
             continue;
         }
-        ReadProcessMemory((HANDLE)-1, SyscallAddress + SyscallOpcodeOffset + 2, &SyscallOpcode, 1, &nBytesRead);
+        ReadProcessMemory((HANDLE)-1, (LPCVOID)(SyscallAddress + SyscallOpcodeOffset + 2, &SyscallOpcode), 1, &nBytesRead);
         if (!(SyscallOpcode == 0xc3)) {
             continue;
         }
