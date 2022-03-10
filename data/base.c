@@ -11,39 +11,7 @@ EXTERN_C PVOID internal_cleancall_wow64_gate(VOID) {
     return (PVOID)__readfsdword(0xC0);
 }
 
-#if defined(_MSC_VER)
-
-__declspec(naked) BOOL local_is_wow64(void)
-{
-    __asm {
-        mov eax, fs:[0xc0]
-        test eax, eax
-        jne wow64
-        mov eax, 0
-        ret
-        wow64:
-        mov eax, 1
-        ret
-    }
-}
-
-#elif defined(__GNUC__)
-
-__declspec(naked) BOOL local_is_wow64(void)
-{
-    asm(
-        "mov eax, fs:[0xc0] \n"
-        "test eax, eax \n"
-        "jne wow64 \n"
-        "mov eax, 0 \n"
-        "ret \n"
-        "wow64: \n"
-        "mov eax, 1 \n"
-        "ret \n"
-    );
-}
-
-#endif
+// LOCAL_IS_WOW64
 
 #endif
 
@@ -73,21 +41,24 @@ DWORD SW3_HashSyscall(PCSTR FunctionName)
 }
 
 #ifndef JUMPER
-PVOID SC_Address(PVOID SyscallAddress)
+PVOID SC_Address(PVOID NtApiAddress)
 {
     return NULL;
 }
 #else
-PVOID SC_Address(PVOID SyscallAddress)
+PVOID SC_Address(PVOID NtApiAddress)
 {
     DWORD searchLimit = 512;
+    PVOID SyscallAddress;
 
    #ifdef _WIN64
     // If the process is 64-bit on a 64-bit OS, we need to search for syscall
     BYTE syscall_code[] = { 0x0f, 0x05, 0xc3 };
+    ULONG distance_to_syscall = 0x12;
    #else
     // If the process is 32-bit on a 32-bit OS, we need to search for sysenter
     BYTE syscall_code[] = { 0x0f, 0x34, 0xc3 };
+    ULONG distance_to_syscall = 0x0f;
    #endif
 
   #ifdef _M_IX86
@@ -95,24 +66,54 @@ PVOID SC_Address(PVOID SyscallAddress)
     if (local_is_wow64())
     {
     #ifdef DEBUG
-    printf("[+] Running 32-bit app on x64 (WOW64)\n");
+        printf("[+] Running 32-bit app on x64 (WOW64)\n");
     #endif
-
-        // if we are a WoW64 process, jump to WOW32Reserved
-        SyscallAddress = (PVOID)__readfsdword(0xc0);
-        return SyscallAddress;
+// JUMP_TO_WOW32Reserved
     }
   #endif
 
-    for (DWORD SyscallOpcodeOffset = 0; SyscallOpcodeOffset <= searchLimit; SyscallOpcodeOffset++)
+    // we don't really care if there is a 'jmp' between
+    // NtApiAddress and the 'syscall; ret' instructions
+    SyscallAddress = SW3_RVA2VA(PVOID, NtApiAddress, distance_to_syscall);
+
+    if (!memcmp((PVOID)syscall_code, SyscallAddress, sizeof(syscall_code)))
     {
-        if (!memcmp((PVOID)syscall_code, SW3_RVA2VA(PVOID, SyscallAddress, SyscallOpcodeOffset), sizeof(syscall_code)))
+        // we can use the original code for this system call :)
+        #if defined(DEBUG)
+            printf("Found Syscall Opcodes at address 0x%p\n", SyscallAddress);
+        #endif
+        return SyscallAddress;
+    }
+
+    // the 'syscall; ret' intructions have not been found,
+    // we will try to use one near it, similarly to HalosGate
+
+    for (ULONG32 num_jumps = 1; num_jumps < searchLimit; num_jumps++)
+    {
+        // let's try with an Nt* API below our syscall
+        SyscallAddress = SW3_RVA2VA(
+            PVOID,
+            NtApiAddress,
+            distance_to_syscall + num_jumps * 0x20);
+        if (!memcmp((PVOID)syscall_code, SyscallAddress, sizeof(syscall_code)))
         {
         #if defined(DEBUG)
-            printf("Found Syscall Opcodes at address 0x%p\n", SW3_RVA2VA(PVOID, SyscallAddress, SyscallOpcodeOffset));
+            printf("Found Syscall Opcodes at address 0x%p\n", SyscallAddress);
         #endif
+            return SyscallAddress;
+        }
 
-            return SW3_RVA2VA(PVOID, SyscallAddress, SyscallOpcodeOffset);
+        // let's try with an Nt* API above our syscall
+        SyscallAddress = SW3_RVA2VA(
+            PVOID,
+            NtApiAddress,
+            distance_to_syscall - num_jumps * 0x20);
+        if (!memcmp((PVOID)syscall_code, SyscallAddress, sizeof(syscall_code)))
+        {
+        #if defined(DEBUG)
+            printf("Found Syscall Opcodes at address 0x%p\n", SyscallAddress);
+        #endif
+            return SyscallAddress;
         }
     }
 
