@@ -1,6 +1,6 @@
 .code
 
-EXTERN SW2_GetSyscallNumber: PROC
+EXTERN SW3_GetSyscallNumber: PROC
 
 NtAccessCheck PROC
 	push rcx                   ; Save registers.
@@ -8,7 +8,7 @@ NtAccessCheck PROC
 	push r8
 	push r9
 	mov ecx, 0C45B3507h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -24,7 +24,7 @@ NtWorkerFactoryWorkerReady PROC
 	push r8
 	push r9
 	mov ecx, 08DAEE74Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -40,7 +40,7 @@ NtAcceptConnectPort PROC
 	push r8
 	push r9
 	mov ecx, 018AF0340h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -56,7 +56,7 @@ NtMapUserPhysicalPagesScatter PROC
 	push r8
 	push r9
 	mov ecx, 0A36D8931h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -72,7 +72,7 @@ NtWaitForSingleObject PROC
 	push r8
 	push r9
 	mov ecx, 064DED283h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -88,7 +88,7 @@ NtCallbackReturn PROC
 	push r8
 	push r9
 	mov ecx, 0FA60878Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -104,7 +104,7 @@ NtReadFile PROC
 	push r8
 	push r9
 	mov ecx, 0B5139A5Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -120,7 +120,7 @@ NtDeviceIoControlFile PROC
 	push r8
 	push r9
 	mov ecx, 0D876A360h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -136,7 +136,7 @@ NtWriteFile PROC
 	push r8
 	push r9
 	mov ecx, 002981C2Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -152,7 +152,7 @@ NtRemoveIoCompletion PROC
 	push r8
 	push r9
 	mov ecx, 0930C939Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -168,7 +168,7 @@ NtReleaseSemaphore PROC
 	push r8
 	push r9
 	mov ecx, 018084D38h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -184,7 +184,7 @@ NtReplyWaitReceivePort PROC
 	push r8
 	push r9
 	mov ecx, 062F27B76h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -200,7 +200,7 @@ NtReplyPort PROC
 	push r8
 	push r9
 	mov ecx, 01AB11324h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -216,7 +216,7 @@ NtSetInformationThread PROC
 	push r8
 	push r9
 	mov ecx, 0554A61D5h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -232,7 +232,7 @@ NtSetEvent PROC
 	push r8
 	push r9
 	mov ecx, 0298B301Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -248,7 +248,7 @@ NtClose PROC
 	push r8
 	push r9
 	mov ecx, 0049F2513h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -264,7 +264,7 @@ NtQueryObject PROC
 	push r8
 	push r9
 	mov ecx, 0F8C80384h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -280,7 +280,7 @@ NtQueryInformationFile PROC
 	push r8
 	push r9
 	mov ecx, 078DC7476h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -296,7 +296,7 @@ NtOpenKey PROC
 	push r8
 	push r9
 	mov ecx, 064D19FB2h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -312,7 +312,7 @@ NtEnumerateValueKey PROC
 	push r8
 	push r9
 	mov ecx, 0964FE5B4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -328,7 +328,7 @@ NtFindAtom PROC
 	push r8
 	push r9
 	mov ecx, 0DB5FEA9Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -344,7 +344,7 @@ NtQueryDefaultLocale PROC
 	push r8
 	push r9
 	mov ecx, 0663754A3h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -360,7 +360,7 @@ NtQueryKey PROC
 	push r8
 	push r9
 	mov ecx, 003C6EE5Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -376,7 +376,7 @@ NtQueryValueKey PROC
 	push r8
 	push r9
 	mov ecx, 02EFF5D05h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -392,7 +392,7 @@ NtAllocateVirtualMemory PROC
 	push r8
 	push r9
 	mov ecx, 00D9F1913h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -414,7 +414,7 @@ NtQueryInformationProcess PROC
 	push r8
 	push r9
 	mov ecx, 0822EA9B3h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -430,7 +430,7 @@ NtWaitForMultipleObjects32 PROC
 	push r8
 	push r9
 	mov ecx, 08F42C8D7h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -446,7 +446,7 @@ NtWriteFileGather PROC
 	push r8
 	push r9
 	mov ecx, 0DBC4349Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -462,7 +462,7 @@ NtCreateKey PROC
 	push r8
 	push r9
 	mov ecx, 0099D4C4Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -478,7 +478,7 @@ NtFreeVirtualMemory PROC
 	push r8
 	push r9
 	mov ecx, 0039E1B01h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -494,7 +494,7 @@ NtImpersonateClientOfPort PROC
 	push r8
 	push r9
 	mov ecx, 010B2392Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -510,7 +510,7 @@ NtReleaseMutant PROC
 	push r8
 	push r9
 	mov ecx, 080BED298h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -526,7 +526,7 @@ NtQueryInformationToken PROC
 	push r8
 	push r9
 	mov ecx, 00B990506h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -542,7 +542,7 @@ NtRequestWaitReplyPort PROC
 	push r8
 	push r9
 	mov ecx, 0A0F166BBh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -558,7 +558,7 @@ NtQueryVirtualMemory PROC
 	push r8
 	push r9
 	mov ecx, 0C985E520h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -574,7 +574,7 @@ NtOpenThreadToken PROC
 	push r8
 	push r9
 	mov ecx, 02B9F1114h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -590,7 +590,7 @@ NtQueryInformationThread PROC
 	push r8
 	push r9
 	mov ecx, 08EA243F4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -606,7 +606,7 @@ NtOpenProcess PROC
 	push r8
 	push r9
 	mov ecx, 04DD34C5Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -622,7 +622,7 @@ NtSetInformationFile PROC
 	push r8
 	push r9
 	mov ecx, 0E5B6CB63h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -638,7 +638,7 @@ NtMapViewOfSection PROC
 	push r8
 	push r9
 	mov ecx, 0C348C3DAh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -654,7 +654,7 @@ NtAccessCheckAndAuditAlarm PROC
 	push r8
 	push r9
 	mov ecx, 0A8A8A93Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -670,7 +670,7 @@ NtUnmapViewOfSection PROC
 	push r8
 	push r9
 	mov ecx, 008C02E49h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -686,7 +686,7 @@ NtReplyWaitReceivePortEx PROC
 	push r8
 	push r9
 	mov ecx, 00785DBD1h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -702,7 +702,7 @@ NtTerminateProcess PROC
 	push r8
 	push r9
 	mov ecx, 043DF545Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -718,7 +718,7 @@ NtSetEventBoostPriority PROC
 	push r8
 	push r9
 	mov ecx, 02E8C321Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -734,7 +734,7 @@ NtReadFileScatter PROC
 	push r8
 	push r9
 	mov ecx, 003A00D3Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -750,7 +750,7 @@ NtOpenThreadTokenEx PROC
 	push r8
 	push r9
 	mov ecx, 00A8D7876h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -766,7 +766,7 @@ NtOpenProcessTokenEx PROC
 	push r8
 	push r9
 	mov ecx, 0900392B8h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -782,7 +782,7 @@ NtQueryPerformanceCounter PROC
 	push r8
 	push r9
 	mov ecx, 071DA5F7Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -798,7 +798,7 @@ NtEnumerateKey PROC
 	push r8
 	push r9
 	mov ecx, 0AEBEBF24h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -814,7 +814,7 @@ NtOpenFile PROC
 	push r8
 	push r9
 	mov ecx, 0DD7AFB39h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -830,7 +830,7 @@ NtDelayExecution PROC
 	push r8
 	push r9
 	mov ecx, 0D7B017C2h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -846,7 +846,7 @@ NtQueryDirectoryFile PROC
 	push r8
 	push r9
 	mov ecx, 032B8BA9Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -862,7 +862,7 @@ NtQuerySystemInformation PROC
 	push r8
 	push r9
 	mov ecx, 04E9E684Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -878,7 +878,7 @@ NtOpenSection PROC
 	push r8
 	push r9
 	mov ecx, 056105A8Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -894,7 +894,7 @@ NtQueryTimer PROC
 	push r8
 	push r9
 	mov ecx, 0EBA776ABh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -910,7 +910,7 @@ NtFsControlFile PROC
 	push r8
 	push r9
 	mov ecx, 01CBA4F8Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -926,7 +926,7 @@ NtWriteVirtualMemory PROC
 	push r8
 	push r9
 	mov ecx, 0B018A6B4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -942,7 +942,7 @@ NtCloseObjectAuditAlarm PROC
 	push r8
 	push r9
 	mov ecx, 00A942A42h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -958,7 +958,7 @@ NtDuplicateObject PROC
 	push r8
 	push r9
 	mov ecx, 00A379A1Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -974,7 +974,7 @@ NtQueryAttributesFile PROC
 	push r8
 	push r9
 	mov ecx, 02BB9C0ECh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -990,7 +990,7 @@ NtClearEvent PROC
 	push r8
 	push r9
 	mov ecx, 0D289D502h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1006,7 +1006,7 @@ NtReadVirtualMemory PROC
 	push r8
 	push r9
 	mov ecx, 047D37B57h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1022,7 +1022,7 @@ NtOpenEvent PROC
 	push r8
 	push r9
 	mov ecx, 0014B06C0h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1038,7 +1038,7 @@ NtAdjustPrivilegesToken PROC
 	push r8
 	push r9
 	mov ecx, 0059B7696h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1054,7 +1054,7 @@ NtDuplicateToken PROC
 	push r8
 	push r9
 	mov ecx, 0A580F3A4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1070,7 +1070,7 @@ NtContinue PROC
 	push r8
 	push r9
 	mov ecx, 042C6816Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1086,7 +1086,7 @@ NtQueryDefaultUILanguage PROC
 	push r8
 	push r9
 	mov ecx, 03B9C0A06h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1102,7 +1102,7 @@ NtQueueApcThread PROC
 	push r8
 	push r9
 	mov ecx, 0389B76B1h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1118,7 +1118,7 @@ NtYieldExecution PROC
 	push r8
 	push r9
 	mov ecx, 0CB1FE84Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1134,7 +1134,7 @@ NtAddAtom PROC
 	push r8
 	push r9
 	mov ecx, 094C1936Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1150,7 +1150,7 @@ NtCreateEvent PROC
 	push r8
 	push r9
 	mov ecx, 076A44700h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1166,7 +1166,7 @@ NtQueryVolumeInformationFile PROC
 	push r8
 	push r9
 	mov ecx, 06C3CBC8Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1182,7 +1182,7 @@ NtCreateSection PROC
 	push r8
 	push r9
 	mov ecx, 00EAC1001h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1198,7 +1198,7 @@ NtFlushBuffersFile PROC
 	push r8
 	push r9
 	mov ecx, 0BF772D41h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1214,7 +1214,7 @@ NtApphelpCacheControl PROC
 	push r8
 	push r9
 	mov ecx, 04F9965DFh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1230,7 +1230,7 @@ NtCreateProcessEx PROC
 	push r8
 	push r9
 	mov ecx, 0838DD751h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1246,7 +1246,7 @@ NtCreateThread PROC
 	push r8
 	push r9
 	mov ecx, 07D25AD99h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1262,7 +1262,7 @@ NtIsProcessInJob PROC
 	push r8
 	push r9
 	mov ecx, 0652EB71Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1278,7 +1278,7 @@ NtProtectVirtualMemory PROC
 	push r8
 	push r9
 	mov ecx, 001911B13h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1294,7 +1294,7 @@ NtQuerySection PROC
 	push r8
 	push r9
 	mov ecx, 006DC0841h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1310,7 +1310,7 @@ NtResumeThread PROC
 	push r8
 	push r9
 	mov ecx, 00D2D038Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1326,7 +1326,7 @@ NtTerminateThread PROC
 	push r8
 	push r9
 	mov ecx, 04EEE5467h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1342,7 +1342,7 @@ NtReadRequestData PROC
 	push r8
 	push r9
 	mov ecx, 062FC724Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1358,7 +1358,7 @@ NtCreateFile PROC
 	push r8
 	push r9
 	mov ecx, 0AA9825B3h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1374,7 +1374,7 @@ NtQueryEvent PROC
 	push r8
 	push r9
 	mov ecx, 0C88E448Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1390,7 +1390,7 @@ NtWriteRequestData PROC
 	push r8
 	push r9
 	mov ecx, 02084CC8Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1406,7 +1406,7 @@ NtOpenDirectoryObject PROC
 	push r8
 	push r9
 	mov ecx, 0829C9002h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1422,7 +1422,7 @@ NtAccessCheckByTypeAndAuditAlarm PROC
 	push r8
 	push r9
 	mov ecx, 034AB2E06h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1438,7 +1438,7 @@ NtWaitForMultipleObjects PROC
 	push r8
 	push r9
 	mov ecx, 031A1FEE3h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1454,7 +1454,7 @@ NtSetInformationObject PROC
 	push r8
 	push r9
 	mov ecx, 067584C07h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1470,7 +1470,7 @@ NtCancelIoFile PROC
 	push r8
 	push r9
 	mov ecx, 0349DC0D6h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1486,7 +1486,7 @@ NtTraceEvent PROC
 	push r8
 	push r9
 	mov ecx, 038BF1F2Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1502,7 +1502,7 @@ NtPowerInformation PROC
 	push r8
 	push r9
 	mov ecx, 082099CB9h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1518,7 +1518,7 @@ NtSetValueKey PROC
 	push r8
 	push r9
 	mov ecx, 039E4DC86h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1534,7 +1534,7 @@ NtCancelTimer PROC
 	push r8
 	push r9
 	mov ecx, 005BA93BEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1550,7 +1550,7 @@ NtSetTimer PROC
 	push r8
 	push r9
 	mov ecx, 02096B195h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1566,7 +1566,7 @@ NtAccessCheckByType PROC
 	push r8
 	push r9
 	mov ecx, 05EF96A36h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1582,7 +1582,7 @@ NtAccessCheckByTypeResultList PROC
 	push r8
 	push r9
 	mov ecx, 025B92B23h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1598,7 +1598,7 @@ NtAccessCheckByTypeResultListAndAuditAlarm PROC
 	push r8
 	push r9
 	mov ecx, 0165116CEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1614,7 +1614,7 @@ NtAccessCheckByTypeResultListAndAuditAlarmByHandle PROC
 	push r8
 	push r9
 	mov ecx, 03B942F24h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1630,7 +1630,7 @@ NtAcquireProcessActivityReference PROC
 	push r8
 	push r9
 	mov ecx, 0D89B3687h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1646,7 +1646,7 @@ NtAddAtomEx PROC
 	push r8
 	push r9
 	mov ecx, 089ABB72Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1662,7 +1662,7 @@ NtAddBootEntry PROC
 	push r8
 	push r9
 	mov ecx, 0099CE2FEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1678,7 +1678,7 @@ NtAddDriverEntry PROC
 	push r8
 	push r9
 	mov ecx, 00995190Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1694,7 +1694,7 @@ NtAdjustGroupsToken PROC
 	push r8
 	push r9
 	mov ecx, 01CA80A21h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1710,7 +1710,7 @@ NtAdjustTokenClaimsAndDeviceGroups PROC
 	push r8
 	push r9
 	mov ecx, 009910D07h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1726,7 +1726,7 @@ NtAlertResumeThread PROC
 	push r8
 	push r9
 	mov ecx, 07ADA206Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1742,7 +1742,7 @@ NtAlertThread PROC
 	push r8
 	push r9
 	mov ecx, 03C073691h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1758,7 +1758,7 @@ NtAlertThreadByThreadId PROC
 	push r8
 	push r9
 	mov ecx, 06FB00378h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1774,7 +1774,7 @@ NtAllocateLocallyUniqueId PROC
 	push r8
 	push r9
 	mov ecx, 045B13D2Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1790,7 +1790,7 @@ NtAllocateReserveObject PROC
 	push r8
 	push r9
 	mov ecx, 0249E0DC3h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1806,7 +1806,7 @@ NtAllocateUserPhysicalPages PROC
 	push r8
 	push r9
 	mov ecx, 0059C0400h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1822,7 +1822,7 @@ NtAllocateUuids PROC
 	push r8
 	push r9
 	mov ecx, 02A91E2CEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1838,7 +1838,7 @@ NtAllocateVirtualMemoryEx PROC
 	push r8
 	push r9
 	mov ecx, 0868FC051h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1854,7 +1854,7 @@ NtAlpcAcceptConnectPort PROC
 	push r8
 	push r9
 	mov ecx, 065B71C39h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1870,7 +1870,7 @@ NtAlpcCancelMessage PROC
 	push r8
 	push r9
 	mov ecx, 0A396860Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1886,7 +1886,7 @@ NtAlpcConnectPort PROC
 	push r8
 	push r9
 	mov ecx, 05E80BFDEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1902,7 +1902,7 @@ NtAlpcConnectPortEx PROC
 	push r8
 	push r9
 	mov ecx, 0615EDD9Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1918,7 +1918,7 @@ NtAlpcCreatePort PROC
 	push r8
 	push r9
 	mov ecx, 0198C3EDFh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1934,7 +1934,7 @@ NtAlpcCreatePortSection PROC
 	push r8
 	push r9
 	mov ecx, 010CB361Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1950,7 +1950,7 @@ NtAlpcCreateResourceReserve PROC
 	push r8
 	push r9
 	mov ecx, 0DD58DDF4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1966,7 +1966,7 @@ NtAlpcCreateSectionView PROC
 	push r8
 	push r9
 	mov ecx, 00D28F143h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1982,7 +1982,7 @@ NtAlpcCreateSecurityContext PROC
 	push r8
 	push r9
 	mov ecx, 036AA2922h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -1998,7 +1998,7 @@ NtAlpcDeletePortSection PROC
 	push r8
 	push r9
 	mov ecx, 03AA910F1h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2014,7 +2014,7 @@ NtAlpcDeleteResourceReserve PROC
 	push r8
 	push r9
 	mov ecx, 0448F2A4Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2030,7 +2030,7 @@ NtAlpcDeleteSectionView PROC
 	push r8
 	push r9
 	mov ecx, 004D07937h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2046,7 +2046,7 @@ NtAlpcDeleteSecurityContext PROC
 	push r8
 	push r9
 	mov ecx, 07EE2796Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2062,7 +2062,7 @@ NtAlpcDisconnectPort PROC
 	push r8
 	push r9
 	mov ecx, 065307C9Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2078,7 +2078,7 @@ NtAlpcImpersonateClientContainerOfPort PROC
 	push r8
 	push r9
 	mov ecx, 0D172F2DDh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2094,7 +2094,7 @@ NtAlpcImpersonateClientOfPort PROC
 	push r8
 	push r9
 	mov ecx, 024752FEBh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2110,7 +2110,7 @@ NtAlpcOpenSenderProcess PROC
 	push r8
 	push r9
 	mov ecx, 07DA3440Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2126,7 +2126,7 @@ NtAlpcOpenSenderThread PROC
 	push r8
 	push r9
 	mov ecx, 069496FEBh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2142,7 +2142,7 @@ NtAlpcQueryInformation PROC
 	push r8
 	push r9
 	mov ecx, 0D54CD5DEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2158,7 +2158,7 @@ NtAlpcQueryInformationMessage PROC
 	push r8
 	push r9
 	mov ecx, 03D1E2E8Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2174,7 +2174,7 @@ NtAlpcRevokeSecurityContext PROC
 	push r8
 	push r9
 	mov ecx, 0922C6144h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2190,7 +2190,7 @@ NtAlpcSendWaitReceivePort PROC
 	push r8
 	push r9
 	mov ecx, 0FD76E6F9h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2206,7 +2206,7 @@ NtAlpcSetInformation PROC
 	push r8
 	push r9
 	mov ecx, 0E076E2DBh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2222,7 +2222,7 @@ NtAreMappedFilesTheSame PROC
 	push r8
 	push r9
 	mov ecx, 0F2340C6Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2238,7 +2238,7 @@ NtAssignProcessToJobObject PROC
 	push r8
 	push r9
 	mov ecx, 0755F4DF3h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2254,7 +2254,7 @@ NtAssociateWaitCompletionPacket PROC
 	push r8
 	push r9
 	mov ecx, 00FA93506h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2270,7 +2270,7 @@ NtCallEnclave PROC
 	push r8
 	push r9
 	mov ecx, 09B3FF9B5h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2286,7 +2286,7 @@ NtCancelIoFileEx PROC
 	push r8
 	push r9
 	mov ecx, 0504BA231h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2302,7 +2302,7 @@ NtCancelSynchronousIoFile PROC
 	push r8
 	push r9
 	mov ecx, 002BB8AACh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2318,7 +2318,7 @@ NtCancelTimer2 PROC
 	push r8
 	push r9
 	mov ecx, 0BBBF56A1h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2334,7 +2334,7 @@ NtCancelWaitCompletionPacket PROC
 	push r8
 	push r9
 	mov ecx, 099BCBB22h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2350,7 +2350,7 @@ NtCommitComplete PROC
 	push r8
 	push r9
 	mov ecx, 006A3000Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2366,7 +2366,7 @@ NtCommitEnlistment PROC
 	push r8
 	push r9
 	mov ecx, 05FC97E7Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2382,7 +2382,7 @@ NtCommitRegistryTransaction PROC
 	push r8
 	push r9
 	mov ecx, 0144FF61Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2398,7 +2398,7 @@ NtCommitTransaction PROC
 	push r8
 	push r9
 	mov ecx, 0408A4217h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2414,7 +2414,7 @@ NtCompactKeys PROC
 	push r8
 	push r9
 	mov ecx, 0B315A882h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2430,7 +2430,7 @@ NtCompareObjects PROC
 	push r8
 	push r9
 	mov ecx, 0041B70C3h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2446,7 +2446,7 @@ NtCompareSigningLevels PROC
 	push r8
 	push r9
 	mov ecx, 0248A241Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2462,7 +2462,7 @@ NtCompareTokens PROC
 	push r8
 	push r9
 	mov ecx, 017BB0CD3h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2478,7 +2478,7 @@ NtCompleteConnectPort PROC
 	push r8
 	push r9
 	mov ecx, 02E71DDFEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2494,7 +2494,7 @@ NtCompressKey PROC
 	push r8
 	push r9
 	mov ecx, 09700ACBCh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2510,7 +2510,7 @@ NtConnectPort PROC
 	push r8
 	push r9
 	mov ecx, 0EA8DC112h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2526,7 +2526,7 @@ NtConvertBetweenAuxiliaryCounterAndPerformanceCounter PROC
 	push r8
 	push r9
 	mov ecx, 07FF6091Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2542,7 +2542,7 @@ NtCreateDebugObject PROC
 	push r8
 	push r9
 	mov ecx, 0BCB7DC63h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2558,7 +2558,7 @@ NtCreateDirectoryObject PROC
 	push r8
 	push r9
 	mov ecx, 0EC58C48Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2574,7 +2574,7 @@ NtCreateDirectoryObjectEx PROC
 	push r8
 	push r9
 	mov ecx, 024D4E78Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2590,7 +2590,7 @@ NtCreateEnclave PROC
 	push r8
 	push r9
 	mov ecx, 0CE2EA924h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2606,7 +2606,7 @@ NtCreateEnlistment PROC
 	push r8
 	push r9
 	mov ecx, 00A410BD7h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2622,7 +2622,7 @@ NtCreateEventPair PROC
 	push r8
 	push r9
 	mov ecx, 004B04C65h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2638,7 +2638,7 @@ NtCreateIRTimer PROC
 	push r8
 	push r9
 	mov ecx, 033A00518h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2654,7 +2654,7 @@ NtCreateIoCompletion PROC
 	push r8
 	push r9
 	mov ecx, 03AA41A2Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2670,7 +2670,7 @@ NtCreateJobObject PROC
 	push r8
 	push r9
 	mov ecx, 008A7183Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2686,7 +2686,7 @@ NtCreateJobSet PROC
 	push r8
 	push r9
 	mov ecx, 0BD398F86h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2702,7 +2702,7 @@ NtCreateKeyTransacted PROC
 	push r8
 	push r9
 	mov ecx, 07CDFA562h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2718,7 +2718,7 @@ NtCreateKeyedEvent PROC
 	push r8
 	push r9
 	mov ecx, 09E045956h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2734,7 +2734,7 @@ NtCreateLowBoxToken PROC
 	push r8
 	push r9
 	mov ecx, 09E54025Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2750,7 +2750,7 @@ NtCreateMailslotFile PROC
 	push r8
 	push r9
 	mov ecx, 07FC4B571h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2766,7 +2766,7 @@ NtCreateMutant PROC
 	push r8
 	push r9
 	mov ecx, 0872186B5h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2782,7 +2782,7 @@ NtCreateNamedPipeFile PROC
 	push r8
 	push r9
 	mov ecx, 0E8482C12h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2798,7 +2798,7 @@ NtCreatePagingFile PROC
 	push r8
 	push r9
 	mov ecx, 016B9C982h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2814,7 +2814,7 @@ NtCreatePartition PROC
 	push r8
 	push r9
 	mov ecx, 08AD38843h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2830,7 +2830,7 @@ NtCreatePort PROC
 	push r8
 	push r9
 	mov ecx, 0A6F258F1h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2846,7 +2846,7 @@ NtCreatePrivateNamespace PROC
 	push r8
 	push r9
 	mov ecx, 019B5D21Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2862,7 +2862,7 @@ NtCreateProcess PROC
 	push r8
 	push r9
 	mov ecx, 0319E3010h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2878,7 +2878,7 @@ NtCreateProfile PROC
 	push r8
 	push r9
 	mov ecx, 036A14072h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2894,7 +2894,7 @@ NtCreateProfileEx PROC
 	push r8
 	push r9
 	mov ecx, 07CD28AACh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2910,7 +2910,7 @@ NtCreateRegistryTransaction PROC
 	push r8
 	push r9
 	mov ecx, 0991EC1D0h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2926,7 +2926,7 @@ NtCreateResourceManager PROC
 	push r8
 	push r9
 	mov ecx, 0029EC5D4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2942,7 +2942,7 @@ NtCreateSemaphore PROC
 	push r8
 	push r9
 	mov ecx, 0CB4BF5C5h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2958,7 +2958,7 @@ NtCreateSymbolicLinkObject PROC
 	push r8
 	push r9
 	mov ecx, 0163860C5h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2974,7 +2974,7 @@ NtCreateThreadEx PROC
 	push r8
 	push r9
 	mov ecx, 046BC3042h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -2990,7 +2990,7 @@ NtCreateTimer PROC
 	push r8
 	push r9
 	mov ecx, 074575104h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3006,7 +3006,7 @@ NtCreateTimer2 PROC
 	push r8
 	push r9
 	mov ecx, 07022D1BDh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3022,7 +3022,7 @@ NtCreateToken PROC
 	push r8
 	push r9
 	mov ecx, 00C312A9Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3038,7 +3038,7 @@ NtCreateTokenEx PROC
 	push r8
 	push r9
 	mov ecx, 0B8ABF810h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3054,7 +3054,7 @@ NtCreateTransaction PROC
 	push r8
 	push r9
 	mov ecx, 05CC5725Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3070,7 +3070,7 @@ NtCreateTransactionManager PROC
 	push r8
 	push r9
 	mov ecx, 00E2E72C4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3086,7 +3086,7 @@ NtCreateUserProcess PROC
 	push r8
 	push r9
 	mov ecx, 00BA7063Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3102,7 +3102,7 @@ NtCreateWaitCompletionPacket PROC
 	push r8
 	push r9
 	mov ecx, 0079A21C0h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3118,7 +3118,7 @@ NtCreateWaitablePort PROC
 	push r8
 	push r9
 	mov ecx, 025403CC4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3134,7 +3134,7 @@ NtCreateWnfStateName PROC
 	push r8
 	push r9
 	mov ecx, 0853A597Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3150,7 +3150,7 @@ NtCreateWorkerFactory PROC
 	push r8
 	push r9
 	mov ecx, 0088C7A74h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3166,7 +3166,7 @@ NtDebugActiveProcess PROC
 	push r8
 	push r9
 	mov ecx, 0B0335121h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3182,7 +3182,7 @@ NtDebugContinue PROC
 	push r8
 	push r9
 	mov ecx, 01E94F9D8h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3198,7 +3198,7 @@ NtDeleteAtom PROC
 	push r8
 	push r9
 	mov ecx, 036A3AB92h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3214,7 +3214,7 @@ NtDeleteBootEntry PROC
 	push r8
 	push r9
 	mov ecx, 0099D0111h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3230,7 +3230,7 @@ NtDeleteDriverEntry PROC
 	push r8
 	push r9
 	mov ecx, 00B960104h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3246,7 +3246,7 @@ NtDeleteFile PROC
 	push r8
 	push r9
 	mov ecx, 047C55079h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3262,7 +3262,7 @@ NtDeleteKey PROC
 	push r8
 	push r9
 	mov ecx, 0E723055Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3278,7 +3278,7 @@ NtDeleteObjectAuditAlarm PROC
 	push r8
 	push r9
 	mov ecx, 0C12F3BB9h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3294,7 +3294,7 @@ NtDeletePrivateNamespace PROC
 	push r8
 	push r9
 	mov ecx, 096B95390h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3310,7 +3310,7 @@ NtDeleteValueKey PROC
 	push r8
 	push r9
 	mov ecx, 07DE46C7Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3326,7 +3326,7 @@ NtDeleteWnfStateData PROC
 	push r8
 	push r9
 	mov ecx, 0840E96BEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3342,7 +3342,7 @@ NtDeleteWnfStateName PROC
 	push r8
 	push r9
 	mov ecx, 0921C9FBDh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3358,7 +3358,7 @@ NtDisableLastKnownGood PROC
 	push r8
 	push r9
 	mov ecx, 0F86AEEDBh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3374,7 +3374,7 @@ NtDisplayString PROC
 	push r8
 	push r9
 	mov ecx, 00EA14480h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3390,7 +3390,7 @@ NtDrawText PROC
 	push r8
 	push r9
 	mov ecx, 0F94CECCDh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3406,7 +3406,7 @@ NtEnableLastKnownGood PROC
 	push r8
 	push r9
 	mov ecx, 0A4325A23h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3422,7 +3422,7 @@ NtEnumerateBootEntries PROC
 	push r8
 	push r9
 	mov ecx, 02490514Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3438,7 +3438,7 @@ NtEnumerateDriverEntries PROC
 	push r8
 	push r9
 	mov ecx, 060C4FAEBh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3454,7 +3454,7 @@ NtEnumerateSystemEnvironmentValuesEx PROC
 	push r8
 	push r9
 	mov ecx, 07E5F08A1h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3470,7 +3470,7 @@ NtEnumerateTransactionObject PROC
 	push r8
 	push r9
 	mov ecx, 0E4B8EC24h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3486,7 +3486,7 @@ NtExtendSection PROC
 	push r8
 	push r9
 	mov ecx, 034AD1679h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3502,7 +3502,7 @@ NtFilterBootOption PROC
 	push r8
 	push r9
 	mov ecx, 01A347CE4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3518,7 +3518,7 @@ NtFilterToken PROC
 	push r8
 	push r9
 	mov ecx, 0C759CDC2h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3534,7 +3534,7 @@ NtFilterTokenEx PROC
 	push r8
 	push r9
 	mov ecx, 08A9B46DEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3550,7 +3550,7 @@ NtFlushBuffersFileEx PROC
 	push r8
 	push r9
 	mov ecx, 0043650EBh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3566,7 +3566,7 @@ NtFlushInstallUILanguage PROC
 	push r8
 	push r9
 	mov ecx, 083D47089h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3582,7 +3582,7 @@ NtFlushInstructionCache PROC
 	push r8
 	push r9
 	mov ecx, 01FA1491Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3598,7 +3598,7 @@ NtFlushKey PROC
 	push r8
 	push r9
 	mov ecx, 040E45579h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3614,7 +3614,7 @@ NtFlushProcessWriteBuffers PROC
 	push r8
 	push r9
 	mov ecx, 00929CD7Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3630,7 +3630,7 @@ NtFlushVirtualMemory PROC
 	push r8
 	push r9
 	mov ecx, 0831C899Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3646,7 +3646,7 @@ NtFlushWriteBuffer PROC
 	push r8
 	push r9
 	mov ecx, 097A4B5F4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3662,7 +3662,7 @@ NtFreeUserPhysicalPages PROC
 	push r8
 	push r9
 	mov ecx, 095CFA867h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3678,7 +3678,7 @@ NtFreezeRegistry PROC
 	push r8
 	push r9
 	mov ecx, 0CC90FC2Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3694,7 +3694,7 @@ NtFreezeTransactions PROC
 	push r8
 	push r9
 	mov ecx, 05DC95543h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3710,7 +3710,7 @@ NtGetCachedSigningLevel PROC
 	push r8
 	push r9
 	mov ecx, 0A0AAC638h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3726,7 +3726,7 @@ NtGetCompleteWnfStateSubscription PROC
 	push r8
 	push r9
 	mov ecx, 0FFB4FD27h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3742,7 +3742,7 @@ NtGetContextThread PROC
 	push r8
 	push r9
 	mov ecx, 00228450Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3758,7 +3758,7 @@ NtGetCurrentProcessorNumber PROC
 	push r8
 	push r9
 	mov ecx, 082A56FFFh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3774,7 +3774,7 @@ NtGetCurrentProcessorNumberEx PROC
 	push r8
 	push r9
 	mov ecx, 0F75B0B2Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3790,7 +3790,7 @@ NtGetDevicePowerState PROC
 	push r8
 	push r9
 	mov ecx, 0CE55AEDEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3806,7 +3806,7 @@ NtGetMUIRegistryInfo PROC
 	push r8
 	push r9
 	mov ecx, 01EBC5467h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3822,7 +3822,7 @@ NtGetNextProcess PROC
 	push r8
 	push r9
 	mov ecx, 07DA81C3Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3838,7 +3838,7 @@ NtGetNextThread PROC
 	push r8
 	push r9
 	mov ecx, 0F45039F1h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3854,7 +3854,7 @@ NtGetNlsSectionPtr PROC
 	push r8
 	push r9
 	mov ecx, 039EC2066h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3870,7 +3870,7 @@ NtGetNotificationResourceManager PROC
 	push r8
 	push r9
 	mov ecx, 0BA67C8ABh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3886,7 +3886,7 @@ NtGetWriteWatch PROC
 	push r8
 	push r9
 	mov ecx, 01CC6286Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3902,7 +3902,7 @@ NtImpersonateAnonymousToken PROC
 	push r8
 	push r9
 	mov ecx, 0F15024EBh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3918,7 +3918,7 @@ NtImpersonateThread PROC
 	push r8
 	push r9
 	mov ecx, 01EAA5B8Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3934,7 +3934,7 @@ NtInitializeEnclave PROC
 	push r8
 	push r9
 	mov ecx, 0A6BE8E3Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3950,7 +3950,7 @@ NtInitializeNlsFiles PROC
 	push r8
 	push r9
 	mov ecx, 00D47DB04h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3966,7 +3966,7 @@ NtInitializeRegistry PROC
 	push r8
 	push r9
 	mov ecx, 040DD7651h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3982,7 +3982,7 @@ NtInitiatePowerAction PROC
 	push r8
 	push r9
 	mov ecx, 09C8AF25Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -3998,7 +3998,7 @@ NtIsSystemResumeAutomatic PROC
 	push r8
 	push r9
 	mov ecx, 0FCFEE649h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4014,7 +4014,7 @@ NtIsUILanguageComitted PROC
 	push r8
 	push r9
 	mov ecx, 09BA3D91Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4030,7 +4030,7 @@ NtListenPort PROC
 	push r8
 	push r9
 	mov ecx, 0523E57ACh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4046,7 +4046,7 @@ NtLoadDriver PROC
 	push r8
 	push r9
 	mov ecx, 0917ECA53h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4062,7 +4062,7 @@ NtLoadEnclaveData PROC
 	push r8
 	push r9
 	mov ecx, 0B6CF43A2h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4078,7 +4078,7 @@ NtLoadHotPatch PROC
 	push r8
 	push r9
 	mov ecx, 03EE52A56h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4094,7 +4094,7 @@ NtLoadKey PROC
 	push r8
 	push r9
 	mov ecx, 0069BF5E0h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4110,7 +4110,7 @@ NtLoadKey2 PROC
 	push r8
 	push r9
 	mov ecx, 0E69DA08Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4126,7 +4126,7 @@ NtLoadKeyEx PROC
 	push r8
 	push r9
 	mov ecx, 0557A8126h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4142,7 +4142,7 @@ NtLockFile PROC
 	push r8
 	push r9
 	mov ecx, 02F78CE3Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4158,7 +4158,7 @@ NtLockProductActivationKeys PROC
 	push r8
 	push r9
 	mov ecx, 02DB72826h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4174,7 +4174,7 @@ NtLockRegistryKey PROC
 	push r8
 	push r9
 	mov ecx, 04A6F358Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4190,7 +4190,7 @@ NtLockVirtualMemory PROC
 	push r8
 	push r9
 	mov ecx, 01D952B1Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4206,7 +4206,7 @@ NtMakePermanentObject PROC
 	push r8
 	push r9
 	mov ecx, 0BE925D8Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4222,7 +4222,7 @@ NtMakeTemporaryObject PROC
 	push r8
 	push r9
 	mov ecx, 01ABA220Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4238,7 +4238,7 @@ NtManagePartition PROC
 	push r8
 	push r9
 	mov ecx, 04C98084Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4254,7 +4254,7 @@ NtMapCMFModule PROC
 	push r8
 	push r9
 	mov ecx, 036BC2C38h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4270,7 +4270,7 @@ NtMapUserPhysicalPages PROC
 	push r8
 	push r9
 	mov ecx, 085BC602Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4286,7 +4286,7 @@ NtMapViewOfSectionEx PROC
 	push r8
 	push r9
 	mov ecx, 04093742Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4302,7 +4302,7 @@ NtModifyBootEntry PROC
 	push r8
 	push r9
 	mov ecx, 005AB0B3Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4318,7 +4318,7 @@ NtModifyDriverEntry PROC
 	push r8
 	push r9
 	mov ecx, 00F872514h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4334,7 +4334,7 @@ NtNotifyChangeDirectoryFile PROC
 	push r8
 	push r9
 	mov ecx, 048EA5A42h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4350,7 +4350,7 @@ NtNotifyChangeDirectoryFileEx PROC
 	push r8
 	push r9
 	mov ecx, 02AA9DCD7h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4366,7 +4366,7 @@ NtNotifyChangeKey PROC
 	push r8
 	push r9
 	mov ecx, 09A8EB9D4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4382,7 +4382,7 @@ NtNotifyChangeMultipleKeys PROC
 	push r8
 	push r9
 	mov ecx, 00F553C92h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4398,7 +4398,7 @@ NtNotifyChangeSession PROC
 	push r8
 	push r9
 	mov ecx, 0278C7940h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4414,7 +4414,7 @@ NtOpenEnlistment PROC
 	push r8
 	push r9
 	mov ecx, 079E51BF3h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4430,7 +4430,7 @@ NtOpenEventPair PROC
 	push r8
 	push r9
 	mov ecx, 01631DA63h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4446,7 +4446,7 @@ NtOpenIoCompletion PROC
 	push r8
 	push r9
 	mov ecx, 0C88E885Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4462,7 +4462,7 @@ NtOpenJobObject PROC
 	push r8
 	push r9
 	mov ecx, 00A26F94Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4478,7 +4478,7 @@ NtOpenKeyEx PROC
 	push r8
 	push r9
 	mov ecx, 06D623BBDh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4494,7 +4494,7 @@ NtOpenKeyTransacted PROC
 	push r8
 	push r9
 	mov ecx, 056DF5460h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4510,7 +4510,7 @@ NtOpenKeyTransactedEx PROC
 	push r8
 	push r9
 	mov ecx, 062BD3666h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4526,7 +4526,7 @@ NtOpenKeyedEvent PROC
 	push r8
 	push r9
 	mov ecx, 0C803D790h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4542,7 +4542,7 @@ NtOpenMutant PROC
 	push r8
 	push r9
 	mov ecx, 05688591Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4558,7 +4558,7 @@ NtOpenObjectAuditAlarm PROC
 	push r8
 	push r9
 	mov ecx, 016898EA6h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4574,7 +4574,7 @@ NtOpenPartition PROC
 	push r8
 	push r9
 	mov ecx, 036A01633h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4590,7 +4590,7 @@ NtOpenPrivateNamespace PROC
 	push r8
 	push r9
 	mov ecx, 0173FD413h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4606,7 +4606,7 @@ NtOpenProcessToken PROC
 	push r8
 	push r9
 	mov ecx, 093A37BA6h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4622,7 +4622,7 @@ NtOpenRegistryTransaction PROC
 	push r8
 	push r9
 	mov ecx, 0FE57FEC5h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4638,7 +4638,7 @@ NtOpenResourceManager PROC
 	push r8
 	push r9
 	mov ecx, 00AB2DE90h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4654,7 +4654,7 @@ NtOpenSemaphore PROC
 	push r8
 	push r9
 	mov ecx, 040AFA42Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4670,7 +4670,7 @@ NtOpenSession PROC
 	push r8
 	push r9
 	mov ecx, 09F317D64h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4686,7 +4686,7 @@ NtOpenSymbolicLinkObject PROC
 	push r8
 	push r9
 	mov ecx, 0BC26445Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4702,7 +4702,7 @@ NtOpenThread PROC
 	push r8
 	push r9
 	mov ecx, 0A4783057h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4718,7 +4718,7 @@ NtOpenTimer PROC
 	push r8
 	push r9
 	mov ecx, 0DDB02BD4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4734,7 +4734,7 @@ NtOpenTransaction PROC
 	push r8
 	push r9
 	mov ecx, 00CA22233h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4750,7 +4750,7 @@ NtOpenTransactionManager PROC
 	push r8
 	push r9
 	mov ecx, 035A70126h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4766,7 +4766,7 @@ NtPlugPlayControl PROC
 	push r8
 	push r9
 	mov ecx, 0041AE08Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4782,7 +4782,7 @@ NtPrePrepareComplete PROC
 	push r8
 	push r9
 	mov ecx, 00890003Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4798,7 +4798,7 @@ NtPrePrepareEnlistment PROC
 	push r8
 	push r9
 	mov ecx, 05FC11E13h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4814,7 +4814,7 @@ NtPrepareComplete PROC
 	push r8
 	push r9
 	mov ecx, 04929BB70h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4830,7 +4830,7 @@ NtPrepareEnlistment PROC
 	push r8
 	push r9
 	mov ecx, 076A81142h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4846,7 +4846,7 @@ NtPrivilegeCheck PROC
 	push r8
 	push r9
 	mov ecx, 0F855C1F7h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4862,7 +4862,7 @@ NtPrivilegeObjectAuditAlarm PROC
 	push r8
 	push r9
 	mov ecx, 03C52C61Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4878,7 +4878,7 @@ NtPrivilegedServiceAuditAlarm PROC
 	push r8
 	push r9
 	mov ecx, 0B638BCA0h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4894,7 +4894,7 @@ NtPropagationComplete PROC
 	push r8
 	push r9
 	mov ecx, 01E610EEEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4910,7 +4910,7 @@ NtPropagationFailed PROC
 	push r8
 	push r9
 	mov ecx, 04E9E74C0h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4926,7 +4926,7 @@ NtPulseEvent PROC
 	push r8
 	push r9
 	mov ecx, 040836718h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4942,7 +4942,7 @@ NtQueryAuxiliaryCounterFrequency PROC
 	push r8
 	push r9
 	mov ecx, 006AB2134h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4958,7 +4958,7 @@ NtQueryBootEntryOrder PROC
 	push r8
 	push r9
 	mov ecx, 0039F9B95h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4974,7 +4974,7 @@ NtQueryBootOptions PROC
 	push r8
 	push r9
 	mov ecx, 0C7572ACFh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -4990,7 +4990,7 @@ NtQueryDebugFilterState PROC
 	push r8
 	push r9
 	mov ecx, 0F1480645h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5006,7 +5006,7 @@ NtQueryDirectoryFileEx PROC
 	push r8
 	push r9
 	mov ecx, 014275CF0h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5022,7 +5022,7 @@ NtQueryDirectoryObject PROC
 	push r8
 	push r9
 	mov ecx, 02C1F1453h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5038,7 +5038,7 @@ NtQueryDriverEntryOrder PROC
 	push r8
 	push r9
 	mov ecx, 01BB8695Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5054,7 +5054,7 @@ NtQueryEaFile PROC
 	push r8
 	push r9
 	mov ecx, 0BC2B8EBCh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5070,7 +5070,7 @@ NtQueryFullAttributesFile PROC
 	push r8
 	push r9
 	mov ecx, 0DBD9D771h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5086,7 +5086,7 @@ NtQueryInformationAtom PROC
 	push r8
 	push r9
 	mov ecx, 04CD6B17Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5102,7 +5102,7 @@ NtQueryInformationByName PROC
 	push r8
 	push r9
 	mov ecx, 0ED33FA82h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5118,7 +5118,7 @@ NtQueryInformationEnlistment PROC
 	push r8
 	push r9
 	mov ecx, 09844E58Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5134,7 +5134,7 @@ NtQueryInformationJobObject PROC
 	push r8
 	push r9
 	mov ecx, 0A4BFDDB2h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5150,7 +5150,7 @@ NtQueryInformationPort PROC
 	push r8
 	push r9
 	mov ecx, 064F6795Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5166,7 +5166,7 @@ NtQueryInformationResourceManager PROC
 	push r8
 	push r9
 	mov ecx, 027B50F2Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5182,7 +5182,7 @@ NtQueryInformationTransaction PROC
 	push r8
 	push r9
 	mov ecx, 00C845229h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5198,7 +5198,7 @@ NtQueryInformationTransactionManager PROC
 	push r8
 	push r9
 	mov ecx, 03F29D430h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5214,7 +5214,7 @@ NtQueryInformationWorkerFactory PROC
 	push r8
 	push r9
 	mov ecx, 0055D25F4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5230,7 +5230,7 @@ NtQueryInstallUILanguage PROC
 	push r8
 	push r9
 	mov ecx, 073EF4472h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5246,7 +5246,7 @@ NtQueryIntervalProfile PROC
 	push r8
 	push r9
 	mov ecx, 00F5D8C44h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5262,7 +5262,7 @@ NtQueryIoCompletion PROC
 	push r8
 	push r9
 	mov ecx, 0950EB59Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5278,7 +5278,7 @@ NtQueryLicenseValue PROC
 	push r8
 	push r9
 	mov ecx, 021203C98h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5294,7 +5294,7 @@ NtQueryMultipleValueKey PROC
 	push r8
 	push r9
 	mov ecx, 0E95DC8EAh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5310,7 +5310,7 @@ NtQueryMutant PROC
 	push r8
 	push r9
 	mov ecx, 04F6A0EBEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5326,7 +5326,7 @@ NtQueryOpenSubKeys PROC
 	push r8
 	push r9
 	mov ecx, 022D830B9h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5342,7 +5342,7 @@ NtQueryOpenSubKeysEx PROC
 	push r8
 	push r9
 	mov ecx, 09860DE9Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5358,7 +5358,7 @@ NtQueryPortInformationProcess PROC
 	push r8
 	push r9
 	mov ecx, 0B9A39E38h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5374,7 +5374,7 @@ NtQueryQuotaInformationFile PROC
 	push r8
 	push r9
 	mov ecx, 0229A520Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5390,7 +5390,7 @@ NtQuerySecurityAttributesToken PROC
 	push r8
 	push r9
 	mov ecx, 001D01F70h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5406,7 +5406,7 @@ NtQuerySecurityObject PROC
 	push r8
 	push r9
 	mov ecx, 08858D295h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5422,7 +5422,7 @@ NtQuerySecurityPolicy PROC
 	push r8
 	push r9
 	mov ecx, 08651BBE5h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5438,7 +5438,7 @@ NtQuerySemaphore PROC
 	push r8
 	push r9
 	mov ecx, 08555760Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5454,7 +5454,7 @@ NtQuerySymbolicLinkObject PROC
 	push r8
 	push r9
 	mov ecx, 0009E21C3h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5470,7 +5470,7 @@ NtQuerySystemEnvironmentValue PROC
 	push r8
 	push r9
 	mov ecx, 0988B0EBFh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5486,7 +5486,7 @@ NtQuerySystemEnvironmentValueEx PROC
 	push r8
 	push r9
 	mov ecx, 01035528Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5502,7 +5502,7 @@ NtQuerySystemInformationEx PROC
 	push r8
 	push r9
 	mov ecx, 036D4F4AEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5518,7 +5518,7 @@ NtQueryTimerResolution PROC
 	push r8
 	push r9
 	mov ecx, 0148A1419h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5534,7 +5534,7 @@ NtQueryWnfStateData PROC
 	push r8
 	push r9
 	mov ecx, 0AEC6509Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5550,7 +5550,7 @@ NtQueryWnfStateNameInformation PROC
 	push r8
 	push r9
 	mov ecx, 0228BE4DFh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5566,7 +5566,7 @@ NtQueueApcThreadEx PROC
 	push r8
 	push r9
 	mov ecx, 0382B0C96h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5582,7 +5582,7 @@ NtRaiseException PROC
 	push r8
 	push r9
 	mov ecx, 0990F9595h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5598,7 +5598,7 @@ NtRaiseHardError PROC
 	push r8
 	push r9
 	mov ecx, 0FD6CFDFBh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5614,7 +5614,7 @@ NtReadOnlyEnlistment PROC
 	push r8
 	push r9
 	mov ecx, 00E26CB74h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5630,7 +5630,7 @@ NtRecoverEnlistment PROC
 	push r8
 	push r9
 	mov ecx, 0BB26A1B0h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5646,7 +5646,7 @@ NtRecoverResourceManager PROC
 	push r8
 	push r9
 	mov ecx, 01F06860Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5662,7 +5662,7 @@ NtRecoverTransactionManager PROC
 	push r8
 	push r9
 	mov ecx, 00A3606ACh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5678,7 +5678,7 @@ NtRegisterProtocolAddressInformation PROC
 	push r8
 	push r9
 	mov ecx, 015831310h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5694,7 +5694,7 @@ NtRegisterThreadTerminatePort PROC
 	push r8
 	push r9
 	mov ecx, 0DAB3C13Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5710,7 +5710,7 @@ NtReleaseKeyedEvent PROC
 	push r8
 	push r9
 	mov ecx, 00F4AF53Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5726,7 +5726,7 @@ NtReleaseWorkerFactoryWorker PROC
 	push r8
 	push r9
 	mov ecx, 08B77A822h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5742,7 +5742,7 @@ NtRemoveIoCompletionEx PROC
 	push r8
 	push r9
 	mov ecx, 08092D44Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5758,7 +5758,7 @@ NtRemoveProcessDebug PROC
 	push r8
 	push r9
 	mov ecx, 08423B668h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5774,7 +5774,7 @@ NtRenameKey PROC
 	push r8
 	push r9
 	mov ecx, 003925840h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5790,7 +5790,7 @@ NtRenameTransactionManager PROC
 	push r8
 	push r9
 	mov ecx, 08E329AAFh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5806,7 +5806,7 @@ NtReplaceKey PROC
 	push r8
 	push r9
 	mov ecx, 09EDDB571h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5822,7 +5822,7 @@ NtReplacePartitionUnit PROC
 	push r8
 	push r9
 	mov ecx, 03838CA3Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5838,7 +5838,7 @@ NtReplyWaitReplyPort PROC
 	push r8
 	push r9
 	mov ecx, 020BD272Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5854,7 +5854,7 @@ NtRequestPort PROC
 	push r8
 	push r9
 	mov ecx, 02ACD0152h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5870,7 +5870,7 @@ NtResetEvent PROC
 	push r8
 	push r9
 	mov ecx, 07EBE4518h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5886,7 +5886,7 @@ NtResetWriteWatch PROC
 	push r8
 	push r9
 	mov ecx, 074B94E2Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5902,7 +5902,7 @@ NtRestoreKey PROC
 	push r8
 	push r9
 	mov ecx, 0DF5AFCF0h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5918,7 +5918,7 @@ NtResumeProcess PROC
 	push r8
 	push r9
 	mov ecx, 0DE3CD7A3h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5934,7 +5934,7 @@ NtRevertContainerImpersonation PROC
 	push r8
 	push r9
 	mov ecx, 004AE043Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5950,7 +5950,7 @@ NtRollbackComplete PROC
 	push r8
 	push r9
 	mov ecx, 069304180h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5966,7 +5966,7 @@ NtRollbackEnlistment PROC
 	push r8
 	push r9
 	mov ecx, 0F196D64Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5982,7 +5982,7 @@ NtRollbackRegistryTransaction PROC
 	push r8
 	push r9
 	mov ecx, 094D64F9Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -5998,7 +5998,7 @@ NtRollbackTransaction PROC
 	push r8
 	push r9
 	mov ecx, 00E992005h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6014,7 +6014,7 @@ NtRollforwardTransactionManager PROC
 	push r8
 	push r9
 	mov ecx, 08B375614h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6030,7 +6030,7 @@ NtSaveKey PROC
 	push r8
 	push r9
 	mov ecx, 009DAF7ACh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6046,7 +6046,7 @@ NtSaveKeyEx PROC
 	push r8
 	push r9
 	mov ecx, 07E75B003h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6062,7 +6062,7 @@ NtSaveMergedKeys PROC
 	push r8
 	push r9
 	mov ecx, 021B8DDD2h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6078,7 +6078,7 @@ NtSecureConnectPort PROC
 	push r8
 	push r9
 	mov ecx, 026E94576h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6094,7 +6094,7 @@ NtSerializeBoot PROC
 	push r8
 	push r9
 	mov ecx, 070A0367Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6110,7 +6110,7 @@ NtSetBootEntryOrder PROC
 	push r8
 	push r9
 	mov ecx, 01F3269D7h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6126,7 +6126,7 @@ NtSetBootOptions PROC
 	push r8
 	push r9
 	mov ecx, 0D98B3D1Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6142,7 +6142,7 @@ NtSetCachedSigningLevel PROC
 	push r8
 	push r9
 	mov ecx, 0209B2424h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6158,7 +6158,7 @@ NtSetCachedSigningLevel2 PROC
 	push r8
 	push r9
 	mov ecx, 004BB8D6Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6174,7 +6174,7 @@ NtSetContextThread PROC
 	push r8
 	push r9
 	mov ecx, 0284FAD6Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6190,7 +6190,7 @@ NtSetDebugFilterState PROC
 	push r8
 	push r9
 	mov ecx, 030B16E0Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6206,7 +6206,7 @@ NtSetDefaultHardErrorPort PROC
 	push r8
 	push r9
 	mov ecx, 0DD71D8DFh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6222,7 +6222,7 @@ NtSetDefaultLocale PROC
 	push r8
 	push r9
 	mov ecx, 0C7A7FD62h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6238,7 +6238,7 @@ NtSetDefaultUILanguage PROC
 	push r8
 	push r9
 	mov ecx, 0B58B39A3h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6254,7 +6254,7 @@ NtSetDriverEntryOrder PROC
 	push r8
 	push r9
 	mov ecx, 01F8C8C91h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6270,7 +6270,7 @@ NtSetEaFile PROC
 	push r8
 	push r9
 	mov ecx, 0AEEDFED2h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6286,7 +6286,7 @@ NtSetHighEventPair PROC
 	push r8
 	push r9
 	mov ecx, 010B43821h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6302,7 +6302,7 @@ NtSetHighWaitLowEventPair PROC
 	push r8
 	push r9
 	mov ecx, 03CB3D02Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6318,7 +6318,7 @@ NtSetIRTimer PROC
 	push r8
 	push r9
 	mov ecx, 093AAE962h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6334,7 +6334,7 @@ NtSetInformationDebugObject PROC
 	push r8
 	push r9
 	mov ecx, 040986A45h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6350,7 +6350,7 @@ NtSetInformationEnlistment PROC
 	push r8
 	push r9
 	mov ecx, 07BD27C40h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6366,7 +6366,7 @@ NtSetInformationJobObject PROC
 	push r8
 	push r9
 	mov ecx, 0F8D4C27Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6382,7 +6382,7 @@ NtSetInformationKey PROC
 	push r8
 	push r9
 	mov ecx, 0D389FC39h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6398,7 +6398,7 @@ NtSetInformationResourceManager PROC
 	push r8
 	push r9
 	mov ecx, 07F1F8F7Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6414,7 +6414,7 @@ NtSetInformationSymbolicLink PROC
 	push r8
 	push r9
 	mov ecx, 0AE38242Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6430,7 +6430,7 @@ NtSetInformationToken PROC
 	push r8
 	push r9
 	mov ecx, 03398F932h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6446,7 +6446,7 @@ NtSetInformationTransaction PROC
 	push r8
 	push r9
 	mov ecx, 00EE62E75h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6462,7 +6462,7 @@ NtSetInformationTransactionManager PROC
 	push r8
 	push r9
 	mov ecx, 0AB14E5C8h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6478,7 +6478,7 @@ NtSetInformationVirtualMemory PROC
 	push r8
 	push r9
 	mov ecx, 00D963B39h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6494,7 +6494,7 @@ NtSetInformationWorkerFactory PROC
 	push r8
 	push r9
 	mov ecx, 07EEE544Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6510,7 +6510,7 @@ NtSetIntervalProfile PROC
 	push r8
 	push r9
 	mov ecx, 05C847200h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6526,7 +6526,7 @@ NtSetIoCompletion PROC
 	push r8
 	push r9
 	mov ecx, 03553158Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6542,7 +6542,7 @@ NtSetIoCompletionEx PROC
 	push r8
 	push r9
 	mov ecx, 018DE423Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6558,7 +6558,7 @@ NtSetLdtEntries PROC
 	push r8
 	push r9
 	mov ecx, 02612D21Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6574,7 +6574,7 @@ NtSetLowEventPair PROC
 	push r8
 	push r9
 	mov ecx, 004B42C01h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6590,7 +6590,7 @@ NtSetLowWaitHighEventPair PROC
 	push r8
 	push r9
 	mov ecx, 014B0342Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6606,7 +6606,7 @@ NtSetQuotaInformationFile PROC
 	push r8
 	push r9
 	mov ecx, 0ED4A266Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6622,7 +6622,7 @@ NtSetSecurityObject PROC
 	push r8
 	push r9
 	mov ecx, 01CB8241Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6638,7 +6638,7 @@ NtSetSystemEnvironmentValue PROC
 	push r8
 	push r9
 	mov ecx, 01483CC3Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6654,7 +6654,7 @@ NtSetSystemEnvironmentValueEx PROC
 	push r8
 	push r9
 	mov ecx, 06CBE5E05h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6670,7 +6670,7 @@ NtSetSystemInformation PROC
 	push r8
 	push r9
 	mov ecx, 03EA23835h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6686,7 +6686,7 @@ NtSetSystemPowerState PROC
 	push r8
 	push r9
 	mov ecx, 07290585Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6702,7 +6702,7 @@ NtSetSystemTime PROC
 	push r8
 	push r9
 	mov ecx, 0A4A9B412h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6718,7 +6718,7 @@ NtSetThreadExecutionState PROC
 	push r8
 	push r9
 	mov ecx, 05C9257F2h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6734,7 +6734,7 @@ NtSetTimer2 PROC
 	push r8
 	push r9
 	mov ecx, 0B5B61520h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6750,7 +6750,7 @@ NtSetTimerEx PROC
 	push r8
 	push r9
 	mov ecx, 0130259FFh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6766,7 +6766,7 @@ NtSetTimerResolution PROC
 	push r8
 	push r9
 	mov ecx, 0C14E205Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6782,7 +6782,7 @@ NtSetUuidSeed PROC
 	push r8
 	push r9
 	mov ecx, 007ACCF00h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6798,7 +6798,7 @@ NtSetVolumeInformationFile PROC
 	push r8
 	push r9
 	mov ecx, 0CBDA3ACCh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6814,7 +6814,7 @@ NtSetWnfProcessNotificationEvent PROC
 	push r8
 	push r9
 	mov ecx, 03EAD3B3Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6830,7 +6830,7 @@ NtShutdownSystem PROC
 	push r8
 	push r9
 	mov ecx, 0C050C9C4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6846,7 +6846,7 @@ NtShutdownWorkerFactory PROC
 	push r8
 	push r9
 	mov ecx, 00494706Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6862,7 +6862,7 @@ NtSignalAndWaitForSingleObject PROC
 	push r8
 	push r9
 	mov ecx, 09AB569CAh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6878,7 +6878,7 @@ NtSinglePhaseReject PROC
 	push r8
 	push r9
 	mov ecx, 0B816D28Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6894,7 +6894,7 @@ NtStartProfile PROC
 	push r8
 	push r9
 	mov ecx, 004B2DC80h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6910,7 +6910,7 @@ NtStopProfile PROC
 	push r8
 	push r9
 	mov ecx, 0F7A6F01Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6926,7 +6926,7 @@ NtSubscribeWnfStateChange PROC
 	push r8
 	push r9
 	mov ecx, 01E236FFEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6942,7 +6942,7 @@ NtSuspendProcess PROC
 	push r8
 	push r9
 	mov ecx, 05D863A94h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6958,7 +6958,7 @@ NtSuspendThread PROC
 	push r8
 	push r9
 	mov ecx, 0F8E372CDh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6974,7 +6974,7 @@ NtSystemDebugControl PROC
 	push r8
 	push r9
 	mov ecx, 0078F011Dh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -6990,7 +6990,7 @@ NtTerminateEnclave PROC
 	push r8
 	push r9
 	mov ecx, 0EEB062A2h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7006,7 +7006,7 @@ NtTerminateJobObject PROC
 	push r8
 	push r9
 	mov ecx, 0269A2407h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7022,7 +7022,7 @@ NtTestAlert PROC
 	push r8
 	push r9
 	mov ecx, 086D5B57Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7038,7 +7038,7 @@ NtThawRegistry PROC
 	push r8
 	push r9
 	mov ecx, 040AF3E4Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7054,7 +7054,7 @@ NtThawTransactions PROC
 	push r8
 	push r9
 	mov ecx, 0019A1971h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7070,7 +7070,7 @@ NtTraceControl PROC
 	push r8
 	push r9
 	mov ecx, 00991F3D7h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7086,7 +7086,7 @@ NtTranslateFilePath PROC
 	push r8
 	push r9
 	mov ecx, 0CE10E9DEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7102,7 +7102,7 @@ NtUmsThreadYield PROC
 	push r8
 	push r9
 	mov ecx, 0A73A9CADh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7118,7 +7118,7 @@ NtUnloadDriver PROC
 	push r8
 	push r9
 	mov ecx, 012BF4E12h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7134,7 +7134,7 @@ NtUnloadKey PROC
 	push r8
 	push r9
 	mov ecx, 0C81F2B67h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7150,7 +7150,7 @@ NtUnloadKey2 PROC
 	push r8
 	push r9
 	mov ecx, 0AFD77AF0h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7166,7 +7166,7 @@ NtUnloadKeyEx PROC
 	push r8
 	push r9
 	mov ecx, 0537819C5h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7182,7 +7182,7 @@ NtUnlockFile PROC
 	push r8
 	push r9
 	mov ecx, 06C3E64A8h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7198,7 +7198,7 @@ NtUnlockVirtualMemory PROC
 	push r8
 	push r9
 	mov ecx, 003932D05h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7214,7 +7214,7 @@ NtUnmapViewOfSectionEx PROC
 	push r8
 	push r9
 	mov ecx, 032890634h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7230,7 +7230,7 @@ NtUnsubscribeWnfStateChange PROC
 	push r8
 	push r9
 	mov ecx, 04F5F1B6Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7246,7 +7246,7 @@ NtUpdateWnfStateData PROC
 	push r8
 	push r9
 	mov ecx, 0A23CD4B4h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7262,7 +7262,7 @@ NtVdmControl PROC
 	push r8
 	push r9
 	mov ecx, 04794470Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7278,7 +7278,7 @@ NtWaitForAlertByThreadId PROC
 	push r8
 	push r9
 	mov ecx, 05CBE6E69h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7294,7 +7294,7 @@ NtWaitForDebugEvent PROC
 	push r8
 	push r9
 	mov ecx, 0008B0B0Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7310,7 +7310,7 @@ NtWaitForKeyedEvent PROC
 	push r8
 	push r9
 	mov ecx, 0D08A3618h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7326,7 +7326,7 @@ NtWaitForWorkViaWorkerFactory PROC
 	push r8
 	push r9
 	mov ecx, 058F0725Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7342,7 +7342,7 @@ NtWaitHighEventPair PROC
 	push r8
 	push r9
 	mov ecx, 027921D3Eh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7358,7 +7358,7 @@ NtWaitLowEventPair PROC
 	push r8
 	push r9
 	mov ecx, 0C09DC00Bh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7374,7 +7374,7 @@ NtAcquireCMFViewOwnership PROC
 	push r8
 	push r9
 	mov ecx, 00A912008h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7390,7 +7390,7 @@ NtCancelDeviceWakeupRequest PROC
 	push r8
 	push r9
 	mov ecx, 017AAEFA6h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7406,7 +7406,7 @@ NtClearAllSavepointsTransaction PROC
 	push r8
 	push r9
 	mov ecx, 0000846DDh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7422,7 +7422,7 @@ NtClearSavepointTransaction PROC
 	push r8
 	push r9
 	mov ecx, 012151E8Fh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7438,7 +7438,7 @@ NtRollbackSavepointTransaction PROC
 	push r8
 	push r9
 	mov ecx, 076E950BDh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7454,7 +7454,7 @@ NtSavepointTransaction PROC
 	push r8
 	push r9
 	mov ecx, 00D920904h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7470,7 +7470,7 @@ NtSavepointComplete PROC
 	push r8
 	push r9
 	mov ecx, 0BD32253Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7486,7 +7486,7 @@ NtCreateSectionEx PROC
 	push r8
 	push r9
 	mov ecx, 0FEAD2DF7h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7502,7 +7502,7 @@ NtCreateCrossVmEvent PROC
 	push r8
 	push r9
 	mov ecx, 09CBBA109h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7518,7 +7518,7 @@ NtGetPlugPlayEvent PROC
 	push r8
 	push r9
 	mov ecx, 040CB3F38h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7534,7 +7534,7 @@ NtListTransactions PROC
 	push r8
 	push r9
 	mov ecx, 001953933h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7550,7 +7550,7 @@ NtMarshallTransaction PROC
 	push r8
 	push r9
 	mov ecx, 030AB12FFh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7566,7 +7566,7 @@ NtPullTransaction PROC
 	push r8
 	push r9
 	mov ecx, 0178C151Ch        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7582,7 +7582,7 @@ NtReleaseCMFViewOwnership PROC
 	push r8
 	push r9
 	mov ecx, 058E781AEh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7598,7 +7598,7 @@ NtWaitForWnfNotifications PROC
 	push r8
 	push r9
 	mov ecx, 00D973101h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7614,7 +7614,7 @@ NtStartTm PROC
 	push r8
 	push r9
 	mov ecx, 0438F257Ah        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7630,7 +7630,7 @@ NtSetInformationProcess PROC
 	push r8
 	push r9
 	mov ecx, 07E337FACh        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7646,7 +7646,7 @@ NtRequestDeviceWakeup PROC
 	push r8
 	push r9
 	mov ecx, 01547D013h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7662,7 +7662,7 @@ NtRequestWakeupLatency PROC
 	push r8
 	push r9
 	mov ecx, 0BC18A7B8h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7678,7 +7678,7 @@ NtQuerySystemTime PROC
 	push r8
 	push r9
 	mov ecx, 08E97AF13h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7694,7 +7694,7 @@ NtManageHotPatch PROC
 	push r8
 	push r9
 	mov ecx, 0E4D93065h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx
@@ -7710,7 +7710,7 @@ NtContinueEx PROC
 	push r8
 	push r9
 	mov ecx, 053AD7510h        ; Load function hash into ECX.
-	call SW2_GetSyscallNumber  ; Resolve function hash into syscall number.
+	call SW3_GetSyscallNumber  ; Resolve function hash into syscall number.
 	pop r9                     ; Restore registers.
 	pop r8
 	pop rdx

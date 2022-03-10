@@ -62,6 +62,8 @@ optional arguments:
                         Preset ("all", "common")
   -a {x86,x64}, --arch {x86,x64}
                         Architecture
+  -c {msvc,mingw,all}, --compiler {msvc,mingw,all}
+                        Compiler
   -m {embedded,egg_hunter,jumper,jumper_randomized}, --method {embedded,egg_hunter,jumper,jumper_randomized}
                         Syscall recovery method
   -f FUNCTIONS, --functions FUNCTIONS
@@ -101,8 +103,8 @@ py .\syswhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory -o s
 # Egg-Hunting SysWhispers, to bypass the "mark of the sycall" (common function)
 py .\syswhispers.py --preset common -o syscalls_common -m jumper
 
-# Jumping/Jumping Randomized SysWhispers, to bypass dynamic RIP validation (all functions)
-py .\syswhispers.py --preset all -o syscalls_all -m jumper
+# Jumping/Jumping Randomized SysWhispers, to bypass dynamic RIP validation (all functions) using MinGW as the compiler
+py .\syswhispers.py --preset all -o syscalls_all -m jumper -c mingw
 
 
 ```
