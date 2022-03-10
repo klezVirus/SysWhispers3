@@ -80,7 +80,7 @@ ULONG_PTR SC_Offset(ULONG_PTR SyscallAddress) {
         if (!(SyscallOpcode == sys_call_or_enter)) {
             continue;
         }
-        ReadProcessMemory((HANDLE)-1, (LPCVOID)(SyscallAddress + SyscallOpcodeOffset + 2, &SyscallOpcode), 1, &nBytesRead);
+        ReadProcessMemory((HANDLE)-1, (LPCVOID)(SyscallAddress + SyscallOpcodeOffset + 2), &SyscallOpcode, 1, &nBytesRead);
         if (!(SyscallOpcode == 0xc3)) {
             continue;
         }
