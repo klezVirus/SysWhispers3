@@ -11,6 +11,7 @@ from pathlib import Path
 
 try:
     from enums.Architectures import Arch
+    from enums.Compilers import Compiler
     from enums.SyscallRecoveryType import SyscallRecoveryType
     from utils.utils import get_project_root
 
@@ -27,14 +28,14 @@ except ModuleNotFoundError:
 
 
     class Arch(Enum):
-        All = "All"
+        Any = ""
         x86 = "x86"
         x64 = "x64"
 
         @staticmethod
         def from_string(label):
-            if label.lower() in ["all"]:
-                return Arch.All
+            if label.lower() in ["any"]:
+                return Arch.Any
             elif label.lower() in ["32", "86", "x86", "i386"]:
                 return Arch.x86
             elif label.lower() in ["64", "x64", "amd64", "x86_64"]:
@@ -125,7 +126,7 @@ class SysWhispers(object):
             print(f"  unsigned char egg[] = {{ {', '.join([hex(int(x, 16)) for x in self.egg] * 2)} }}; // egg")
             replace_x86 = '  unsigned char replace[] = { 0x0f, 0x34, 0x90, 0x90, 0xC3, 0x90, 0xCC, 0xCC }; // sysenter; nop; nop; ret; nop; int3; int3'
             replace_x64 = '  unsigned char replace[] = { 0x0f, 0x05, 0x90, 0x90, 0xC3, 0x90, 0xCC, 0xCC }; // syscall; nop; nop; ret; nop; int3; int3'
-            if self.arch == Arch.All:
+            if self.arch == Arch.Any:
                 print(f"#ifdef _WIN64\n{replace_x64}\n#else\n{replace_x86}\n#endif")
             elif self.arch == Arch.x86:
                 print(replace_x86)
@@ -152,13 +153,15 @@ class SysWhispers(object):
                     base_source_contents = base_source_contents.replace("// JUMPER", "#define JUMPER")
 
                 if self.wow64:
-                    base_source_contents = base_source_contents.replace('// JUMP_TO_WOW32Reserved', '        // if we are a WoW64 process, jump to WOW32Reserved\n        SyscallAddress = (PVOID)__readfsdword(0xc0);\n        return SyscallAddress;')
+                    base_source_contents = base_source_contents.replace('// JUMP_TO_WOW32Reserved',
+                                                                        '        // if we are a WoW64 process, jump to WOW32Reserved\n        SyscallAddress = (PVOID)__readfsdword(0xc0);\n        return SyscallAddress;')
                 else:
-                    base_source_contents = base_source_contents.replace('// JUMP_TO_WOW32Reserved', '        return NULL;')
+                    base_source_contents = base_source_contents.replace('// JUMP_TO_WOW32Reserved',
+                                                                        '        return NULL;')
 
                 msvc_wow64 = '__declspec(naked) BOOL local_is_wow64(void)\n{\n    __asm {\n        mov eax, fs:[0xc0]\n        test eax, eax\n        jne wow64\n        mov eax, 0\n        ret\n        wow64:\n        mov eax, 1\n        ret\n    }\n}\n'
                 mingw_wow64 = '__declspec(naked) BOOL local_is_wow64(void)\n{\n    asm(\n        "mov eax, fs:[0xc0] \\n"\n        "test eax, eax \\n"\n        "jne wow64 \\n"\n        "mov eax, 0 \\n"\n        "ret \\n"\n        "wow64: \\n"\n        "mov eax, 1 \\n"\n        "ret \\n"\n    );\n}'
-                wow64_function  = ''
+                wow64_function = ''
                 if self.compiler == Compiler.All:
                     wow64_function += '#if defined(_MSC_VER)\n\n'
                     wow64_function += msvc_wow64
@@ -182,7 +185,7 @@ class SysWhispers(object):
         basename_suffix = ''
         basename_suffix = basename_suffix.capitalize() if os.path.basename(basename).istitle() else basename_suffix
         if self.compiler in [Compiler.All, Compiler.MSVC]:
-            if self.arch in [Arch.All, Arch.x64]:
+            if self.arch in [Arch.Any, Arch.x64]:
                 # Write x64 ASM file
                 basename_suffix = f'_{basename_suffix}' if '_' in basename else basename_suffix
                 with open(f'{basename}{basename_suffix}-asm.x64.asm', 'wb') as output_asm:
@@ -200,13 +203,14 @@ class SysWhispers(object):
 
                     output_asm.write(b'end')
 
-            if self.arch in [Arch.All, Arch.x86]:
+            if self.arch in [Arch.Any, Arch.x86]:
                 # Write x86 ASM file
                 with open(f'{basename}{basename_suffix}-asm.x86.asm', 'wb') as output_asm:
 
                     output_asm.write(b".686\n.XMM\n.MODEL flat, c\nASSUME fs:_DATA\n.code\n\n")
 
-                    output_asm.write(b'EXTERN SW3_GetSyscallNumber: PROC\nEXTERN local_is_wow64: PROC\nEXTERN internal_cleancall_wow64_gate: PROC')
+                    output_asm.write(
+                        b'EXTERN SW3_GetSyscallNumber: PROC\nEXTERN local_is_wow64: PROC\nEXTERN internal_cleancall_wow64_gate: PROC')
                     if self.recovery == SyscallRecoveryType.JUMPER:
                         # We perform a direct jump to the syscall instruction inside ntdll.dll
                         output_asm.write(b'\nEXTERN SW3_GetSyscallAddress: PROC')
@@ -247,8 +251,9 @@ class SysWhispers(object):
             print('Complete! Files written to:')
             print(f'\t{basename}.h')
             print(f'\t{basename}.c')
-            if self.compiler in [Compiler.All, Compiler.MINGW]:
+            if self.arch in [Arch.x64, Arch.Any]:
                 print(f'\t{basename}{basename_suffix}-asm.x64.asm')
+            if self.arch in [Arch.x86, Arch.Any]:
                 print(f'\t{basename}{basename_suffix}-asm.x86.asm')
             input("Press a key to continue...")
 
@@ -323,7 +328,6 @@ class SysWhispers(object):
 
         return hash
 
-
     def _get_function_asm_code_mingw(self, function_name: str) -> str:
         function_hash = self._get_function_hash(function_name)
         num_params = len(self.prototypes[function_name]['params'])
@@ -331,12 +335,12 @@ class SysWhispers(object):
         prototype = prototype.replace('EXTERN_C', '__declspec(naked)')
         prototype = prototype.replace(');', ')')
 
-        code  = prototype
+        code = prototype
         code += '\n{'
         code += '\n\tasm('
-        if self.arch == Arch.All:
+        if self.arch == Arch.Any:
             code += '\n#if defined(_WIN64)'
-        if self.arch in [Arch.All, Arch.x64]:
+        if self.arch in [Arch.Any, Arch.x64]:
             # Generate 64-bit ASM code.
             code += '\n\t\t"mov [rsp +8], rcx \\n"'
             code += '\n\t\t"mov [rsp+16], rdx \\n"'
@@ -368,10 +372,10 @@ class SysWhispers(object):
                 code += f'\n\t\t"{self.syscall_instruction} \\n"'
                 code += '\n\t\t"ret \\n"'
 
-        if self.arch == Arch.All:
+        if self.arch == Arch.Any:
             code += '\n#else'
 
-        if self.arch in [Arch.All, Arch.x86]:
+        if self.arch in [Arch.Any, Arch.x86]:
             code += '\n\t\t"push ebp \\n"'
             code += '\n\t\t"mov ebp, esp \\n"'
             code += f'\n\t\t"push 0x{function_hash:08X} \\n"'
@@ -397,7 +401,7 @@ class SysWhispers(object):
 
             if self.recovery not in [SyscallRecoveryType.JUMPER,
                                      SyscallRecoveryType.JUMPER_RANDOMIZED] \
-                             and self.wow64:
+                    and self.wow64:
                 # check if the process is WoW64 or native
                 code += '\n\t\t"call _local_is_wow64 \\n"'
                 code += '\n\t\t"test eax, eax \\n"'
@@ -427,7 +431,7 @@ class SysWhispers(object):
 
             if self.recovery not in [SyscallRecoveryType.JUMPER,
                                      SyscallRecoveryType.JUMPER_RANDOMIZED] \
-                             and self.wow64:
+                    and self.wow64:
                 code += '\n\t"finish: \\n"'
             code += '\n\t\t"lea esp, [esp+4] \\n"'
             code += '\n\t"ret_address_epilog: \\n"'
@@ -446,7 +450,7 @@ class SysWhispers(object):
                 code += '\n\t\t"sysenter \\n"'
             code += '\n\t\t"ret \\n"'
 
-        if self.arch == Arch.All:
+        if self.arch == Arch.Any:
             code += '\n#endif'
         code += '\n\t);'
         code += '\n}'
@@ -454,7 +458,7 @@ class SysWhispers(object):
 
         return code
 
-    def _get_function_asm_code_msvc(self, function_name: str, arch: str) -> str:
+    def _get_function_asm_code_msvc(self, function_name: str, arch: Arch) -> str:
         function_hash = self._get_function_hash(function_name)
         num_params = len(self.prototypes[function_name]['params'])
         code = ''
@@ -520,7 +524,7 @@ class SysWhispers(object):
 
             if self.recovery not in [SyscallRecoveryType.JUMPER,
                                      SyscallRecoveryType.JUMPER_RANDOMIZED] \
-                             and self.wow64:
+                    and self.wow64:
                 # check if the process is WoW64 or native
                 code += '\t\tcall local_is_wow64\n'
                 code += '\t\ttest eax, eax\n'
@@ -548,7 +552,7 @@ class SysWhispers(object):
 
             if self.recovery not in [SyscallRecoveryType.JUMPER,
                                      SyscallRecoveryType.JUMPER_RANDOMIZED] \
-                             and self.wow64:
+                    and self.wow64:
                 code += '\tfinish:\n'
             code += '\t\tlea esp, [esp+4]\n'
             code += '\tret_address_epilog:\n'
@@ -585,8 +589,10 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description="SysWhispers3 - SysWhispers on steroids")
     parser.add_argument('-p', '--preset', help='Preset ("all", "common")', required=False)
-    parser.add_argument('-a', '--arch', default="x64", choices=["x86", "x64", "all"], help='Architecture', required=False)
-    parser.add_argument('-c', '--compiler', default="msvc", choices=["msvc", "mingw", "all"], help='Compiler', required=False)
+    parser.add_argument('-a', '--arch', default="x64", choices=["x86", "x64", "all"], help='Architecture',
+                        required=False)
+    parser.add_argument('-c', '--compiler', default="msvc", choices=["msvc", "mingw", "all"], help='Compiler',
+                        required=False)
     parser.add_argument('-m', '--method', default="embedded",
                         choices=["embedded", "egg_hunter", "jumper", "jumper_randomized"],
                         help='Syscall recovery method', required=False)
