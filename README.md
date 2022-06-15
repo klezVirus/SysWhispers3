@@ -113,7 +113,7 @@ py .\syswhispers.py --preset all -o syscalls_all -m jumper --arch x86
 py .\syswhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory -o syscalls_mem --arch x86 --wow64
 
 # Egg-Hunting SysWhispers, to bypass the "mark of the sycall" (common function)
-py .\syswhispers.py --preset common -o syscalls_common -m jumper
+py .\syswhispers.py --preset common -o syscalls_common -m egg_hunter
 
 # Jumping/Jumping Randomized SysWhispers, to bypass dynamic RIP validation (all functions) using MinGW as the compiler
 py .\syswhispers.py --preset all -o syscalls_all -m jumper -c mingw
