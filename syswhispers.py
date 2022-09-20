@@ -362,6 +362,9 @@ class SysWhispers(object):
             code += '\n\t\t"mov r8, [rsp+24] \\n"'
             code += '\n\t\t"mov r9, [rsp+32] \\n"'
             code += '\n\t\t"mov r10, rcx \\n"'
+            if self.debug:
+                code += '\n\t\t"int 3 \\n"'
+
             if self.recovery in [SyscallRecoveryType.JUMPER, SyscallRecoveryType.JUMPER_RANDOMIZED]:
                 code += '\n\t\t"jmp r15 \\n"'
             elif self.recovery == SyscallRecoveryType.EGG_HUNTER:
@@ -441,6 +444,10 @@ class SysWhispers(object):
 
             code += '\n\t"do_sysenter_interrupt: \\n"'
             code += '\n\t\t"mov edx, esp \\n"'
+
+            if self.debug:
+                code += '\n\t\t"int 3 \\n"'
+
             if self.recovery == SyscallRecoveryType.EGG_HUNTER:
                 for x in self.egg + self.egg:
                     code += f'\n\t\t"DB {x} \\n"'
@@ -488,6 +495,10 @@ class SysWhispers(object):
             code += '\tmov r8, [rsp+24]\n'
             code += '\tmov r9, [rsp+32]\n'
             code += '\tmov r10, rcx\n'
+
+            if self.debug:
+                code += '\tint 3\n'
+
             if self.recovery in [SyscallRecoveryType.JUMPER, SyscallRecoveryType.JUMPER_RANDOMIZED]:
                 code += '\tjmp r15                                ; Jump to -> Invoke system call.\n'
             elif self.recovery == SyscallRecoveryType.EGG_HUNTER:
