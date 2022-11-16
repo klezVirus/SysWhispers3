@@ -34,7 +34,7 @@ except ModuleNotFoundError:
 
         @staticmethod
         def from_string(label):
-            if label.lower() in ["any"]:
+            if label.lower() in ["any", "all"]:
                 return Arch.Any
             elif label.lower() in ["32", "86", "x86", "i386"]:
                 return Arch.x86
