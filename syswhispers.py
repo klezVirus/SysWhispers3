@@ -34,7 +34,7 @@ except ModuleNotFoundError:
 
         @staticmethod
         def from_string(label):
-            if label.lower() in ["any"]:
+            if label.lower() in ["any", "all"]:
                 return Arch.Any
             elif label.lower() in ["32", "86", "x86", "i386"]:
                 return Arch.x86
@@ -393,10 +393,10 @@ class SysWhispers(object):
             code += '\n\t\t"call _SW3_GetSyscallNumber \\n"'
             code += '\n\t\t"lea esp, [esp+4] \\n"'
             code += f'\n\t\t"mov ecx, {hex(num_params)} \\n"'
-            code += '\n\t"push_argument: \\n"'
+            code += f'\n\t"push_argument_{function_hash:08X}: \\n"'
             code += '\n\t\t"dec ecx \\n"'
             code += '\n\t\t"push [ebp + 8 + ecx * 4] \\n"'
-            code += '\n\t\t"jnz push_argument \\n"'
+            code += f'\n\t\t"jnz push_argument_{function_hash:08X} \\n"'
             if self.debug:
                 # 2nd SW breakpoint, to study the syscall instruction in detail
                 code += '\n\t\t"int 3 \\n"'
@@ -412,7 +412,7 @@ class SysWhispers(object):
 
                 # if is wow64
                 code += '\n\t\t"call _internal_cleancall_wow64_gate \\n"'
-                code += '\n\t\t"lea ebx, [ret_address_epilog] \\n"'
+                code += f'\n\t\t"lea ebx, [ret_address_epilog_{function_hash:08X}] \\n"'
                 code += '\n\t\t"push ebx \\n"'
                 # Note: Workaround for Wow64 call
                 # ntdll!NtWriteFile+0xc:
@@ -428,21 +428,21 @@ class SysWhispers(object):
                 code += '\n\t"is_native: \\n"'
 
             code += '\n\t\t"mov eax, ecx \\n"'
-            code += '\n\t\t"lea ebx, [ret_address_epilog] \\n"'
+            code += f'\n\t\t"lea ebx, [ret_address_epilog_{function_hash:08X}] \\n"'
             code += '\n\t\t"push ebx \\n"'
-            code += '\n\t\t"call do_sysenter_interrupt \\n"'
+            code += f'\n\t\t"call do_sysenter_interrupt_{function_hash:08X} \\n"'
 
             if self.recovery not in [SyscallRecoveryType.JUMPER,
                                      SyscallRecoveryType.JUMPER_RANDOMIZED] \
                     and self.wow64:
                 code += '\n\t"finish: \\n"'
             code += '\n\t\t"lea esp, [esp+4] \\n"'
-            code += '\n\t"ret_address_epilog: \\n"'
+            code += f'\n\t"ret_address_epilog_{function_hash:08X}: \\n"'
             code += '\n\t\t"mov esp, ebp \\n"'
             code += '\n\t\t"pop ebp \\n"'
             code += '\n\t\t"ret \\n"'
 
-            code += '\n\t"do_sysenter_interrupt: \\n"'
+            code += f'\n\t"do_sysenter_interrupt_{function_hash:08X}: \\n"'
             code += '\n\t\t"mov edx, esp \\n"'
 
             if self.debug:
@@ -524,10 +524,10 @@ class SysWhispers(object):
             code += '\t\tcall SW3_GetSyscallNumber\n'
             code += '\t\tlea esp, [esp+4]\n'
             code += f'\t\tmov ecx, 0{hex(num_params)[2:]}h\n'
-            code += '\tpush_argument:\n'
+            code += f'\tpush_argument_{function_hash:08X}:\n'
             code += '\t\tdec ecx\n'
             code += '\t\tpush [ebp + 8 + ecx * 4]\n'
-            code += '\t\tjnz push_argument\n'
+            code += f'\t\tjnz push_argument_{function_hash:08X}\n'
             if self.debug:
                 # 2nd SW breakpoint, to study the syscall instruction in detail
                 code += '\t\tint 3\n'
@@ -548,8 +548,8 @@ class SysWhispers(object):
                 # 77ca2a1c c22400          ret     24h
                 # In a standard call, we have two addresses before the arguments passed to the Nt function
                 # In this case, as we need to return to the program, we can insert the return address twice
-                code += '\t\tpush ret_address_epilog\n'
-                code += '\t\tpush ret_address_epilog\n'
+                code += f'\t\tpush ret_address_epilog_{function_hash:08X}\n'
+                code += f'\t\tpush ret_address_epilog_{function_hash:08X}\n'
                 code += '\t\txchg eax, ecx\n'
                 code += '\t\tjmp ecx\n'
                 code += '\t\tjmp finish\n'
@@ -558,20 +558,20 @@ class SysWhispers(object):
                 code += '\tis_native:\n'
 
             code += '\t\tmov eax, ecx\n'
-            code += '\t\tpush ret_address_epilog\n'
-            code += '\t\tcall do_sysenter_interrupt\n'
+            code += f'\t\tpush ret_address_epilog_{function_hash:08X}\n'
+            code += f'\t\tcall do_sysenter_interrupt_{function_hash:08X}\n'
 
             if self.recovery not in [SyscallRecoveryType.JUMPER,
                                      SyscallRecoveryType.JUMPER_RANDOMIZED] \
                     and self.wow64:
                 code += '\tfinish:\n'
             code += '\t\tlea esp, [esp+4]\n'
-            code += '\tret_address_epilog:\n'
+            code += f'\tret_address_epilog_{function_hash:08X}:\n'
             code += '\t\tmov esp, ebp\n'
             code += '\t\tpop ebp\n'
             code += '\t\tret\n'
 
-            code += '\tdo_sysenter_interrupt:\n'
+            code += f'\tdo_sysenter_interrupt_{function_hash:08X}:\n'
             code += '\t\tmov edx, esp\n'
             if self.recovery == SyscallRecoveryType.EGG_HUNTER:
                 for x in self.egg + self.egg:
