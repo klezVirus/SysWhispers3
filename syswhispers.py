@@ -353,9 +353,11 @@ class SysWhispers(object):
                     code += '\n\t\t"call SW3_GetRandomSyscallAddress \\n"'
                 else:
                     code += '\n\t\t"call SW3_GetSyscallAddress \\n"'
-                code += '\n\t\t"mov r11, rax \\n"'
+                code += '\n\t\t"mov [rsp+20h], rax \\n"'
                 code += f'\n\t\t"mov ecx, 0x{function_hash:08X} \\n"'
             code += '\n\t\t"call SW3_GetSyscallNumber \\n"'
+            if self.recovery in [SyscallRecoveryType.JUMPER, SyscallRecoveryType.JUMPER_RANDOMIZED]:            
+                code += '\n\t\t"mov r11, [rsp+20h] \\n"'
             code += '\n\t\t"add rsp, 0x28 \\n"'
             code += '\n\t\t"mov rcx, [rsp+8] \\n"'
             code += '\n\t\t"mov rdx, [rsp+16] \\n"'
@@ -486,9 +488,11 @@ class SysWhispers(object):
                     code += '\tcall SW3_GetRandomSyscallAddress        ; Get a syscall offset from a different api.\n'
                 else:
                     code += '\tcall SW3_GetSyscallAddress              ; Resolve function hash into syscall offset.\n'
-                code += '\tmov r11, rax                           ; Save the address of the syscall\n'
+                code += '\tmov [rsp+20h], rax                           ; Save the address of the syscall\n'
                 code += f'\tmov ecx, 0{function_hash:08X}h        ; Re-Load function hash into ECX (optional).\n'
             code += '\tcall SW3_GetSyscallNumber              ; Resolve function hash into syscall number.\n'
+            if self.recovery in [SyscallRecoveryType.JUMPER, SyscallRecoveryType.JUMPER_RANDOMIZED]:
+                code += '\tmov r11, [rsp+20h]'
             code += '\tadd rsp, 28h\n'
             code += '\tmov rcx, [rsp+8]                      ; Restore registers.\n'
             code += '\tmov rdx, [rsp+16]\n'
