@@ -33,6 +33,7 @@ The usage is pretty similar to [SysWhispers2](https://github.com/jthuraisamy/Sys
 * It supports syscalls instruction replacement with an EGG (to be dynamically replaced)
 * It supports direct jumps to syscalls in x86/x64 mode (in WOW64 it's almost standard)
 * It supports direct jumps to random syscalls (borrowing [@ElephantSeal's idea](https://twitter.com/ElephantSe4l/status/1488464546746540042))
+* It supports standalone file (xxx.h) generation for use with external framework
 
 A better explanation of these features are better outlined i the blog post [SysWhispers is dead, long live SysWhispers!][2]
 
@@ -63,16 +64,15 @@ The help shows all the available commands and features of the tool:
 
 ```
 C:\>python syswhispers.py -h
-
-usage: syswhispers.py [-h] [-p PRESET] [-a {x86,x64}] [-m {embedded,egg_hunter,jumper,jumper_randomized}] [-f FUNCTIONS] -o OUT_FILE [--int2eh] [--wow64] [-v] [-d]
+usage: syswhispers.py [-h] [-p PRESET] [-a {x86,x64,all}] [-c {msvc,mingw,all}] [-m {embedded,egg_hunter,jumper,jumper_randomized}] [-f FUNCTIONS] -o OUT_FILE [--int2eh] [--wow64] [-s] [-q | -v | -d]
 
 SysWhispers3 - SysWhispers on steroids
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -p PRESET, --preset PRESET
                         Preset ("all", "common")
-  -a {x86,x64}, --arch {x86,x64}
+  -a {x86,x64,all}, --arch {x86,x64,all}
                         Architecture
   -c {msvc,mingw,all}, --compiler {msvc,mingw,all}
                         Compiler
@@ -83,9 +83,11 @@ optional arguments:
   -o OUT_FILE, --out-file OUT_FILE
                         Output basename (w/o extension)
   --int2eh              Use the old `int 2eh` instruction in place of `syscall`
-  --wow64               Use Wow64 to run x86 on x64 (only usable with x86 architecture)
+  --wow64               Add support for WoW64, to run x86 on x64
+  -s, --standalone      Generate a single header file
+  -q, --quiet           Disable all output
   -v, --verbose         Enable debug output
-  -d, --debug           Enable syscall debug (insert software breakpoint)
+  -d, --debug           Enable debug output and syscall debug (insert software breakpoint)
 ```
 
 ### Command Lines
@@ -101,6 +103,9 @@ py .\syswhispers.py --preset common -o syscalls_common
 
 # Export NtProtectVirtualMemory and NtWriteVirtualMemory with compatibility for all versions.
 py .\syswhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory -o syscalls_mem
+
+# Export NtProtectVirtualMemory and NtWriteVirtualMemory in a standalone file (syscalls_mem.h) with compatibility for all versions.
+py .\syswhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory -o syscalls_mem -s
 ```
 
 #### SysWhispers3-only samples 
@@ -118,7 +123,8 @@ py .\syswhispers.py --preset common -o syscalls_common -m egg_hunter
 # Jumping/Jumping Randomized SysWhispers, to bypass dynamic RIP validation (all functions) using MinGW as the compiler
 py .\syswhispers.py --preset all -o syscalls_all -m jumper -c mingw
 
-
+# Jumping Randomized SysWhispers, to bypass dynamic RIP validation (common functions) using MinGW as the compiler and all in one standalone file (syscalls_common.h)
+py .\syswhispers.py --preset common -o syscalls_common -m jumper_randomized -c mingw -s
 ```
 
 ### Script Output

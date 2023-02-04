@@ -1,10 +1,6 @@
-#include "<BASENAME>.h"
-#include <stdio.h>
-
+// <INCLUDES>
 //#define DEBUG
-
 // JUMPER
-
 #ifdef _M_IX86
 
 EXTERN_C PVOID internal_cleancall_wow64_gate(VOID) {
