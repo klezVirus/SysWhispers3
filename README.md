@@ -64,6 +64,19 @@ The help shows all the available commands and features of the tool:
 
 ```
 C:\>python syswhispers.py -h
+                                                       
+                  .                         ,--.       
+,-. . . ,-. . , , |-. o ,-. ,-. ,-. ,-. ,-.  __/       
+`-. | | `-. |/|/  | | | `-. | | |-' |   `-. .  \      
+`-' `-| `-' ' '   ' ' ' `-' |-' `-' '   `-'  '''       
+     /|                     |  @Jackson_T              
+    `-'                     '  @modexpblog, 2021       
+
+                      Edits by @klezVirus,  2022       
+                      Edits by     @x42en,  2023       
+SysWhispers3: Why call the kernel when you can whisper?
+
+
 usage: syswhispers.py [-h] [-p PRESET] [-a {x86,x64,all}] [-c {msvc,mingw,all}] [-m {embedded,egg_hunter,jumper,jumper_randomized}] [-f FUNCTIONS] -o OUT_FILE [--int2eh] [--wow64] [-s] [-q | -v | -d]
 
 SysWhispers3 - SysWhispers on steroids
@@ -73,11 +86,11 @@ options:
   -p PRESET, --preset PRESET
                         Preset ("all", "common")
   -a {x86,x64,all}, --arch {x86,x64,all}
-                        Architecture
+                        Architecture (default: x64)
   -c {msvc,mingw,all}, --compiler {msvc,mingw,all}
-                        Compiler
+                        Compiler (default: msvc)
   -m {embedded,egg_hunter,jumper,jumper_randomized}, --method {embedded,egg_hunter,jumper,jumper_randomized}
-                        Syscall recovery method
+                        Syscall recovery method (default: embedded)
   -f FUNCTIONS, --functions FUNCTIONS
                         Comma-separated functions
   -o OUT_FILE, --out-file OUT_FILE
@@ -132,14 +145,15 @@ py .\syswhispers.py --preset common -o syscalls_common -m jumper_randomized -c m
 ```
 PS C:\Projects\SysWhispers2> py .\syswhispers.py --preset common --out-file temp\syscalls_common -v 
                                                        
-                  .                         ,--.
-,-. . . ,-. . , , |-. o ,-. ,-. ,-. ,-. ,-.  __/
-`-. | | `-. |/|/  | | | `-. | | |-' |   `-. .  \
-`-' `-| `-' ' '   ' ' ' `-' |-' `-' '   `-'  '''
-     /|                     |  @Jackson_T
-    `-'                     '  @modexpblog, 2021
+                  .                         ,--.       
+,-. . . ,-. . , , |-. o ,-. ,-. ,-. ,-. ,-.  __/       
+`-. | | `-. |/|/  | | | `-. | | |-' |   `-. .  \      
+`-' `-| `-' ' '   ' ' ' `-' |-' `-' '   `-'  '''       
+     /|                     |  @Jackson_T              
+    `-'                     '  @modexpblog, 2021       
 
-                      Edits by @klezVirus,  2022
+                      Edits by @klezVirus,  2022       
+                      Edits by     @x42en,  2023       
 SysWhispers3: Why call the kernel when you can whisper?
 
 
