@@ -36,5 +36,6 @@ class SysWhispersConstants:
         'NtAdjustPrivilegesToken',
         'NtDeviceIoControlFile',
         'NtQueueApcThread',
+        'NtWaitForSingleObject',
         'NtWaitForMultipleObjects'
     ]
