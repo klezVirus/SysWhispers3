@@ -2,7 +2,7 @@
 
 import logging
 
-from app.utils.singleton import Singleton
+from syswhispers3.utils.singleton import Singleton
 
 class LoggerSingleton(metaclass=Singleton):
     def __init__(self, log_level:int=logging.INFO) -> None:

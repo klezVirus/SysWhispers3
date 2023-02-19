@@ -4,9 +4,9 @@
 import logging
 import argparse
 
-from app.syscallsGenerator import SyscallsGenerator
-from app.utils.loggerSingleton import LoggerSingleton
-from app.constants.sysWhispersConstants import SysWhispersConstants
+from syswhispers3.syscallsGenerator import SyscallsGenerator
+from syswhispers3.utils.loggerSingleton import LoggerSingleton
+from syswhispers3.constants.sysWhispersConstants import SysWhispersConstants
 
 if __name__ == '__main__':
     # Set default log level

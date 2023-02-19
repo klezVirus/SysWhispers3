@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
 
 import os
-from app.utils import get_project_root
+from syswhispers3.utils import get_project_root
 
 class SysWhispersConstants:
-    SYSWHISPERS_DATA_PATH = "data"
+    SYSWHISPERS_DATA_PATH = os.path.join("syswhispers3","data")
     COMMON_SYSCALLS = [
         'NtCreateProcess',
         'NtCreateThreadEx',

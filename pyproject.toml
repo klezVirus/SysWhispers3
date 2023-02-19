@@ -2,7 +2,7 @@
 name = "syswhispers3"
 version = "0.1.0"
 description = "SysWhispers on Steroids - AV/EDR evasion via direct system calls"
-authors = ["0x42en <0x42en@gmail.com>"]
+authors = ["0x42en <0x42en@gmail.com>", "@klezVirus","@Jackson_T", "@modexpblog"]
 license = "Apache License 2.0"
 readme = "README.md"
 
@@ -13,3 +13,19 @@ python = "^3.8"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry_bumpversion.replacements]]
+files = ["__metadata.py"]
+search = '__version__ = "{current_version}"'
+replace = '__version__ = "{new_version}"'
+
+[[tool.poetry_bumpversion.replacements]]
+files = ["README.md", "docs/index.md"]
+search = 'Version: {current_version}'
+replace = 'Version: {new_version}'
+
+[tool.coverage.run]
+omit = [".*", "*/prohacktive_structures/*"]
+
+[tool.coverage.report]
+fail_under = 50

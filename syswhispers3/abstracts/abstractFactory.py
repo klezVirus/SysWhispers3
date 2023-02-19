@@ -2,16 +2,17 @@
 
 import string
 import random
+import logging
 
 from abc import ABC
-from app.utils.loggerSingleton import LoggerSingleton
+from syswhispers3.utils.loggerSingleton import LoggerSingleton
 
 class AbstractFactory(ABC):
-    def __init__(self) -> None:
+    def __init__(self, log_level:int=logging.INFO) -> None:
         super().__init__()
 
         # Share logger for all childs
-        self.logger = LoggerSingleton()
+        self.logger = LoggerSingleton(log_level)
 
     def __generate_random_string(self, length:int, choices:list=string.ascii_letters) -> str:
         return ''.join(random.choice(choices) for _ in range(length))

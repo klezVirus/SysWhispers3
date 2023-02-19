@@ -3,21 +3,23 @@
 import os
 import json
 import struct
+import logging
 
-from app.abstracts.abstractFactory import AbstractFactory
-from app.utils import Arch, Compiler, SyscallRecoveryType
+from syswhispers3.abstracts.abstractFactory import AbstractFactory
+from syswhispers3.utils import Arch, Compiler, SyscallRecoveryType
 
-from app.constants.sysWhispersConstants import SysWhispersConstants
+from syswhispers3.constants.sysWhispersConstants import SysWhispersConstants
 
 class SyscallsGenerator(AbstractFactory):
     def __init__(
             self,
+            log_level:int=logging.INFO,
             arch:Arch=Arch.x64,
             compiler:Compiler=Compiler.All,
             recovery:SyscallRecoveryType=SyscallRecoveryType.EMBEDDED,
             syscall_instruction:str="syscall",
             wow64:bool=False) -> None:
-        super().__init__()
+        super().__init__(log_level)
 
         # Set output level
         self.__debug = self.logger.is_debug()
@@ -515,15 +517,3 @@ class SyscallsGenerator(AbstractFactory):
         if i >= 0:
             line = line[:i]
         return f"{line.rstrip()}\n"
-
-if __name__ == '__main__':
-    import sys
-    if len(sys.argv) < 4:
-        exit(f"Usage: {sys.argv[0].split('/')[-1]} [arch] [compiler] [method]")
-    
-    arch = Arch.from_string(sys.argv[1])
-    compiler = Compiler.from_string(sys.argv[2])
-    
-    test = SyscallsGenerator(compiler=compiler, recovery=sys.argv[3])
-    asm = test._get_function_asm_code('NtProtectVirtualMemory', arch=arch, embedded=False)
-    print(asm)
