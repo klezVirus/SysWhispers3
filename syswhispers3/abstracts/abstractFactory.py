@@ -52,6 +52,7 @@ class AbstractFactory(ABC):
 
     def generate_random_seed(self) -> int:
         """Public method used to generate a random int used as seed
+        Range from: 2^28 to (2^32 - 1)
 
         Returns:
             int: The generated random seed
