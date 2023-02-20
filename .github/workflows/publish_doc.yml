@@ -25,7 +25,7 @@ jobs:
           echo "[+] Install plugins"
           pip install lazydocs mkdocs-awesome-pages-plugin
           export PYTHONPATH=$PWD
-          echo "[+] Generate documentation of ${REPO_NAME} (${REPO_NAME_LC}/) using \"https://github.com/${{ github.repository }}/blob/master\" as base-url..."
+          echo "[+] Generate documentation of ${REPO_NAME_LC}/ using \"https://github.com/${{ github.repository }}/blob/master\" as base-url..."
           lazydocs --output-path="./docs/documentation" --overview-file="README.md" --src-base-url="https://github.com/${{ github.repository }}/blob/master" ${REPO_NAME_LC}/
 
       - name: Deploy docs
