@@ -11,6 +11,11 @@ from syswhispers3.utils import Arch, Compiler, SyscallRecoveryType
 from syswhispers3.constants.sysWhispersConstants import SysWhispersConstants
 
 class SyscallsGenerator(AbstractFactory):
+    """Main class used to generate SysWhispers files in various format, or standalone header. SysWhispers allows you to evade AV/EDR by invoking syscalls in various manners so userland hooked DLL are unable to detect them.
+
+    Args:
+        AbstractFactory (_type_): _description_
+    """
     def __init__(
             self,
             log_level:int=logging.INFO,
@@ -49,10 +54,20 @@ class SyscallsGenerator(AbstractFactory):
 
         # self.validate()
 
-    def list_supported_syscalls(self) -> list:
+    def list_supported_functions(self) -> list:
+        """Public method used to list all supported kernal calls handled by SysWhispers
+
+        Returns:
+            list: The kernel calls supported as a list of strings
+        """
         return list(self.__prototypes.keys())
     
     def validate(self) -> bool:
+        """Public method used to check if EGG-Hunter method is used while compiler is set to 'MINGW' which is incompatible by now
+
+        Returns:
+            bool: Flag set when everything run smoothly
+        """
         if self.__recovery == SyscallRecoveryType.EGG_HUNTER:
             if self.__compiler in [Compiler.All, Compiler.MINGW]:
                 # TODO: try to make the 'db' instruction work in MinGW
@@ -71,7 +86,21 @@ class SyscallsGenerator(AbstractFactory):
 
         return True
     
-    def generate(self, function_names:list=(), basename: str = 'syscalls', standalone:bool=False) -> bool:
+    def generate(self, function_names:list=SysWhispersConstants.COMMON_SYSCALLS, basename: str = 'syscalls', standalone:bool=False) -> bool:
+        """Public method used to generate code files based on requested configuration
+
+        Args:
+            function_names (list, optional): The list of kernel calls to evade. Defaults to COMMON_SYSCALLS.
+            basename (str, optional): The basename used for filename generation, will be prepend to extensions. Defaults to 'syscalls'.
+            standalone (bool, optional): When set to True this will concatanate all code in a single header file for easier import in external project. Defaults to False.
+
+        Raises:
+            ValueError: Error raised when standalone option is set and the architecture is set to ALL which is incompatible at the moment
+            ValueError: Error raised if you call this method with an empty array of kernel calls
+
+        Returns:
+            bool: Return True if all run smoothly
+        """
         if standalone and self.__arch == Arch.Any:
             raise ValueError('You can not generate a standalone file for all architecture. Please specify `-a [x86 | x64]` in your parameters.')
         
@@ -154,8 +183,15 @@ class SyscallsGenerator(AbstractFactory):
         # Display written files
         for f in written:
             self.logger.output(f"\t{f}")
+        
+        return True
     
     def __get_wow64_function(self) -> str:
+        """Private method used to insert the WOW gate so you can run 32bits code on 64bits architecture. Mainly used when setting Architecture to ALL
+
+        Returns:
+            str: The WOW64 function code generated
+        """
         msvc_wow64 = '__declspec(naked) BOOL local_is_wow64(void)\n{\n    __asm {\n        mov eax, fs:[0xc0]\n        test eax, eax\n        jne wow64\n        mov eax, 0\n        ret\n        wow64:\n        mov eax, 1\n        ret\n    }\n}\n'
         mingw_wow64 = '__declspec(naked) BOOL local_is_wow64(void)\n{\n    __asm(\n        "mov eax, fs:[0xc0] \\n"\n        "test eax, eax \\n"\n        "jne wow64 \\n"\n        "mov eax, 0 \\n"\n        "ret \\n"\n        "wow64: \\n"\n        "mov eax, 1 \\n"\n        "ret \\n"\n    );\n}'
         wow64_function = ''
@@ -173,6 +209,18 @@ class SyscallsGenerator(AbstractFactory):
         return wow64_function
     
     def __generate_asm_code(self, function_names:list, arch:str) -> str:
+        """Private method used to generate ASM opcodes based on architecture and kernel calls list to evade
+
+        Args:
+            function_names (list): The kernel calls list to evade
+            arch (str): The architecture chosen. Can be x64 | x86 | ALL
+
+        Raises:
+            NotImplementedError: Error raised when architecture is not in supported list
+
+        Returns:
+            str: The Intel format opcodes generated
+        """
         output_asm = ''
         # ASM code is embedded in C file when using MINGW
         if self.__compiler in [Compiler.All, Compiler.MSVC]:
@@ -213,6 +261,14 @@ class SyscallsGenerator(AbstractFactory):
         return output_asm
 
     def __generate_h_code(self, function_names:list) -> str:
+        """Private method used to generate the C++ Header file based on data/base.h template.
+
+        Args:
+            function_names (list): The kernel calls list to evade
+
+        Returns:
+            str: The C++ code generated
+        """
         # Load base content
         with open(os.path.join(SysWhispersConstants.SYSWHISPERS_DATA_PATH, 'base.h'), 'r') as bs:
             # Replace <SEED_VALUE> with a random seed.
@@ -236,6 +292,14 @@ class SyscallsGenerator(AbstractFactory):
         return base_header_contents
 
     def __generate_c_code(self, function_names:list) -> str:
+        """Private method used to generate the C++ source file based on data/base.c template
+
+        Args:
+            function_names (list): The kernel calls list to evade
+
+        Returns:
+            str: The C++ source code generated
+        """
         # Load base content
         with open(os.path.join(SysWhispersConstants.SYSWHISPERS_DATA_PATH, 'base.c'), 'r') as bs:
             base_source_contents = bs.read()
@@ -296,6 +360,14 @@ class SyscallsGenerator(AbstractFactory):
         return base_source_contents
     
     def __get_typedefs(self, function_names: list) -> list:
+        """Private method used to retrieve definition types of kernel calls list to evade using the data/typedefs.json ressource file
+
+        Args:
+            function_names (list): The kernel calls list to evade
+
+        Returns:
+            list: The C++ code generated
+        """
         def _names_to_ids(names: list) -> list:
             return [next(i for i, t in enumerate(self.__typedefs) if n in t['identifiers']) for n in names]
 
@@ -336,6 +408,14 @@ class SyscallsGenerator(AbstractFactory):
         return typedef_code
     
     def __get_function_prototype(self, function_name: str) -> str:
+        """Private method used to retrieve prototypes of kernel calls list to evade using the data/prototypes.json ressource file
+
+        Args:
+            function_names (list): The kernel calls list to evade
+
+        Returns:
+            list: The C++ code generated
+        """
         # Check if given function is in syscall map.
         if function_name not in self.__prototypes:
             raise ValueError('Invalid function name provided.')
@@ -357,6 +437,14 @@ class SyscallsGenerator(AbstractFactory):
         return signature
 
     def __get_function_hash(self, function_name: str) -> str:
+        """Private method used to hash kernel call to evade with random hex number in order to avoid static analysis detection. Used by _get_function_asm_code()
+
+        Args:
+            function_name (str): The kernel call to evade
+
+        Returns:
+            str: The kernel call randomized
+        """
         func_hash = self.__seed
         name = function_name.replace('Nt', 'Zw', 1) + '\0'
         ror8 = lambda v: ((v >> 8) & (2 ** 32 - 1)) | ((v << 24) & (2 ** 32 - 1))
@@ -368,13 +456,16 @@ class SyscallsGenerator(AbstractFactory):
         return f'{func_hash:08X}'
 
     def _get_function_asm_code(self, template: str, function_name: str, arch:Arch, embedded:bool=False) -> str:
-        """Internal method used to generate ASM x64 opcodes embedded in C file
+        """Private method used to generate ASM opcodes handling the syscall evasion of a kernel call. The result is embedded in the data/base-ARCH.asm template 
 
         Args:
-            function_name (str): The function name for which generate opcodes
+            template (str): The template source code to use
+            function_name (str): The kernel call to evade
+            arch (Arch): The architecture to use for opcodes generation
+            embedded (bool): Standalone flag used to modify the leading and trailing code: ASM and C++ headers are not using opcodes the same way ;)
 
         Returns:
-            str: The opcodes generated
+            str: The ASM opcodes generated
         """
         # Set register
         register = 'r15' if arch == Arch.x64 else 'edi'
@@ -512,7 +603,15 @@ class SyscallsGenerator(AbstractFactory):
 
         return opcodes
 
-    def __remove_comments(self, line):
+    def __remove_comments(self, line:str) -> str:
+        """Private method used to remove comments from asm source file
+
+        Args:
+            line (str): The asm source code line to clean
+
+        Returns:
+            str: The ASM cleaned line
+        """
         i = line.find(';')
         if i >= 0:
             line = line[:i]

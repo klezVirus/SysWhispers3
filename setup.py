@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 from setuptools.command import easy_install
 from setuptools.command.install import install
 
-import re, subprocess
+import re
 
 MRE = r"__([a-z]+)__\s*=\s*['\"]([^'\"]*)['\"]"
 
@@ -22,9 +22,19 @@ with open("requirements.txt", "rt") as f:
 setup(
     name="syswhispers3",
     description="SysWhispers helps with evasion by generating header/ASM files implants can use to make direct system calls",
-    url="https://www.prohacktive.io",
-    license="Proprietary",
-    classifiers=["License :: Other/Proprietary License"],
+    url="https://github.com/x42en/SysWhispers3",
+    license="Apache License 2.0",
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'Intended Audience :: System Administrators',
+        'Operating System :: OS Independent',
+        'License :: OSI Approved :: Apache Software License',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: Implementation :: PyPy',
+        'Topic :: Security',
+        'Topic :: Software Development :: Code Generators',
+    ],
     author=metadata["author"],
     author_email=metadata["authoremail"],
     version=metadata["version"],

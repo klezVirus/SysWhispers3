@@ -1,0 +1,14 @@
+nav:
+  - Home: index.md
+  - Contribute:
+      - Code rules: contribute/code_rules.md
+      - Installation: contribute/installation.md
+      - Prerequise: contribute/prerequise.md
+      - Tests: contribute/tests.md
+  - Install:
+      - Installation: install/installation.md
+      - Prerequise: install/prerequise.md
+      - Uninstall: install/uninstall.md
+  - Documentation:
+    - Overview: documentation/README.md
+    - ...

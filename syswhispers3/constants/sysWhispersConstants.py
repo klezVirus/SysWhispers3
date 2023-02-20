@@ -4,6 +4,8 @@ import os
 from syswhispers3.utils import get_project_root
 
 class SysWhispersConstants:
+    """Simple class used to store SysWhispers constants
+    """
     SYSWHISPERS_DATA_PATH = os.path.join("syswhispers3","data")
     COMMON_SYSCALLS = [
         'NtCreateProcess',
