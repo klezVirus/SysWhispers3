@@ -230,9 +230,6 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,linux,macos,windows
 
-# Do not commit generated files
-libs/syscalls.h
-
 # Remove doc locally generated
 docs/documentation/*.md
 site
