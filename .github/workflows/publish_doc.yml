@@ -19,8 +19,8 @@ jobs:
 
       - name: Prepare docs using lazydocs
         run: |
-          echo ::set-env REPO_NAME=TF_VAR_instance_label::${GITHUB_REPOSITORY#*/}
-          echo ::set-env REPO_NAME_LC=${REPO_NAME,,}
+          echo "REPO_NAME=TF_VAR_instance_label::${GITHUB_REPOSITORY#*/}" >>${GITHUB_ENV}
+          echo "REPO_NAME_LC=${REPO_NAME,,}" >>${GITHUB_ENV}
           echo "[+] Install plugins"
           pip install lazydocs mkdocs-awesome-pages-plugin
           export PYTHONPATH=$PWD
