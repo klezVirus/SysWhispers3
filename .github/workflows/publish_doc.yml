@@ -26,7 +26,7 @@ jobs:
         run: |
           pip install lazydocs mkdocs-awesome-pages-plugin
           export PYTHONPATH=${PWD}
-          lazydocs --output-path="./docs/documentation" --overview-file="README.md" --src-base-url="https://github.com/${{ github.repository }}/blob/master" ${{REPO_NAME_LC}}/
+          lazydocs --output-path="./docs/documentation" --overview-file="README.md" --src-base-url="https://github.com/${{ github.repository }}/blob/master" ${REPO_NAME_LC}/
 
       - name: Deploy docs
         uses: mhausenblas/mkdocs-deploy-gh-pages@master
