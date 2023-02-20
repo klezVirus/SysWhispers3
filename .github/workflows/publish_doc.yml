@@ -10,8 +10,23 @@ jobs:
     name: Deploy docs
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: set lower case project name
+        run: |
+          echo "REPO_NAME=${{ github.event.repository.name }}" >>${GITHUB_ENV}
+          echo "REPO_NAME_LC=${REPO_NAME,,}" >>${GITHUB_ENV}
+
+      - name: Prepare docs using lazydocs
+        run: |
+          pip install lazydocs mkdocs-awesome-pages-plugin
+          export PYTHONPATH=${PWD}
+          lazydocs --output-path="./docs/documentation" --overview-file="README.md" --src-base-url="https://github.com/${{ github.repository }}/blob/master" ${{REPO_NAME_LC}}/
 
       - name: Deploy docs
         uses: mhausenblas/mkdocs-deploy-gh-pages@master
@@ -19,4 +34,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CONFIG_FILE: mkdocs.yml
-          REQUIREMENTS: requirements.txt
