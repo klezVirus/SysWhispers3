@@ -25,7 +25,7 @@ if __name__ == '__main__':
     logger = LoggerSingleton(log_level)
 
     parser = argparse.ArgumentParser(description="SysWhispers3 - SysWhispers on steroids")
-    parser.add_argument('-p', '--preset', help='Preset functions ("all", "common")', choices=['all', 'common'], required=False)
+    parser.add_argument('-p', '--preset', help='Preset functions ("all", "donut", "common")', choices=['all', 'donut', 'common'], required=False)
     parser.add_argument('-a', '--arch', default="x64", choices=["x86", "x64", "all"], help='Architecture (default: x64)',
                         required=False)
     parser.add_argument('-c', '--compiler', default="msvc", choices=["msvc", "mingw", "all"], help='Compiler (default: msvc)',
@@ -77,10 +77,13 @@ if __name__ == '__main__':
             logger.output('All functions selected.\n')
             sw.generate(basename=args.out_file, standalone=args.standalone)
 
-        elif args.preset in ['common', 'all']:
+        elif args.preset in ['common', 'donut', 'all']:
             if args.preset == 'common':
                 logger.output('Common functions selected.\n')
                 sw.generate(basename=args.out_file, standalone=args.standalone)
+            elif args.preset == 'donut':
+                logger.output('Donut functions selected.\n')
+                sw.generate(sw.list_donut_functions(), basename=args.out_file, standalone=args.standalone)
             elif args.preset == 'all':
                 logger.output('ALL functions selected.\n')
                 sw.generate(sw.list_supported_functions(), basename=args.out_file, standalone=args.standalone)

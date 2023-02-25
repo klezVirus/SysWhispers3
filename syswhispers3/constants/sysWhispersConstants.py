@@ -8,6 +8,22 @@ class SysWhispersConstants:
     """
     SYSWHISPERS_DATA_PATH = os.path.join("syswhispers3","data")
     SYSWHISPERS_KEY_LEN = 23
+    DONUT_SYSCALLS = [
+        'NtCreateSection',
+        'NtMapViewOfSection',
+        'NtUnmapViewOfSection',
+        'NtContinue',
+        'NtClose',
+        'NtWaitForSingleObject',
+        'NtProtectVirtualMemory',
+        'NtAllocateVirtualMemory',
+        'NtCreateFile',
+        'NtGetContextThread',
+        'NtFreeVirtualMemory',
+        'NtQueryVirtualMemory',
+        'NtCreateThreadEx',
+        'NtFlushInstructionCache'
+    ]
     COMMON_SYSCALLS = [
         'NtCreateProcess',
         'NtCreateThreadEx',

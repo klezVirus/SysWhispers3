@@ -55,12 +55,20 @@ class SyscallsGenerator(AbstractFactory):
         # self.validate()
 
     def list_supported_functions(self) -> list:
-        """Public method used to list all supported kernal calls handled by SysWhispers
+        """Public method used to list all supported kernel calls handled by SysWhispers
 
         Returns:
             list: The kernel calls supported as a list of strings
         """
         return list(self.__prototypes.keys())
+    
+    def list_donut_functions(self) -> list:
+        """Public method used to list all kernel calls used by Donut
+
+        Returns:
+            list: The kernel calls used by Donut as a list of strings
+        """
+        return SysWhispersConstants.DONUT_SYSCALLS
     
     def validate(self) -> bool:
         """Public method used to check if EGG-Hunter method is used while compiler is set to 'MINGW' which is incompatible by now
