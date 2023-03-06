@@ -1,4 +1,3 @@
-#### HEADER ####
 	mov [rsp +8], rcx                     ; Save registers.
 	mov [rsp+16], rdx
 	mov [rsp+24], r8
@@ -15,4 +14,3 @@
 	mov r10, rcx
 	#### DEBUG ####
 	#### SYSCALL ####
-#### FOOTER ####

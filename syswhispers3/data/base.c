@@ -230,32 +230,4 @@ EXTERN_C DWORD SW3_GetSyscallNumber(DWORD FunctionHash)
     return -1;
 }
 
-EXTERN_C PVOID SW3_GetSyscallAddress(DWORD FunctionHash)
-{
-    // Ensure SW3_SyscallList is populated.
-    if (!SW3_PopulateSyscallList()) return NULL;
-
-    for (DWORD i = 0; i < SW3_SyscallList.Count; i++)
-    {
-        if (FunctionHash == SW3_SyscallList.Entries[i].Hash)
-        {
-            return SW3_SyscallList.Entries[i].SyscallAddress;
-        }
-    }
-
-    return NULL;
-}
-
-EXTERN_C PVOID SW3_GetRandomSyscallAddress(DWORD FunctionHash)
-{
-    // Ensure SW3_SyscallList is populated.
-    if (!SW3_PopulateSyscallList()) return NULL;
-
-    DWORD index = ((DWORD) rand()) % SW3_SyscallList.Count;
-
-    while (FunctionHash == SW3_SyscallList.Entries[index].Hash){
-        // Spoofing the syscall return address
-        index = ((DWORD) rand()) % SW3_SyscallList.Count;
-    }
-    return SW3_SyscallList.Entries[index].SyscallAddress;
-}
+// GET_SYSCALL_ADDR

@@ -4,6 +4,7 @@ from pathlib import Path
 from enum import Enum
 from typing import Union
 
+
 def get_project_root() -> Path:
     """Function used to retrieve the project current path
 
@@ -12,17 +13,19 @@ def get_project_root() -> Path:
     """
     return Path(__file__).parent
 
+
 base_directory = get_project_root()
 
+
 class Arch(Enum):
-    """Simple class to list available architectures
-    """
+    """Simple class to list available architectures"""
+
     Any = ""
     x86 = "x86"
     x64 = "x64"
 
     @staticmethod
-    def from_string(label:str):
+    def from_string(label: str):
         """Public method used to transform strings into compatible Architecture option
 
         Args:
@@ -40,14 +43,14 @@ class Arch(Enum):
 
 
 class Compiler(Enum):
-    """Simple class to list available compilers
-    """
+    """Simple class to list available compilers"""
+
     All = ""
     MSVC = "MSVC"
     MINGW = "MinGW"
 
     @staticmethod
-    def from_string(label:str):
+    def from_string(label: str):
         """Public method used to transform strings into compatible Compiler option
 
         Args:
@@ -66,17 +69,21 @@ class Compiler(Enum):
 
 # Define SyscallRecoveryType
 class SyscallRecoveryType(Enum):
-    """Simple class to list available syscall recovery methods
-    """
+    """Simple class to list available syscall recovery methods"""
+
     EMBEDDED = 0
     EGG_HUNTER = 1
     JUMPER = 2
     JUMPER_RANDOMIZED = 3
 
     @classmethod
-    def from_name_or_default(cls, name:str) -> int:
+    def from_name_or_default(cls, name: str) -> int:
         _types = dict(map(lambda c: (c.name.lower(), c.value), SyscallRecoveryType))
-        return SyscallRecoveryType(_types[name]) if name in _types.keys() else SyscallRecoveryType.EMBEDDED
+        return (
+            SyscallRecoveryType(_types[name])
+            if name in _types.keys()
+            else SyscallRecoveryType.EMBEDDED
+        )
 
     @classmethod
     def get_name(cls, value: Union[str, int]) -> str:
@@ -86,7 +93,7 @@ class SyscallRecoveryType(Enum):
         return _types[value] if value in _types.keys() else None
 
     @classmethod
-    def from_name(cls, name:str) -> int:
+    def from_name(cls, name: str) -> int:
         _types = dict(map(lambda c: (c.name.lower(), c.value), cls))
         return _types[name] if name in _types.keys() else None
 

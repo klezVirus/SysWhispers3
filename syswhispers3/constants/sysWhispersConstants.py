@@ -1,12 +1,10 @@
 # -*- coding:utf-8 -*-
 
-import os
 from syswhispers3.utils import get_project_root
 
 class SysWhispersConstants:
     """Simple class used to store SysWhispers constants
     """
-    SYSWHISPERS_DATA_PATH = os.path.join("syswhispers3","data")
     SYSWHISPERS_KEY_LEN = 23
     DONUT_SYSCALLS = [
         'NtCreateSection',
@@ -58,3 +56,35 @@ class SysWhispersConstants:
         'NtWaitForSingleObject',
         'NtWaitForMultipleObjects'
     ]
+    JUMPER_SYSCALL_RECOVERY = """
+EXTERN_C PVOID SW3_GetSyscallAddress(DWORD FunctionHash)
+{
+    // Ensure SW3_SyscallList is populated.
+    if (!SW3_PopulateSyscallList()) return NULL;
+
+    for (DWORD i = 0; i < SW3_SyscallList.Count; i++)
+    {
+        if (FunctionHash == SW3_SyscallList.Entries[i].Hash)
+        {
+            return SW3_SyscallList.Entries[i].SyscallAddress;
+        }
+    }
+
+    return NULL;
+}
+"""
+    JUMPER_RANDOMIZED_SYSCALL_RECOVERY = """
+EXTERN_C PVOID SW3_GetRandomSyscallAddress(DWORD FunctionHash)
+{
+    // Ensure SW3_SyscallList is populated.
+    if (!SW3_PopulateSyscallList()) return NULL;
+
+    DWORD index = ((DWORD) rand()) % SW3_SyscallList.Count;
+
+    while (FunctionHash == SW3_SyscallList.Entries[index].Hash){
+        // Spoofing the syscall return address
+        index = ((DWORD) rand()) % SW3_SyscallList.Count;
+    }
+    return SW3_SyscallList.Entries[index].SyscallAddress;
+}
+"""

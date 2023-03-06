@@ -34,6 +34,7 @@ The usage is pretty similar to [SysWhispers2](https://github.com/jthuraisamy/Sys
 * It supports direct jumps to syscalls in x86/x64 mode (in WOW64 it's almost standard)
 * It supports direct jumps to random syscalls (borrowing [@ElephantSeal's idea](https://twitter.com/ElephantSe4l/status/1488464546746540042))
 * It supports standalone file (xxx.h) generation for use with external framework
+* Can be used as a python library `pip3 install syswhispers3`
 
 A better explanation of these features are better outlined i the blog post [SysWhispers is dead, long live SysWhispers!][2]
 
@@ -53,6 +54,12 @@ SysWhispers3 is built on top of SysWhispers2, and integrates some helpful featur
 ## Documentation
 
 Most of the questions you would ask are probably in the documentation. Please **[READ THE DOC](https://x42en.github.io/SysWhispers3/)**
+
+## Install
+In order to use it as a python module
+```bash
+pip3 install --save syswhispers3
+```
 
 ## Troubleshooting
 

@@ -1,4 +1,3 @@
-#### HEADER ####
 		push ebp
 		mov ebp, esp
 		push #### FUNCTION HASH ADDR ####                        ; Load function hash into ECX.
@@ -25,4 +24,3 @@
 		#### DEBUG ####
 		mov edx, esp
 		#### SYSCALL ####
-#### FOOTER ####

@@ -5,6 +5,14 @@ import json
 import struct
 import logging
 
+try:
+    import importlib.resources as pkg_resources
+except ImportError:
+    # Try backported to PY<37 `importlib_resources`.
+    import importlib_resources as pkg_resources
+
+from syswhispers3 import data as pkg_data
+
 from syswhispers3.abstracts.abstractFactory import AbstractFactory
 from syswhispers3.utils import Arch, Compiler, SyscallRecoveryType
 
@@ -37,22 +45,20 @@ class SyscallsGenerator(AbstractFactory):
         self.__syscall_instruction = syscall_instruction
         self.__egg = self.generate_random_egg()
         self.__seed = self.generate_random_seed()
+        self.__functions = dict({'Arch.x86': dict(), 'Arch.x64': dict()})
+        self.__output_files = list()
         
         # Load type definitions
-        with open(os.path.join(SysWhispersConstants.SYSWHISPERS_DATA_PATH, "typedefs.json")) as td:
-            self.__typedefs:list = json.load(td)
+        self.__typedefs:list = json.load(pkg_resources.open_text(pkg_data, "typedefs.json"))
         
         # Load prototypes
-        with open(os.path.join(SysWhispersConstants.SYSWHISPERS_DATA_PATH, "prototypes.json")) as pr:
-            self.__prototypes:dict = json.load(pr)
+        self.__prototypes:dict = json.load(pkg_resources.open_text(pkg_data, "prototypes.json"))
         
         self.logger.debug("Params used:")
         self.logger.debug(f"\tArch: {self.__arch}")
         self.logger.debug(f"\tCompiler: {self.__compiler}")
         self.logger.debug(f"\tRecovery: {self.__recovery}")
         self.logger.debug(f"\tSyscall_instruction: {self.__syscall_instruction}")
-
-        # self.validate()
 
     def list_supported_functions(self) -> list:
         """Public method used to list all supported kernel calls handled by SysWhispers
@@ -109,8 +115,8 @@ class SyscallsGenerator(AbstractFactory):
         Returns:
             bool: Return True if all run smoothly
         """
-        if standalone and self.__arch == Arch.Any:
-            raise ValueError('You can not generate a standalone file for all architecture. Please specify `-a [x86 | x64]` in your parameters.')
+        # if standalone and self.__arch == Arch.Any:
+        #     raise ValueError('You can not generate a standalone file for all architecture. Please specify `-a [x86 | x64]` in your parameters.')
         
         written = []
 
@@ -127,34 +133,27 @@ class SyscallsGenerator(AbstractFactory):
         self.__base_name = os.path.basename(basename)
         
         # Generate code
-        h_code = self.__generate_h_code(function_names)
-        c_code = self.__generate_c_code(function_names)
-        asm_x64_code = None
-        asm_x86_code = None
-
-        if self.__arch in [Arch.Any, Arch.x64]:
-            asm_x64_code = self.__generate_asm_code(function_names, Arch.x64)
-        
-        if self.__arch in [Arch.Any, Arch.x86]:
-            asm_x86_code = self.__generate_asm_code(function_names, Arch.x86)
+        self.logger.debug("Generate .h code")
+        h_code = self.generate_h_code(function_names)
+        self.logger.debug("Generate .c code")
+        c_code = self.generate_c_code()
         
         # Write code to files
         if self.__standalone:
             # Build complete file
             standalone_code = h_code
             standalone_code += c_code
-            if asm_x64_code is not None:
-                standalone_code += asm_x64_code
-            if asm_x86_code is not None:
-                standalone_code += asm_x86_code
-
+            asm_code = self.generate_asm(function_names, self.__arch)
+            standalone_code += f"#if defined(__GNUC__)\n{asm_code}\n#endif\n"
+            
             # Write header code file
-            with open(os.path.join(self.__base_dir, f"{self.__base_name}.h"), 'w') as hc:
+            h_file = os.path.join(self.__base_dir, f"{self.__base_name}.h")
+            with open(h_file, 'w') as hc:
                 self.logger.debug(f"Standalone Header Code:\n{standalone_code}")
                 hc.write(standalone_code)
-            written.append(os.path.join(self.__base_dir, f"{self.__base_name}.h"))
+            written.append(h_file)
 
-            self.logger.output('Complete! Standalone File written to:')
+            self.logger.info('Complete! Standalone File written to:')
         else:
             # Write C code file
             c_file = os.path.join(self.__base_dir, f"{self.__base_name}.c")
@@ -170,7 +169,8 @@ class SyscallsGenerator(AbstractFactory):
                 hc.write(h_code)
             written.append(h_file)
             
-            if asm_x64_code is not None:
+            if self.__arch in [Arch.Any, Arch.x64]:
+                asm_x64_code = self.generate_asm(function_names, Arch.x64)
                 asm_file = os.path.join(self.__base_dir, f"{self.__base_name}-asm.x64.asm")
                 # Write ASM code file
                 with open(asm_file, 'w') as ac:
@@ -178,7 +178,8 @@ class SyscallsGenerator(AbstractFactory):
                     ac.write(asm_x64_code)
                 written.append(asm_file)
             
-            if asm_x86_code is not None:
+            if self.__arch in [Arch.Any, Arch.x86]:
+                asm_x86_code = self.generate_asm(function_names, Arch.x86)
                 asm_file = os.path.join(self.__base_dir, f"{self.__base_name}-asm.x86.asm")
                 # Write ASM code file
                 with open(asm_file, 'w') as ac:
@@ -186,11 +187,11 @@ class SyscallsGenerator(AbstractFactory):
                     ac.write(asm_x86_code)
                 written.append(asm_file)
             
-            self.logger.output('Complete! Files written to:')
+            self.logger.info('Complete! Files written to:')
         
         # Display written files
         for f in written:
-            self.logger.output(f"\t{f}")
+            self.logger.info(f"\t{f}")
         
         return True
     
@@ -216,8 +217,102 @@ class SyscallsGenerator(AbstractFactory):
         
         return wow64_function
     
-    def __generate_asm_code(self, function_names:list, arch:str) -> str:
-        """Private method used to generate ASM opcodes based on architecture and kernel calls list to evade
+    def __format_embedded_asm(self, opcodes:str) -> str:
+        cleaned = ''
+        for line in opcodes.split('\n'):
+            # Avoid dealing with tags
+            if '####' in line:
+                cleaned += line.rstrip()
+                continue
+            # Avoid dealing with CPP define
+            if line.startswith('#'):
+                cleaned += line.rstrip()
+                continue
+            # Remove comments
+            cleaned += self.__remove_comments(line)
+        
+        # Replace end of lines
+        opcodes = cleaned.replace('\n',' \\n\\\n')
+
+        return opcodes
+    
+    def generate_asm(self, function_names: list, arch:Arch) -> str:
+        # Set vars
+        asm_code = ''
+        
+        if arch in [Arch.Any, Arch.x64]:
+            self.__generate_asm_opcodes(function_names, Arch.x64)
+        if arch in [Arch.Any, Arch.x86]:
+            self.__generate_asm_opcodes(function_names, Arch.x86)
+        
+        if self.__standalone:
+            # Embed inline ASM
+            if arch == Arch.Any:
+                for name in function_names:
+                    try:
+                        x64_opcodes = self.__functions[str(Arch.x64)][name]
+                        x86_opcodes = self.__functions[str(Arch.x86)][name]
+                        asm_code += f"\n#define {name} {name}\n#if defined(_WIN64)\n__asm__(\"{name}: \\n\\\n\t{x64_opcodes}\");\n#else\n__asm__(\"{name}: \\n\\\n\t\t{x86_opcodes}\");\n#endif\n"
+                    except AttributeError as err:
+                        raise ValueError(f"Missing function definition: {err}")
+            else:
+                indent = "\t\t" if arch == Arch.x86 else "\t"
+                for name in function_names:
+                    # # Always define function prototype
+                    # prototype = self.__get_function_prototype(name)
+                    # prototype = prototype.replace('EXTERN_C', '__declspec(naked)')
+                    # prototype = prototype.replace(');', ')\n{')
+                    opcodes = self.__functions[str(arch)][name]
+                    # asm_code += f"\n{prototype}\n\n__asm(\n\t{opcodes}"
+                    # asm_code += '\n\t);\n}\n'
+
+                    try:
+                        asm_code += f"#define {name} {name}\n__asm__(\"{name}: \\n\\\n{indent}{opcodes}\");\n"
+                    except AttributeError as err:
+                        raise ValueError(f"Missing function definition: {err}")
+            
+        # External asm files required
+        else:
+            for architecture in list(self.__functions.keys()):
+                # Avoid empty file generation
+                if len(self.__functions[architecture].keys()) == 0:
+                    continue
+                
+                # Set proper indentation
+                indent = '\t' if architecture == str(Arch.x64) else '\t\t'
+                
+                # Set Proper header
+                if architecture == str(Arch.x64):
+                    asm_code = '.code\n\nEXTERN SW3_GetSyscallNumber: PROC\n\n'
+                else:
+                    asm_code = '.686\n.XMM\n.MODEL flat, c\nASSUME fs:_DATA\n.code\n\n'
+                    asm_code += 'EXTERN SW3_GetSyscallNumber: PROC\nEXTERN local_is_wow64: PROC\n'
+                
+                # Add Wow64 gate declaration
+                if self.__wow64 and (architecture != str(Arch.x64)):
+                    asm_code += 'EXTERN internal_cleancall_wow64_gate: PROC\n'
+                
+                # Set proper recovery function
+                if self.__recovery == SyscallRecoveryType.JUMPER:
+                    # We perform a direct jump to the syscall instruction inside ntdll.dll
+                    asm_code += 'EXTERN SW3_GetSyscallAddress: PROC\n\n'
+                elif self.__recovery == SyscallRecoveryType.JUMPER_RANDOMIZED:
+                    # We perform a direct jump to a syscall instruction of another API
+                    asm_code += 'EXTERN SW3_GetRandomSyscallAddress: PROC\n\n'
+                
+                for name, opcodes in self.__functions[architecture].items():
+                    asm_code += f"\n{name} PROC\n{indent}{opcodes}\n{name} ENDP\n"
+                
+                asm_code += '\nend'
+
+        # Debug generated code
+        self.logger.debug(asm_code)
+
+        return asm_code
+    
+    def __generate_asm_opcodes(self, function_names:list, arch:str) -> bool:
+        """Private method used to generate ASM opcodes based on architecture and kernel calls list to evade.
+        This function will store opcodes in private dict self.__functions[arch][function_name]
 
         Args:
             function_names (list): The kernel calls list to evade
@@ -227,49 +322,26 @@ class SyscallsGenerator(AbstractFactory):
             NotImplementedError: Error raised when architecture is not in supported list
 
         Returns:
-            str: The Intel format opcodes generated
+            bool: If everything run smoothly
         """
-        output_asm = ''
-        # ASM code is embedded in C file when using MINGW
-        if self.__compiler in [Compiler.All, Compiler.MSVC]:
-            # Declaration only needed when using external file
-            if not self.__standalone:
-                if arch in [Arch.Any, Arch.x64]:
-                    output_asm += '.code\n\nEXTERN SW3_GetSyscallNumber: PROC\n'
-                elif arch in [Arch.Any, Arch.x86]:
-                    output_asm += ".686\n.XMM\n.MODEL flat, c\nASSUME fs:_DATA\n.code\n\n"
-                    output_asm += '\nEXTERN SW3_GetSyscallNumber: PROC\nEXTERN local_is_wow64: PROC\nEXTERN internal_cleancall_wow64_gate: PROC\n'
-                else:
-                    raise NotImplementedError("Unsupported architecture")
-                    
-                if self.__recovery == SyscallRecoveryType.JUMPER:
-                    # We perform a direct jump to the syscall instruction inside ntdll.dll
-                    output_asm += 'EXTERN SW3_GetSyscallAddress: PROC\n'
-
-                elif self.__recovery == SyscallRecoveryType.JUMPER_RANDOMIZED:
-                    # We perform a direct jump to a syscall instruction of another API
-                    output_asm += 'EXTERN SW3_GetRandomSyscallAddress: PROC\n'
-
-                output_asm += '\n'
-
-            # Set template
-            target_template = 'base-x64.asm' if arch == Arch.x64 else 'base-x86.asm'
-            
-            # Load template
-            with open(os.path.join(SysWhispersConstants.SYSWHISPERS_DATA_PATH, target_template), 'r') as bs:
-                template = bs.read()
-            
-            for function_name in function_names:
-                function_code = self._get_function_asm_code(template, function_name, arch, embedded=self.__standalone)
-                output_asm += f"{function_code}\n\n"
-
-            if not self.__standalone:
-                output_asm += '\nend'
+        # Set template
+        target_template = 'base-x64.asm' if arch == Arch.x64 else 'base-x86.asm'
         
-        return output_asm
+        # Load template
+        template = pkg_resources.read_text(pkg_data, target_template)
+        
+        # Loop over functions to evade
+        for function_name in function_names:
+            opcodes = self._get_function_asm_code(template, function_name, arch)
+            if self.__standalone:
+                self.__functions[str(arch)][function_name] = self.__format_embedded_asm(opcodes)
+            else:
+                self.__functions[str(arch)][function_name] = opcodes
+                
+        return True
 
-    def __generate_h_code(self, function_names:list) -> str:
-        """Private method used to generate the C++ Header file based on data/base.h template.
+    def generate_h_code(self, function_names:list) -> str:
+        """Public method used to generate the C++ Header file based on base.h template.
 
         Args:
             function_names (list): The kernel calls list to evade
@@ -278,29 +350,38 @@ class SyscallsGenerator(AbstractFactory):
             str: The C++ code generated
         """
         # Load base content
-        with open(os.path.join(SysWhispersConstants.SYSWHISPERS_DATA_PATH, 'base.h'), 'r') as bs:
-            # Replace <SEED_VALUE> with a random seed.
-            base_header_contents = bs.read()
-            
-            # Replace SEED
-            base_header_contents = base_header_contents.replace('<SEED_VALUE>', f'0x{self.__seed:08X}', 1)
+        base_header_contents = pkg_resources.read_text(pkg_data, 'base.h')
+        
+        # Replace <SEED_VALUE> with a random seed.
+        base_header_contents = base_header_contents.replace('<SEED_VALUE>', f'0x{self.__seed:08X}', 1)
 
-            # Write the typedefs.
-            for typedef in self.__get_typedefs(function_names):
-                base_header_contents += f"{typedef}\n\n"
+        # Set Jumper method
+        if self.__recovery == SyscallRecoveryType.JUMPER:
+            base_header_contents = base_header_contents.replace('// GET_SYSCALL_ADDR', 'EXTERN_C PVOID SW3_GetSyscallAddress(DWORD FunctionHash);')
+        elif self.__recovery == SyscallRecoveryType.JUMPER_RANDOMIZED:
+            base_header_contents = base_header_contents.replace('// GET_SYSCALL_ADDR', 'EXTERN_C PVOID SW3_GetRandomSyscallAddress(DWORD FunctionHash);')
+        else:
+            base_header_contents = base_header_contents.replace('// GET_SYSCALL_ADDR', '')
+        
+        # Write the typedefs.
+        for typedef in self.__get_typedefs(function_names):
+            base_header_contents += f"{typedef}\n\n"
 
-            # Write the function prototypes.
-            for function_name in function_names:
-                function_code = self.__get_function_prototype(function_name)
-                base_header_contents +=  f"{function_code}\n\n"
+        # Write the function prototypes.
+        for function_name in function_names:
+            function_code = self.__get_function_prototype(function_name)
+            base_header_contents +=  f"{function_code}\n\n"
 
-            # Write the endif line.
-            base_header_contents += '#endif\n'
+        # Write the endif line.
+        base_header_contents += '#endif\n'
+
+        # Store current header code
+        self.__output_files.append({'name': '.h', 'code': base_header_contents})
 
         return base_header_contents
 
-    def __generate_c_code(self, function_names:list) -> str:
-        """Private method used to generate the C++ source file based on data/base.c template
+    def generate_c_code(self) -> str:
+        """Public method used to generate the C++ source file based on base.c template
 
         Args:
             function_names (list): The kernel calls list to evade
@@ -309,66 +390,53 @@ class SyscallsGenerator(AbstractFactory):
             str: The C++ source code generated
         """
         # Load base content
-        with open(os.path.join(SysWhispersConstants.SYSWHISPERS_DATA_PATH, 'base.c'), 'r') as bs:
-            base_source_contents = bs.read()
+        base_source_contents = pkg_resources.read_text(pkg_data, 'base.c')
 
-            if self.__debug:
-                base_source_contents = base_source_contents.replace('//#define DEBUG', '#define DEBUG')
-            # Clean template
+        if self.__debug:
+            base_source_contents = base_source_contents.replace('//#define DEBUG', '#define DEBUG')
+        # Clean template
+        else:
+            base_source_contents = base_source_contents.replace('//#define DEBUG', '')
+
+        # Add include when not in standalone file
+        if self.__standalone:
+            base_source_contents = base_source_contents.replace('// <INCLUDES>', '')
+        else:
+            base_source_contents = base_source_contents.replace('// <INCLUDES>', f"#include \"{self.__base_name}.h\"\n#include <stdio.h>\n", 1)
+        
+        # Set Jumper method
+        if self.__recovery in [SyscallRecoveryType.JUMPER, SyscallRecoveryType.JUMPER_RANDOMIZED]:
+            base_source_contents = base_source_contents.replace("// JUMPER", "#define JUMPER")
+            if self.__recovery == SyscallRecoveryType.JUMPER:
+                get_syscall_addr = SysWhispersConstants.JUMPER_SYSCALL_RECOVERY
+            elif self.__recovery == SyscallRecoveryType.JUMPER_RANDOMIZED:
+                get_syscall_addr = SysWhispersConstants.JUMPER_RANDOMIZED_SYSCALL_RECOVERY
             else:
-                base_source_contents = base_source_contents.replace('//#define DEBUG', '')
+                raise NotImplementedError('Unsupported recovery method')
+            
+            base_source_contents = base_source_contents.replace("// GET_SYSCALL_ADDR", get_syscall_addr)
+        # Clean template
+        else:
+            base_source_contents = base_source_contents.replace("// JUMPER", '')
+            base_source_contents = base_source_contents.replace("// GET_SYSCALL_ADDR", '')
 
-            # Add include when not in standalone file
-            if self.__standalone:
-                base_source_contents = base_source_contents.replace('// <INCLUDES>', '')
-            else:
-                base_source_contents = base_source_contents.replace('// <INCLUDES>', f"#include \"{self.__base_name}.h\"\n#include <stdio.h>\n", 1)
-            # Set Jumper method
-            if self.__recovery in [SyscallRecoveryType.JUMPER, SyscallRecoveryType.JUMPER_RANDOMIZED]:
-                base_source_contents = base_source_contents.replace("// JUMPER", "#define JUMPER")
-            # Clean template
-            else:
-                base_source_contents = base_source_contents.replace("// JUMPER", '')
+        if self.__wow64:
+            base_source_contents = base_source_contents.replace('// JUMP_TO_WOW32Reserved',
+                                                                '        // if we are a WoW64 process, jump to WOW32Reserved\n        SyscallAddress = (PVOID)__readfsdword(0xc0);\n        return SyscallAddress;')
+        else:
+            base_source_contents = base_source_contents.replace('// JUMP_TO_WOW32Reserved',
+                                                                '        return NULL;')
 
-            if self.__wow64:
-                base_source_contents = base_source_contents.replace('// JUMP_TO_WOW32Reserved',
-                                                                    '        // if we are a WoW64 process, jump to WOW32Reserved\n        SyscallAddress = (PVOID)__readfsdword(0xc0);\n        return SyscallAddress;')
-            else:
-                base_source_contents = base_source_contents.replace('// JUMP_TO_WOW32Reserved',
-                                                                    '        return NULL;')
+        # Set WoW64 call
+        base_source_contents = base_source_contents.replace('// LOCAL_IS_WOW64', self.__get_wow64_function())
 
-            # Set WoW64 call
-            base_source_contents = base_source_contents.replace('// LOCAL_IS_WOW64', self.__get_wow64_function())
-
-            if self.__compiler in [Compiler.All, Compiler.MINGW]:
-                base_source_contents += '\n#if defined(__GNUC__)\n'
-                # Set Wow64 gate
-                if self.__arch == Arch.x64:
-                    base_source_contents += '\n#if defined(_WIN64)\n'
-                
-                base_source_contents += "\n"
-                
-                # Set template
-                target_template = 'base-x64.asm' if self.__arch == Arch.x64 else 'base-x86.asm'
-                
-                # Load template
-                with open(os.path.join(SysWhispersConstants.SYSWHISPERS_DATA_PATH, target_template), 'r') as bs:
-                    template = bs.read()
-                        
-                for function_name in function_names:
-                    if self.__arch in [Arch.Any, Arch.x64]:
-                        function_code = self._get_function_asm_code(template, function_name, Arch.x64, embedded=True)
-                    
-                    if self.__arch in [Arch.Any, Arch.x86]:
-                        function_code = self._get_function_asm_code(template, function_name, Arch.x86, embedded=True)
-                
-                    base_source_contents += f"{function_code}\n\n"
-                base_source_contents += '\n#endif\n'
+        # Store current header code
+        self.__output_files.append({'name': '.c', 'code': base_source_contents})
         
         return base_source_contents
     
     def __get_typedefs(self, function_names: list) -> list:
-        """Private method used to retrieve definition types of kernel calls list to evade using the data/typedefs.json ressource file
+        """Private method used to retrieve definition types of kernel calls list to evade using the typedefs.json ressource file
 
         Args:
             function_names (list): The kernel calls list to evade
@@ -416,7 +484,7 @@ class SyscallsGenerator(AbstractFactory):
         return typedef_code
     
     def __get_function_prototype(self, function_name: str) -> str:
-        """Private method used to retrieve prototypes of kernel calls list to evade using the data/prototypes.json ressource file
+        """Private method used to retrieve prototypes of kernel calls list to evade using the prototypes.json ressource file
 
         Args:
             function_names (list): The kernel calls list to evade
@@ -426,7 +494,7 @@ class SyscallsGenerator(AbstractFactory):
         """
         # Check if given function is in syscall map.
         if function_name not in self.__prototypes:
-            raise ValueError('Invalid function name provided.')
+            raise NotImplementedError('Invalid function name provided.')
 
         num_params = len(self.__prototypes[function_name]['params'])
         signature = f'EXTERN_C NTSTATUS {function_name}('
@@ -463,15 +531,14 @@ class SyscallsGenerator(AbstractFactory):
 
         return f'{func_hash:08X}'
 
-    def _get_function_asm_code(self, template: str, function_name: str, arch:Arch, embedded:bool=False) -> str:
-        """Private method used to generate ASM opcodes handling the syscall evasion of a kernel call. The result is embedded in the data/base-ARCH.asm template 
+    def _get_function_asm_code(self, template: str, function_name: str, arch:Arch) -> str:
+        """Private method used to generate ASM opcodes handling the syscall evasion of a kernel call. The result is embedded in the base-ARCH.asm template 
 
         Args:
             template (str): The template source code to use
             function_name (str): The kernel call to evade
             arch (Arch): The architecture to use for opcodes generation
-            embedded (bool): Standalone flag used to modify the leading and trailing code: ASM and C++ headers are not using opcodes the same way ;)
-
+            
         Returns:
             str: The ASM opcodes generated
         """
@@ -500,7 +567,7 @@ class SyscallsGenerator(AbstractFactory):
                 random_syscall.append('call SW3_GetSyscallAddress              ; Resolve function hash into syscall offset')
             random_syscall.append(f'\tmov {register}, {target_register}                          ; Save the address of the syscall')
             if arch == Arch.x64:
-                random_syscall.append(f'\tmov ecx, {function_hash_addr}                     ; Re-Load function hash into ECX (optional)')
+                random_syscall.append(f'mov ecx, {function_hash_addr}                     ; Re-Load function hash into ECX (optional)')
             else:
                 random_syscall.append(f'\tpush {function_hash_addr}                     ; Re-Load function hash into ECX (optional)')
             
@@ -585,30 +652,6 @@ class SyscallsGenerator(AbstractFactory):
         else:
             opcodes = "".join([s for s in template.strip().splitlines(True) if s.strip()])
         
-        if embedded:
-            cleaned = ''
-            for line in opcodes.split('\n'):
-                # Avoid dealing with tags
-                if '####' in line:
-                    cleaned += line.rstrip()
-                    continue
-                # Remove comments
-                cleaned += self.__remove_comments(line)
-            
-            # Replace end of lines
-            opcodes = cleaned.replace('\n',' \\n\\\n')
-        
-        if embedded:
-            header = f"#define {function_name} {function_name}\n__asm__(\"{function_name}: \\n\\\n"
-            footer = '\");'
-        else:
-            header = f"{function_name} PROC"
-            footer = f"{function_name} ENDP"
-        
-        # Set appropriate header
-        opcodes = opcodes.replace('#### HEADER ####', header)
-        opcodes = opcodes.replace('#### FOOTER ####', footer)
-
         return opcodes
 
     def __remove_comments(self, line:str) -> str:

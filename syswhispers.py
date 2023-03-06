@@ -71,7 +71,12 @@ if __name__ == '__main__':
         )
     except Exception as err:
         logger.critical(err)
-
+    
+    # try:
+    #     sw.gen(sw.list_donut_functions(), args.standalone, args.arch)
+    # except Exception as err:
+    #     logger.critical(err)
+    
     try:
         if args.preset == 'all':
             logger.output('All functions selected.\n')
