@@ -9,14 +9,14 @@ pip3 install syswhispers3
 ## Install it as tool
 - On Linux, MacOS based systems
 ```
-git clone https://github.com/x42en/SysWhispers3
+git clone https://github.com/klezVirus/SysWhispers3
 cd SysWhispers3
 python3 ./syswhispers.py -h
 ```
 
 - On Windows based systems
 ```
-C:\> git clone https://github.com/x42en/SysWhispers3.git
+C:\> git clone https://github.com/klezVirus/SysWhispers3.git
 C:\> cd SysWhispers3
 C:\> python .\syswhispers.py --help
 ```

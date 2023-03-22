@@ -53,7 +53,7 @@ SysWhispers3 is built on top of SysWhispers2, and integrates some helpful featur
 
 ## Documentation
 
-Most of the questions you would ask are probably in the documentation. Please **[READ THE DOC](https://x42en.github.io/SysWhispers3/)**
+Most of the questions you would ask are probably in the documentation. Please **[READ THE DOC](https://klezVirus.github.io/SysWhispers3/)**
 
 ## Install
 In order to use it as a python module

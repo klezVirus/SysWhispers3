@@ -22,7 +22,7 @@ with open("requirements.txt", "rt") as f:
 setup(
     name="syswhispers3",
     description="SysWhispers helps with evasion by generating header/ASM files implants can use to make direct system calls",
-    url="https://github.com/x42en/SysWhispers3",
+    url="https://github.com/klezVirus/SysWhispers3",
     license="Apache License 2.0",
     classifiers=[
         "Development Status :: 4 - Beta",

@@ -27,7 +27,7 @@ This project use [mkdocs](https://www.mkdocs.org/getting-started/) associated wi
 1. Write your Doc-String by using [AutoDocString](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring) in VSCode
 2. Generate the project documentation using LazyDoc
 ```sh
-export PYTHONPATH=$PWD; lazydocs --output-path="./docs/documentation" --overview-file="README.md" --src-base-url="https://github.com/x42en/SysWhispers3/blob/master" syswhispers3/
+export PYTHONPATH=$PWD; lazydocs --output-path="./docs/documentation" --overview-file="README.md" --src-base-url="https://github.com/klezVirus/SysWhispers3/blob/master" syswhispers3/
 ```
 3. Serving local docs for preview using mkdocs
 ```sh
