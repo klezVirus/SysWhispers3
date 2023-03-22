@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "syswhispers3"
-version = "0.1.0"
+version = "3.0.4"
 description = "SysWhispers on Steroids - AV/EDR evasion via direct system calls"
-authors = ["x42en <x42en@users.noreply.github.com>"]
+authors = ["klezVirus <klezVirus@users.noreply.github.com>"]
 license = "Apache License 2.0"
 readme = "README.md"
 

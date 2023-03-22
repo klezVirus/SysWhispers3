@@ -1,4 +1,4 @@
-__author__ = "x42en"
-__authoremail__ = "x42en@users.noreply.github.com"
+__author__ = "klezVirus"
+__authoremail__ = "klezVirus@users.noreply.github.com"
 __name__ = "syswhispers3"
-__version__ = "0.1.2"
+__version__ = "3.0.4"
