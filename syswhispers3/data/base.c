@@ -1,5 +1,5 @@
 // <INCLUDES>
-//#define DEBUG
+// DEBUG
 // JUMPER
 #ifdef _M_IX86
 
@@ -15,12 +15,7 @@ EXTERN_C PVOID internal_cleancall_wow64_gate(VOID) {
 // https://www.mdsec.co.uk/2020/12/bypassing-user-mode-hooks-and-direct-invocation-of-system-calls-for-red-teams
 
 SW3_SYSCALL_LIST SW3_SyscallList;
-
 // SEARCH_AND_REPLACE
-#ifdef SEARCH_AND_REPLACE
-// THIS IS NOT DEFINED HERE; don't know if I'll add it in a future release
-EXTERN void SearchAndReplace(unsigned char[], unsigned char[]);
-#endif
 
 DWORD SW3_HashSyscall(PCSTR FunctionName)
 {
