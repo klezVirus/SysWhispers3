@@ -1,16 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import json
-import unittest
+from tests.codeUtil import CodeUtil
 
 from syswhispers3.abstracts.abstractFactory import AbstractFactory
 from syswhispers3.constants.sysWhispersConstants import SysWhispersConstants
 
-class TestAbstract(unittest.TestCase):
+class TestAbstract(CodeUtil):
     def __init__(self, method_name):
         super().__init__(method_name)
-
-        self.data = dict({"name": None})
 
     def test_00_init(self):
         AbstractFactory()
