@@ -53,6 +53,7 @@ typedef struct _SW3_PEB {
 
 DWORD SW3_HashSyscall(PCSTR FunctionName);
 BOOL SW3_PopulateSyscallList();
-EXTERN_C DWORD SW3_GetSyscallNumber(DWORD FunctionHash);
-EXTERN_C PVOID SW3_GetSyscallAddress(DWORD FunctionHash);
 EXTERN_C PVOID internal_cleancall_wow64_gate(VOID);
+
+EXTERN_C DWORD SW3_GetSyscallNumber(DWORD FunctionHash);
+// GET_SYSCALL_ADDR

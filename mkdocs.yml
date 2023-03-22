@@ -1,0 +1,8 @@
+site_name: SysWhispers3
+site_url: https://github.com/klezVirus/SysWhispers3
+site_dir: public
+theme: readthedocs
+
+plugins:
+  - search
+  - awesome-pages

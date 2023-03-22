@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "syswhispers3"
+version = "3.0.4"
+description = "SysWhispers on Steroids - AV/EDR evasion via direct system calls"
+authors = ["klezVirus <klezVirus@users.noreply.github.com>"]
+license = "Apache License 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+
+[tool.poetry.group.dev.dependencies]
+mkdocs-awesome-pages-plugin = "^2.8.0"
+pytest = "^7.2.1"
+lazydocs = "^0.4.8"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry_bumpversion.replacements]]
+files = ["__metadata.py"]
+search = '__version__ = "{current_version}"'
+replace = '__version__ = "{new_version}"'
+
+[[tool.poetry_bumpversion.replacements]]
+files = ["README.md", "docs/index.md"]
+search = 'Version: {current_version}'
+replace = 'Version: {new_version}'
+
+[tool.coverage.run]
+omit = [".*", "*/syswhispers3/*"]
+
+[tool.coverage.report]
+fail_under = 50
