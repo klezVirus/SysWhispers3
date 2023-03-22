@@ -2,59 +2,60 @@
 
 from syswhispers3.utils import get_project_root
 
+
 class SysWhispersConstants:
-    """Simple class used to store SysWhispers constants
-    """
+    """Simple class used to store SysWhispers constants"""
+
     SYSWHISPERS_KEY_LEN = 23
     DONUT_SYSCALLS = [
-        'NtCreateSection',
-        'NtMapViewOfSection',
-        'NtUnmapViewOfSection',
-        'NtContinue',
-        'NtClose',
-        'NtWaitForSingleObject',
-        'NtProtectVirtualMemory',
-        'NtAllocateVirtualMemory',
-        'NtCreateFile',
-        'NtGetContextThread',
-        'NtFreeVirtualMemory',
-        'NtQueryVirtualMemory',
-        'NtCreateThreadEx',
-        'NtFlushInstructionCache'
+        "NtCreateSection",
+        "NtMapViewOfSection",
+        "NtUnmapViewOfSection",
+        "NtContinue",
+        "NtClose",
+        "NtWaitForSingleObject",
+        "NtProtectVirtualMemory",
+        "NtAllocateVirtualMemory",
+        "NtCreateFile",
+        "NtGetContextThread",
+        "NtFreeVirtualMemory",
+        "NtQueryVirtualMemory",
+        "NtCreateThreadEx",
+        "NtFlushInstructionCache",
     ]
     COMMON_SYSCALLS = [
-        'NtCreateProcess',
-        'NtCreateThreadEx',
-        'NtOpenProcess',
-        'NtOpenProcessToken',
-        'NtTestAlert',
-        'NtOpenThread',
-        'NtSuspendProcess',
-        'NtSuspendThread',
-        'NtResumeProcess',
-        'NtResumeThread',
-        'NtGetContextThread',
-        'NtSetContextThread',
-        'NtClose',
-        'NtReadVirtualMemory',
-        'NtWriteVirtualMemory',
-        'NtAllocateVirtualMemory',
-        'NtProtectVirtualMemory',
-        'NtFreeVirtualMemory',
-        'NtQuerySystemInformation',
-        'NtQueryDirectoryFile',
-        'NtQueryInformationFile',
-        'NtQueryInformationProcess',
-        'NtQueryInformationThread',
-        'NtCreateSection',
-        'NtOpenSection',
-        'NtMapViewOfSection',
-        'NtUnmapViewOfSection',
-        'NtAdjustPrivilegesToken',
-        'NtDeviceIoControlFile',
-        'NtQueueApcThread',
-        'NtWaitForSingleObject',
-        'NtWaitForMultipleObjects'
+        "NtCreateProcess",
+        "NtCreateThreadEx",
+        "NtOpenProcess",
+        "NtOpenProcessToken",
+        "NtTestAlert",
+        "NtOpenThread",
+        "NtSuspendProcess",
+        "NtSuspendThread",
+        "NtResumeProcess",
+        "NtResumeThread",
+        "NtGetContextThread",
+        "NtSetContextThread",
+        "NtClose",
+        "NtReadVirtualMemory",
+        "NtWriteVirtualMemory",
+        "NtAllocateVirtualMemory",
+        "NtProtectVirtualMemory",
+        "NtFreeVirtualMemory",
+        "NtQuerySystemInformation",
+        "NtQueryDirectoryFile",
+        "NtQueryInformationFile",
+        "NtQueryInformationProcess",
+        "NtQueryInformationThread",
+        "NtCreateSection",
+        "NtOpenSection",
+        "NtMapViewOfSection",
+        "NtUnmapViewOfSection",
+        "NtAdjustPrivilegesToken",
+        "NtDeviceIoControlFile",
+        "NtQueueApcThread",
+        "NtWaitForSingleObject",
+        "NtWaitForMultipleObjects",
     ]
     JUMPER_SYSCALL_RECOVERY = """
 EXTERN_C PVOID SW3_GetSyscallAddress(DWORD FunctionHash)
@@ -87,4 +88,11 @@ EXTERN_C PVOID SW3_GetRandomSyscallAddress(DWORD FunctionHash)
     }
     return SW3_SyscallList.Entries[index].SyscallAddress;
 }
+"""
+    EGG_HUNTER_SEARCH_REPLACE = """
+#ifdef SEARCH_AND_REPLACE
+EXTERN void SearchAndReplace(unsigned char egg[], unsigned char replace[]){
+    return NULL;
+};
+#endif
 """
