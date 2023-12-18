@@ -12,7 +12,7 @@
 #define SW3_ROL8(v) (v << 8 | v >> 24)
 #define SW3_ROR8(v) (v >> 8 | v << 24)
 #define SW3_ROX8(v) ((SW3_SEED % 2) ? SW3_ROL8(v) : SW3_ROR8(v))
-#define SW3_MAX_ENTRIES 500
+#define SW3_MAX_ENTRIES 600
 #define SW3_RVA2VA(Type, DllBase, Rva) (Type)((ULONG_PTR) DllBase + Rva)
 
 // Typedefs are prefixed to avoid pollution.
