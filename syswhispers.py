@@ -99,7 +99,9 @@ class SysWhispers(object):
             syscall_instruction: str = "syscall",
             wow64: bool = False,
             verbose: bool = False,
-            debug: bool = False):
+            debug: bool = False,
+            prefix: str = ''):
+        self.prefix = prefix
         self.arch = arch
         self.compiler = compiler
         self.recovery = recovery
@@ -114,6 +116,8 @@ class SysWhispers(object):
             open(os.path.join(base_directory, 'data', 'prototypes.json')))
         self.verbose = verbose
         self.debug = debug
+        self.used_typedefs = []
+        self.structured_types = []
         self.validate()
 
     def validate(self):
@@ -262,21 +266,20 @@ class SysWhispers(object):
             return [next(i for i, t in enumerate(self.typedefs) if n in t['identifiers']) for n in names]
 
         # Determine typedefs to use.
-        used_typedefs = []
         for function_name in function_names:
             for param in self.prototypes[function_name]['params']:
                 if list(filter(lambda t: param['type'] in t['identifiers'], self.typedefs)):
-                    if param['type'] not in used_typedefs:
-                        used_typedefs.append(param['type'])
+                    if param['type'] not in self.used_typedefs:
+                        self.used_typedefs.append(param['type'])
 
         # Resolve typedef dependencies.
         i = 0
-        typedef_layers = {i: _names_to_ids(used_typedefs)}
+        typedef_layers = {i: _names_to_ids(self.used_typedefs)}
         while True:
             # Identify dependencies of current layer.
             more_dependencies = []
             for typedef_id in typedef_layers[i]:
-                more_dependencies += self.typedefs[typedef_id]['dependencies']
+                more_dependencies += self.typedefs[typedef_id].get('dependencies')
             more_dependencies = list(set(more_dependencies))  # Remove duplicates.
 
             if more_dependencies:
@@ -293,7 +296,13 @@ class SysWhispers(object):
         typedef_code = []
         for i in range(max(typedef_layers.keys()), -1, -1):
             for j in typedef_layers[i]:
-                typedef_code.append(self.typedefs[j]['definition'])
+                code = self.typedefs[j].get('definition')
+                if code.startswith('typedef') and code.split(" ")[1] in ["const", "struct", "enum"]:
+                    name = code.split(" ")[2].split("\n")[0].strip()[1:]
+                    self.structured_types.append(name)
+                    code = code.replace(name, self.prefix + "_" + name)
+                typedef_code.append(code)
+
         return typedef_code
 
     def _get_function_prototype(self, function_name: str) -> str:
@@ -302,14 +311,22 @@ class SysWhispers(object):
             raise ValueError('Invalid function name provided.')
 
         num_params = len(self.prototypes[function_name]['params'])
-        signature = f'EXTERN_C NTSTATUS {function_name}('
+        signature = f'EXTERN_C NTSTATUS {self.prefix.capitalize()}{function_name}('
         if num_params:
             for i in range(num_params):
                 param = self.prototypes[function_name]['params'][i]
+
+                _type = param['type']
+                if _type in self.structured_types:
+                    _type = self.prefix + "_" + _type
+
+                if _type.startswith("P") and _type[1:] in self.structured_types:
+                    _type = "P" + self.prefix + "_" + _type
+
                 signature += '\n\t'
                 signature += 'IN ' if param['in'] else ''
                 signature += 'OUT ' if param['out'] else ''
-                signature += f'{param["type"]} {param["name"]}'
+                signature += f'{_type} {param["name"]}'
                 signature += ' OPTIONAL' if param['optional'] else ''
                 signature += ',' if i < num_params - 1 else ');'
         else:
@@ -470,7 +487,7 @@ class SysWhispers(object):
         num_params = len(self.prototypes[function_name]['params'])
         code = ''
 
-        code += f'{function_name} PROC\n'
+        code += f'{self.prefix.capitalize()}{function_name} PROC\n'
         if arch == Arch.x64:
             # Generate 64-bit ASM code.
             if self.debug:
@@ -581,7 +598,7 @@ class SysWhispers(object):
             else:
                 code += '\t\tsysenter\n'
             code += '\t\tret\n'
-        code += f'{function_name} ENDP\n'
+        code += f'{self.prefix.capitalize()}{function_name} ENDP\n'
         return code
 
 
@@ -617,6 +634,8 @@ if __name__ == '__main__':
                         help='Enable debug output', required=False)
     parser.add_argument('-d', '--debug', default=False, action='store_true',
                         help='Enable syscall debug (insert software breakpoint)', required=False)
+    parser.add_argument('-P', '--prefix', default="", type=str,
+                        help='Add prefix to type definitions to avoid pollution', required=False)
     args = parser.parse_args()
 
     recovery = SyscallRecoveryType.from_name_or_default(args.method)
@@ -630,7 +649,8 @@ if __name__ == '__main__':
         recovery=recovery,
         wow64=args.wow64,
         verbose=args.verbose,
-        debug=args.debug
+        debug=args.debug,
+        prefix=args.prefix
     )
 
     if args.preset == 'all':
