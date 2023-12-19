@@ -1,18 +1,12 @@
-:triangular_flag_on_post: This is the public repository of SysWhispers3, for latest version and updates please consider supporting us through https://porchetta.industries/
-
 # SysWhispers3
 
 SysWhispers helps with evasion by generating header/ASM files implants can use to make direct system calls.
-
-## :triangular_flag_on_post: Sponsors
-
-If you want to sponsors this project and have the latest updates on SysWhispers3, latest issues fixed, latest features, please support us on https://porchetta.industries/
 
 ## Official Discord Channel
 
 Come hang out on Discord!
 
-[![Porchetta Industries](https://discordapp.com/api/guilds/736724457258745996/widget.png?style=banner3)](https://discord.gg/ycGXUxy)
+[![Inceptor Server](https://discordapp.com/api/guilds/1155753953108164628/widget.png?style=banner3)](https://discord.gg/f6w6dwZq)
 
 ### Why on earth didn't I create a PR to SysWhispers2?
 
