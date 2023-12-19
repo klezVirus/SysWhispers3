@@ -116,7 +116,6 @@ class SysWhispers(object):
             open(os.path.join(base_directory, 'data', 'prototypes.json')))
         self.verbose = verbose
         self.debug = debug
-        self.used_typedefs = []
         self.structured_types = []
         self.validate()
 
@@ -266,15 +265,16 @@ class SysWhispers(object):
             return [next(i for i, t in enumerate(self.typedefs) if n in t['identifiers']) for n in names]
 
         # Determine typedefs to use.
+        used_typedefs = []
         for function_name in function_names:
             for param in self.prototypes[function_name]['params']:
                 if list(filter(lambda t: param['type'] in t['identifiers'], self.typedefs)):
-                    if param['type'] not in self.used_typedefs:
-                        self.used_typedefs.append(param['type'])
+                    if param['type'] not in used_typedefs:
+                        used_typedefs.append(param['type'])
 
         # Resolve typedef dependencies.
         i = 0
-        typedef_layers = {i: _names_to_ids(self.used_typedefs)}
+        typedef_layers = {i: _names_to_ids(used_typedefs)}
         while True:
             # Identify dependencies of current layer.
             more_dependencies = []
@@ -301,9 +301,26 @@ class SysWhispers(object):
                     name = code.split(" ")[2].split("\n")[0].strip()[1:]
                     self.structured_types.append(name)
                     code = code.replace(name, self.prefix + "_" + name)
+                    # Probably handle deps here
+                    for dep in self.structured_types:
+                        if dep != name and dep in code:
+                            code = code.replace(dep + " ", self.prefix + "_" + dep + " ")
+                elif code.startswith('typedef'):
+                    for dep in self.structured_types:
+                        if dep in code:
+                            code = code.replace(dep + " ", self.prefix + "_" + dep + " ")
                 typedef_code.append(code)
 
         return typedef_code
+
+    def _fix_type(self, _type: str) -> str:
+        if _type in self.structured_types:
+            return self.prefix + "_" + _type
+
+        elif _type.startswith("P") and _type[1:] in self.structured_types:
+            return "P" + self.prefix + "_" + _type[1:]
+
+        return _type
 
     def _get_function_prototype(self, function_name: str) -> str:
         # Check if given function is in syscall map.
@@ -316,12 +333,7 @@ class SysWhispers(object):
             for i in range(num_params):
                 param = self.prototypes[function_name]['params'][i]
 
-                _type = param['type']
-                if _type in self.structured_types:
-                    _type = self.prefix + "_" + _type
-
-                if _type.startswith("P") and _type[1:] in self.structured_types:
-                    _type = "P" + self.prefix + "_" + _type
+                _type = self._fix_type(param['type'])
 
                 signature += '\n\t'
                 signature += 'IN ' if param['in'] else ''
