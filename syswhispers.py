@@ -4,10 +4,24 @@ import argparse
 import json
 import os
 import random
+import re
 import string
 import struct
 from enum import Enum
 from pathlib import Path
+
+
+def fetch_all_type_definitions(code) -> list:
+    """Fetch all type definitions from a given code
+
+    Args:
+        code (str): The code to parse
+
+    Returns:
+        list: The list of all type definitions (tuple of 4 elements) found in the code
+    """
+    return re.findall(r"typedef\s+(\w+)\s+(\w+)\s+([\w|*]*)\s*([\w|*]*)", code, re.DOTALL)
+
 
 try:
     from enums.Architectures import Arch
@@ -100,7 +114,13 @@ class SysWhispers(object):
             wow64: bool = False,
             verbose: bool = False,
             debug: bool = False,
-            prefix: str = ''):
+            prefix: str = 'SW3',
+            alternative_headers: list = None,
+            no_windows_headers: bool = False):
+        self.alternative_headers = alternative_headers if alternative_headers else []
+        self.already_defined_types = []
+        self.populate_defined_types()
+        self.no_windows_headers = no_windows_headers
         self.prefix = prefix
         self.arch = arch
         self.compiler = compiler
@@ -118,6 +138,20 @@ class SysWhispers(object):
         self.debug = debug
         self.structured_types = []
         self.validate()
+
+    def populate_defined_types(self):
+        typedefs = []
+        for f in self.alternative_headers:
+            with open(f, 'r') as fh:
+                typedefs += fetch_all_type_definitions(fh.read())
+
+        for k1, k2, k3, k4 in typedefs:
+            if k1 not in ["struct", "enum", "union", "const"]:
+                self.already_defined_types.append(k1)
+            else:
+                self.already_defined_types.append(k2)
+
+        self.already_defined_types = list(set(self.already_defined_types))
 
     def validate(self):
         if self.recovery == SyscallRecoveryType.EGG_HUNTER:
@@ -236,6 +270,13 @@ class SysWhispers(object):
                 base_header_contents = base_header.read().decode()
                 base_header_contents = base_header_contents.replace('<SEED_VALUE>', f'0x{self.seed:08X}', 1)
 
+                if self.alternative_headers:
+                    for f in self.alternative_headers:
+                        f = Path(f).absolute().resolve()
+                        base_header_contents = base_header_contents.replace('#include <windows.h>', f'#include "{f}"\n#include <windows.h>')
+                if self.no_windows_headers:
+                    base_header_contents = base_header_contents.replace('#include <windows.h>', '')
+
                 # Write the base header.
                 output_header.write(base_header_contents.encode())
 
@@ -294,33 +335,41 @@ class SysWhispers(object):
 
         # Get code for each typedef.
         typedef_code = []
+        prefix = self.prefix + "_" if self.prefix else ""
         for i in range(max(typedef_layers.keys()), -1, -1):
             for j in typedef_layers[i]:
                 code = self.typedefs[j].get('definition')
                 if code.startswith('typedef') and code.split(" ")[1] in ["const", "struct", "enum"]:
-                    name = code.split(" ")[2].split("\n")[0].strip()[1:]
-                    self.structured_types.append(name)
-                    code = code.replace(name, self.prefix + "_" + name)
-                    # Probably handle deps here
-                    for dep in self.structured_types:
-                        if dep != name and dep in code:
-                            code = code.replace(dep + " ", self.prefix + "_" + dep + " ")
-                elif code.startswith('typedef'):
-                    for dep in self.structured_types:
-                        if dep in code:
-                            code = code.replace(dep + " ", self.prefix + "_" + dep + " ")
+                    pname = code.split(" ")[2].split("\n")[0].strip()
+                    name = pname[1:]
+                    if pname in self.already_defined_types:
+                        continue
+
+                #     self.structured_types.append(name)
+                #     code = code.replace(name, prefix + name)
+                #     # Probably handle deps here
+                #     for dep in self.structured_types:
+                #         if dep != name and dep in code:
+                #             code = code.replace(dep + " ", prefix + dep + " ")
+                # elif code.startswith('typedef'):
+                #     for dep in self.structured_types:
+                #         if dep in code:
+                #             code = code.replace(dep + " ", prefix + dep + " ")
                 typedef_code.append(code)
 
         return typedef_code
 
     def _fix_type(self, _type: str) -> str:
-        if _type in self.structured_types:
-            return self.prefix + "_" + _type
-
-        elif _type.startswith("P") and _type[1:] in self.structured_types:
-            return "P" + self.prefix + "_" + _type[1:]
-
         return _type
+        # if self.prefix in [None, ""]:
+        #     return _type
+        # if _type in self.structured_types:
+        #     return self.prefix + "_" + _type
+        #
+        # elif _type.startswith("P") and _type[1:] in self.structured_types:
+        #     return "P" + self.prefix + "_" + _type[1:]
+        #
+        # return _type
 
     def _get_function_prototype(self, function_name: str) -> str:
         # Check if given function is in syscall map.
@@ -646,8 +695,12 @@ if __name__ == '__main__':
                         help='Enable debug output', required=False)
     parser.add_argument('-d', '--debug', default=False, action='store_true',
                         help='Enable syscall debug (insert software breakpoint)', required=False)
-    parser.add_argument('-P', '--prefix', default="", type=str,
-                        help='Add prefix to type definitions to avoid pollution', required=False)
+    parser.add_argument('-P', '--prefix', default="SW3", type=str,
+                        help='Add prefix to function names to avoid pollution', required=False)
+    parser.add_argument('-H', '--alternative-headers', default=[], action="append",
+                        help='Alternative headers files (e.g., phnt.h)', required=False)
+    parser.add_argument('-nWH', '--no-win-headers', default=False, action="store_true",
+                        help='Do not add <windows.h> in syscalls.h', required=False)
     args = parser.parse_args()
 
     recovery = SyscallRecoveryType.from_name_or_default(args.method)
@@ -662,7 +715,9 @@ if __name__ == '__main__':
         wow64=args.wow64,
         verbose=args.verbose,
         debug=args.debug,
-        prefix=args.prefix
+        prefix=args.prefix,
+        alternative_headers=args.alternative_headers,
+        no_windows_headers=args.no_win_headers
     )
 
     if args.preset == 'all':
