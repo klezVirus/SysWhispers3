@@ -23,6 +23,31 @@ def fetch_all_type_definitions(code) -> list:
     return re.findall(r"typedef\s+(\w+)\s+(\w+)\s+([\w|*]*)\s*([\w|*]*)", code, re.DOTALL)
 
 
+def fetch_inner_enum_definitions(code) -> list:
+    """Fetch all type definitions from a given code
+
+    Args:
+        code (str): The code to parse
+
+    Returns:
+        list: The list of all enum definitions (tuple of 2 elements) found in the code
+    """
+    enum_list = []
+    code = code.replace("\r", "")
+    code = re.sub(r"/\*.*?\*/", "", code, re.DOTALL | re.MULTILINE)
+    for x, y in re.findall(r"typedef\s+enum\s+(\w+)\s*{([^}]+)\s*}", code, re.DOTALL | re.MULTILINE):
+        for line in y.splitlines():
+            if line.startswith("//"):
+                continue
+            line = re.sub("//.*$", "", line)
+            if line.strip() == "":
+                continue
+            line = line.split("=")[0].replace(",", "").strip()
+            enum_list.append((x, line))
+
+    return enum_list
+
+
 try:
     from enums.Architectures import Arch
     from enums.Compilers import Compiler
@@ -117,9 +142,6 @@ class SysWhispers(object):
             prefix: str = 'SW3',
             alternative_headers: list = None,
             no_windows_headers: bool = False):
-        self.alternative_headers = alternative_headers if alternative_headers else []
-        self.already_defined_types = []
-        self.populate_defined_types()
         self.no_windows_headers = no_windows_headers
         self.prefix = prefix
         self.arch = arch
@@ -137,13 +159,45 @@ class SysWhispers(object):
         self.verbose = verbose
         self.debug = debug
         self.structured_types = []
+        self.replaced_types = []
+
+        self.alternative_headers = alternative_headers if alternative_headers else []
+        self.already_defined_types = []
+        self.already_defined_enums = []
+        self.populate_defined_types()
+
         self.validate()
 
     def populate_defined_types(self):
         typedefs = []
         for f in self.alternative_headers:
             with open(f, 'r') as fh:
-                typedefs += fetch_all_type_definitions(fh.read())
+                code = fh.read()
+                typedefs += fetch_all_type_definitions(code)
+                self.already_defined_enums += fetch_inner_enum_definitions(code)
+
+        for x1, x2 in self.already_defined_enums:
+            for y in self.typedefs:
+                code = y.get("definition")
+                _c_t = fetch_all_type_definitions(code)
+                if len(_c_t) == 0 or len(_c_t[0]) == 0 or _c_t[0][0] != "enum":
+                    continue
+                _c_e = fetch_inner_enum_definitions(code)
+                if len(_c_e) == 0:
+                    continue
+
+                for _z1, _z2 in _c_e:
+                    if x2 == _z2:
+                        if x1[1:] not in y.get("identifiers"):
+                            new_type_alias = x1[1:]
+                            y["definition"] = y["definition"].replace(_z1[1:], new_type_alias)
+                            # print("corresponding enum found: ", _z1, x1, y.get("identifiers"))
+                            for function, details in self.prototypes.items():
+                                for param in details["params"]:
+                                    if param["type"] in y.get("identifiers"):
+                                        param["type"] = param["type"].replace(_z1[1:], new_type_alias)
+                                        # print("function using type found: ", function, param["type"], param["name"])
+                            break
 
         for k1, k2, k3, k4 in typedefs:
             if k1 not in ["struct", "enum", "union", "const"]:
@@ -152,6 +206,7 @@ class SysWhispers(object):
                 self.already_defined_types.append(k2)
 
         self.already_defined_types = list(set(self.already_defined_types))
+
 
     def validate(self):
         if self.recovery == SyscallRecoveryType.EGG_HUNTER:
@@ -344,6 +399,7 @@ class SysWhispers(object):
                     name = pname[1:]
                     if pname in self.already_defined_types:
                         continue
+
 
                 #     self.structured_types.append(name)
                 #     code = code.replace(name, prefix + name)

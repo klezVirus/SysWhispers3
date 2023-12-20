@@ -357,7 +357,7 @@
   {
     "identifiers": ["FILE_BASIC_INFORMATION", "PFILE_BASIC_INFORMATION"],
     "dependencies": [],
-    "definition": "typedef struct FILE_BASIC_INFORMATION\n{\n\tLARGE_INTEGER CreationTime;\n\tLARGE_INTEGER LastAccessTime;\n\tLARGE_INTEGER LastWriteTime;\n\tLARGE_INTEGER ChangeTime;\n\tULONG         FileAttributes;\n} FILE_BASIC_INFORMATION, *PFILE_BASIC_INFORMATION;"
+    "definition": "typedef struct _FILE_BASIC_INFORMATION\n{\n\tLARGE_INTEGER CreationTime;\n\tLARGE_INTEGER LastAccessTime;\n\tLARGE_INTEGER LastWriteTime;\n\tLARGE_INTEGER ChangeTime;\n\tULONG         FileAttributes;\n} FILE_BASIC_INFORMATION, *PFILE_BASIC_INFORMATION;"
   },
   {
     "identifiers": ["PORT_SECTION_READ", "PPORT_SECTION_READ"],
