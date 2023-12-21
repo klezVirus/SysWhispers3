@@ -48,6 +48,26 @@ def fetch_inner_enum_definitions(code) -> list:
     return enum_list
 
 
+def fetch_includes(code) -> list:
+    """
+    Fetch all includes from a given code
+
+    Args:
+        code (str): The code to parse
+
+    Returns:
+        list: The list of all includes found in the code
+    """
+
+    _includes = []
+    code = code.replace("\r", "")
+    code = re.sub(r"/\*.*?\*/", "", code, re.DOTALL | re.MULTILINE)
+    for x in re.findall(r'#include\s+\"\s*([^"]+)\s*\"', code, re.DOTALL | re.MULTILINE):
+        _includes.append(x.strip())
+
+    return _includes
+
+
 try:
     from enums.Architectures import Arch
     from enums.Compilers import Compiler
@@ -162,14 +182,55 @@ class SysWhispers(object):
         self.replaced_types = []
 
         self.alternative_headers = alternative_headers if alternative_headers else []
+        self.includes = []
         self.already_defined_types = []
         self.already_defined_enums = []
         self.populate_defined_types()
 
         self.validate()
 
+    def __find_header_files(self):
+        print("[*] Searching for alternative header files...", end="")
+        for i in range(len(self.alternative_headers)):
+            if self.alternative_headers[i].startswith("+"):
+                self.includes.append(self.alternative_headers[i][1:])
+                self.alternative_headers[i] = self.alternative_headers[i][1:]
+        print("done")
+        print("[*] Resolving header files...", end="")
+        for _p in self.alternative_headers.copy():
+            p = Path(_p).absolute().resolve()
+            if not p.exists():
+                self.alternative_headers.remove(_p)
+            elif p.is_file():
+                self.alternative_headers.remove(_p)
+                self.alternative_headers.append(p)
+                continue
+            elif p.is_dir():
+                self.alternative_headers.remove(_p)
+                for f in p.glob("**/*.h"):
+                    self.alternative_headers.append(f)
+        print("done")
+
+        print("[*] Recursively resolving header files from #include directives...", end="")
+        for f in self.alternative_headers.copy():
+            p = Path(f).absolute().resolve().parent
+            with open(f, 'r') as fh:
+                code = fh.read()
+                for i in fetch_includes(code):
+                    _p_i = Path(i).relative_to(p).absolute().resolve()
+                    if _p_i not in self.alternative_headers:
+                        self.alternative_headers.append(_p_i)
+        print("done")
+
+        print("[*] Removing duplicates...", end="")
+        self.alternative_headers = list(set(self.alternative_headers))
+        print("done")
+
     def populate_defined_types(self):
+        self.__find_header_files()
+
         typedefs = []
+
         for f in self.alternative_headers:
             with open(f, 'r') as fh:
                 code = fh.read()
@@ -326,7 +387,7 @@ class SysWhispers(object):
                 base_header_contents = base_header_contents.replace('<SEED_VALUE>', f'0x{self.seed:08X}', 1)
 
                 if self.alternative_headers:
-                    for f in self.alternative_headers:
+                    for f in self.includes:
                         f = Path(f).absolute().resolve()
                         base_header_contents = base_header_contents.replace('#include <windows.h>', f'#include "{f}"\n#include <windows.h>')
                 if self.no_windows_headers:
@@ -347,14 +408,14 @@ class SysWhispers(object):
                 output_header.write('#endif\n'.encode())
 
         if self.verbose:
-            print('Complete! Files written to:')
+            print('[+] Complete! Files written to:')
             print(f'\t{basename}.h')
             print(f'\t{basename}.c')
             if self.arch in [Arch.x64, Arch.Any]:
                 print(f'\t{basename}{basename_suffix}-asm.x64.asm')
             if self.arch in [Arch.x86, Arch.Any]:
                 print(f'\t{basename}{basename_suffix}-asm.x86.asm')
-            input("Press a key to continue...")
+            input("[/] Press a key to continue...")
 
     def _get_typedefs(self, function_names: list) -> list:
         def _names_to_ids(names: list) -> list:
@@ -775,13 +836,14 @@ if __name__ == '__main__':
         alternative_headers=args.alternative_headers,
         no_windows_headers=args.no_win_headers
     )
+    print()
 
     if args.preset == 'all':
-        print('All functions selected.\n')
+        print('[I] All functions selected.\n')
         sw.generate(basename=args.out_file)
 
     elif args.preset == 'common':
-        print('Common functions selected.\n')
+        print('[I] Common functions selected.\n')
         sw.generate(
             ['NtCreateProcess',
              'NtCreateThreadEx',
@@ -817,12 +879,12 @@ if __name__ == '__main__':
             basename=args.out_file)
 
     elif args.preset:
-        print('ERROR: Invalid preset provided. Must be "all" or "common".')
+        print('[-] Invalid preset provided. Must be "all" or "common".')
 
     elif not args.functions:
-        print('ERROR:   --preset XOR --functions switch must be specified.\n')
-        print('EXAMPLE: ./syswhispers.py --preset common --out-file syscalls_common')
-        print('EXAMPLE: ./syswhispers.py --functions NtTestAlert,NtGetCurrentProcessorNumber --out-file syscalls_test')
+        print('[-] --preset XOR --functions switch must be specified.\n')
+        print('[H] ./syswhispers.py --preset common --out-file syscalls_common')
+        print('[H] ./syswhispers.py --functions NtTestAlert,NtGetCurrentProcessorNumber --out-file syscalls_test')
 
     else:
         functions = args.functions.split(',') if args.functions else []
