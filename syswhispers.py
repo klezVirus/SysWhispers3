@@ -64,6 +64,8 @@ def fetch_includes(code) -> list:
     code = re.sub(r"/\*.*?\*/", "", code, re.DOTALL | re.MULTILINE)
     for x in re.findall(r'#include\s+\"\s*([^"]+)\s*\"', code, re.DOTALL | re.MULTILINE):
         _includes.append(x.strip())
+    for x in re.findall(r'#include\s+<\s*([^>]+)\s*>', code, re.DOTALL | re.MULTILINE):
+        _includes.append(x.strip())
 
     return _includes
 
@@ -212,14 +214,23 @@ class SysWhispers(object):
         print("done")
 
         print("[*] Recursively resolving header files from #include directives...", end="")
-        for f in self.alternative_headers.copy():
-            p = Path(f).absolute().resolve().parent
-            with open(f, 'r') as fh:
-                code = fh.read()
-                for i in fetch_includes(code):
-                    _p_i = Path(i).relative_to(p).absolute().resolve()
-                    if _p_i not in self.alternative_headers:
-                        self.alternative_headers.append(_p_i)
+        alternative_headers = []
+        found = True
+        while found:
+            alternative_headers = self.alternative_headers.copy()
+            for f in alternative_headers:
+                p = Path(f).absolute().resolve().parent
+                with open(f, 'r') as fh:
+                    code = fh.read()
+                    for i in fetch_includes(code):
+                        try:
+                            _p_i = Path(i).relative_to(p).absolute().resolve()
+                            if _p_i not in self.alternative_headers:
+                                self.alternative_headers.append(_p_i)
+                        except ValueError:
+                            pass
+            found = len(alternative_headers) != len(self.alternative_headers)
+
         print("done")
 
         print("[*] Removing duplicates...", end="")
